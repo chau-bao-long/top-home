@@ -2,6 +2,11 @@
   "name": "top-home",
   "private": true,
   "dependencies": {
-    "npm": "^6.0.0"
+    "@rails/webpacker": "3.5",
+    "npm": "^6.0.0",
+    "react-on-rails": "11.0.4"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
   }
 }
