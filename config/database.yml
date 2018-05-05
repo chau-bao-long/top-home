@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: <%= ENV["DATABASE_HOSTNAME"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  redis:
+    host: <%= ENV["REDIS_URL"] %>
+    options:
+      :namespace: <%= ENV["DATABASE_NAME"] %>
+
+development:
+  database: <%= ENV["DATABASE_NAME"] %>
+  <<: *default
+
+test:
+  database: test_db
+  <<: *default
+
+staging:
+  database: <%= ENV["DATABASE_NAME"] %>
+  <<: *default
+
+production:
+  database: <%= ENV["DATABASE_NAME"] %>
+  <<: *default
