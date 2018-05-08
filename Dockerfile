@@ -19,20 +19,20 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create work dir
-RUN mkdir /webapp
-WORKDIR /webapp
+ENV APP_ROOT /opt/webapp
+RUN mkdir $APP_ROOT
+WORKDIR $APP_ROOT
 
 # Install Ruby package
-ADD Gemfile /webapp/Gemfile
-ADD Gemfile.lock /webapp/Gemfile.lock
-RUN bundle
+COPY Gemfile Gemfile.lock /tmp/
+RUN cd /tmp && bundle
 RUN gem install foreman
 
 # Install JS pakcage
 RUN npm install -g yarn
-COPY package.json /webapp/package.json
-COPY yarn.lock /webapp/yarn.lock
-RUN yarn -g
+COPY package.json yarn.lock /tmp/
+RUN cd /tmp && yarn
+RUN cp -a /tmp/node_modules $APP_ROOT
 
-ADD . /webapp
+ADD . $APP_ROOT
 
