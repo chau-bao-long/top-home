@@ -1,5 +1,5 @@
 # You can run these commands in separate shells instead of using foreman
-web: rails s -p 3000
+web: rails s -b 0.0.0.0 -p 3000
 
 # Next line runs the webpack-dev-server
 # You can edit config/webpacker.yml to set HMR to true to see hot reloading.
@@ -9,4 +9,4 @@ web: rails s -p 3000
 # so you add `--inline=false` and then CSS is not inlined.
 # Otherwise, you will have an error. If you want HMR and Server Rendering, see
 # the example in the https://github.com/shakacode/react-webpack-rails-tutorial
-client: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack-dev-server'
+client: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && WEBPACKER_DEV_SERVER_HOST=0.0.0.0 bin/webpack-dev-server'
