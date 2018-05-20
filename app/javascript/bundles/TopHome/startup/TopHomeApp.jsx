@@ -1,15 +1,24 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import configureStore from '../store/topHomeStore';
 import TopHomeContainer from '../containers/TopHomeContainer';
+import HomeComponent from '../components/Home';
+import NoMatchComponent from '../components/NoMatch';
+import BlogComponent from '../components/Blog';
+import PortfolioComponent from '../components/Portfolio';
 
-// See documentation for https://github.com/reactjs/react-redux.
-// This is how you get props from the Rails view into the redux store.
-// This code here binds your smart component to the redux store.
 const TopHomeApp = (props) => (
   <Provider store={configureStore(props)}>
-    <TopHomeContainer />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={HomeComponent} exact={true} />
+        <Route path="/home" component={TopHomeContainer} />
+        <Route path="/blogs" component={BlogComponent} />
+        <Route path="/portfolio" component={PortfolioComponent} />
+        <Route component={NoMatchComponent}/> 
+      </Switch>
+    </BrowserRouter>
   </Provider>
 );
 
