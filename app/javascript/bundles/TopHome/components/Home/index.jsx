@@ -5,11 +5,8 @@ export default () => {
   const replay = (e) => {
     e.preventDefault;
 		const element = document.getElementById("animate");
-    // removing the class
     element.classList.remove("run-animation");
-    // triggering reflow
     void element.offsetWidth;
-    // and re-adding the class
     element.classList.add("run-animation");
   };
 
@@ -20,7 +17,7 @@ export default () => {
           <NavLink className="nav-link" to="/portfolio"><span>hire</span> Me</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/blogs"><span>read</span> Blog</NavLink>
+          <NavLink className="nav-link" to="/blogs"><span>read</span> My Blog</NavLink>
         </li>
         <li className="nav-item">
           <NavLink className="nav-link" to="/home"><span>control</span> My House</NavLink>
