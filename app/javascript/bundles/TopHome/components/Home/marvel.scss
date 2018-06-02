@@ -21,13 +21,16 @@ $slideStudios: $animation-unit * 4;
 }
 
 body {
-	margin: 0;
-	background-color: $red;
-	background-image: radial-gradient($red 20%, $ruby 50%, rgba($black, .5) 100%);
-	background-size: 120%;
-	background-position: center;
-	font-family: $default-font;
-	animation: tighten-vinette ease-out ($animation-unit * 6) forwards;
+  margin: 0;
+}
+
+.home {
+  background-color: $red;
+  background-image: radial-gradient($red 20%, $ruby 50%, rgba($black, .5) 100%);
+  background-size: 120%;
+  background-position: center;
+  font-family: $default-font;
+  animation: tighten-vinette ease-out ($animation-unit * 6) forwards;
 }
 
 .images {
