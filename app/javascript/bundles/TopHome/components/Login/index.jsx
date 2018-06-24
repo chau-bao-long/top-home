@@ -1,10 +1,15 @@
 import React from 'react';
 
-class LoginForm extends React.component {
+class Login extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.dispatch({type: "LOGIN", payload: {email: "d", pwd: 's'}})
+  }
+
   render() {
     return (
 			<div className="wrapper">
-        <form className="login">
+        <form className="login" onSubmit={handleSubmit}>
           <p className="title">Log in</p>
           <input type="text" placeholder="Username" autofocus/>
           <i className="fa fa-user"></i>
@@ -21,7 +26,11 @@ class LoginForm extends React.component {
   }
 }
 
-export default LoginForm;
+// Login.propTypes = {
+//   handleSubmit: PropTypes.func.isRequired
+// }
+
+export default Login;
 
 //var working = false;
 //$('.login').on('submit', function(e) {

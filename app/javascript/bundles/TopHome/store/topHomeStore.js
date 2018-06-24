@@ -1,8 +1,14 @@
-import { createStore } from 'redux';
-import topHomeReducer from '../reducers/topHomeReducer';
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import topHomeReducer from '../reducers/topHomeReducer'
+import sagas from '../sagas'
 
-const configureStore = (railsProps) => (
-  createStore(topHomeReducer, railsProps)
-);
+const sagaMiddleware = createSagaMiddleware()
 
-export default configureStore;
+const store = createStore(
+  topHomeReducer,
+  applyMiddleware(sagaMiddleware))
+
+export default store;
+
+sagaMiddleware.run(sagas)

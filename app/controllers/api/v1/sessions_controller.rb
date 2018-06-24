@@ -8,7 +8,7 @@ class Api::V1::SessionsController < Api::ApiController
       render status: :bad_request
     end
   end
-  
+
   private 
 
   def login_params
