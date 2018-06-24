@@ -8,10 +8,10 @@ class Login extends React.Component {
 
   render() {
     return (
-			<div className="wrapper">
-        <form className="login" onSubmit={handleSubmit}>
+			<div className="login-wrapper wrapper">
+        <form className="login" onSubmit={this.handleSubmit}>
           <p className="title">Log in</p>
-          <input type="text" placeholder="Username" autofocus/>
+          <input type="text" placeholder="Username" autoFocus/>
           <i className="fa fa-user"></i>
           <input type="password" placeholder="Password" />
           <i className="fa fa-key"></i>
