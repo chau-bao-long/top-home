@@ -10,7 +10,7 @@ services:
     ports:
       - 3000:3000
       - 3035:3035
-    command: bash -c "rm ./tmp/pids/server.pid; foreman start -f Procfile.dev-server"
+    command: bash -c "rm ./tmp/pids/server.pid; cp -r /tmp/node_modules . && foreman start -f Procfile.dev-server"
     tty: true
     stdin_open: true
     depends_on:
