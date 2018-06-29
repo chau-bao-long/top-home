@@ -3,8 +3,9 @@ import { TopHomeApi } from '../services/restClient'
 
 function* login(action) {
   try {
-    const api = new Api()
-    const user = yield call(api.login, action.payload)
+    const api = new TopHomeApi()
+    yield call(api.login, ...action.payload)
+    debugger
     yield put({type: "LOGIN_SUCCEEDED", user: user})
   } catch(e) {
     yield put({type: "LOGIN_FAILED", message: e.message})
