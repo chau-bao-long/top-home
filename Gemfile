@@ -15,7 +15,9 @@ gem 'react_on_rails', '~> 11.0.3'
 gem 'turbolinks', '~> 5'
 gem 'active_model_serializers'
 gem 'redis', '~> 3.0'
+gem 'redis-rails'
 gem 'bcrypt', '~> 3.1.7'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -24,6 +26,9 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem "rspec"
+  gem "rspec-rails"
+  gem 'factory_bot_rails'
 end
 
 group :development do

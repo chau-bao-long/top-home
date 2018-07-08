@@ -9,12 +9,11 @@ class TopHomeApi {
     });
   }
 
-  login(payload) {
+  login({account, password}) {
     const params = new URLSearchParams()
-    debugger
-    params.append('email', payload.email)
-    params.append('password', payload.password)
-    client.post('/api/v1/sessions', params)
+    params.append('name', account)
+    params.append('password', password)
+    return this.client.post('/api/v1/sessions', params)
   }
 }
 

@@ -2,10 +2,11 @@ class Api::V1::SessionsController < Api::ApiController
   def create
     user = User.by_email_or_name(login_params[:email], login_params[:name]).take
     if user&.authenticate login_params[:password]
-      session[:user_id] = user.id
-      render :no_content
+      cookies.signed[:is_auth] = session[:user_id] = user.id
+      render json: user
     else
-      render status: :bad_request
+      render json: {errors: [{code: 1, message: "Wrong email or password"}]},
+        status: :bad_request
     end
   end
 

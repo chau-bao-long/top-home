@@ -1,14 +1,14 @@
-import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { TopHomeApi } from '../services/restClient'
+import { all, spawn, fork, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { TopHomeApi } from 'services/restClient'
 
 function* login(action) {
   try {
     const api = new TopHomeApi()
-    yield call(api.login, ...action.payload)
-    debugger
-    yield put({type: "LOGIN_SUCCEEDED", user: user})
+    yield call([api, api.login], action.payload)
+    yield put({type: 'LOGIN_SUCCEEDED'})
   } catch(e) {
-    yield put({type: "LOGIN_FAILED", message: e.message})
+    debugger
+    yield put({type: 'LOGIN_FAILED', error: e.message})
   }
 }
 
@@ -18,6 +18,6 @@ function* watchLogin() {
 
 export default function* rootSaga() {
   yield all([
-    watchLogin()
+    fork(watchLogin),
   ])
 }

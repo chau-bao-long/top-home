@@ -1,16 +1,30 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { showLoading, login } from 'actions/loginAction'
 
 class Login extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {account: '', password: ''}
+    this.state = {
+      account: '',
+      password: '',
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+  }
+
+  componentDidCatch(errorString, errorInfo) {
+    debugger
+  }
+
   handleSubmit(e) {
-    this.props.dispatch({type: "LOGIN", payload: this.state})
+    e.preventDefault()
+    this.props.showLoading(true)
+    this.props.login(this.state)
   }
 
   handleChange(e) {
@@ -23,18 +37,19 @@ class Login extends React.Component {
   }
 
   render() {
+    const { isLoading } = this.props
     return (
 			<div className="login-wrapper wrapper">
-        <form className="login">
+      <form className={isLoading ? "login loading" : "login"} onSubmit={this.handleSubmit}>
           <p className="title">Log in</p>
           <input type="text" placeholder="Account" autoFocus value={this.state.account} onChange={this.handleChange}/>
           <i className="fa fa-user"></i>
           <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
           <i className="fa fa-key"></i>
           <a href="#">Forgot your password?</a>
-          <button onClick={this.handleSubmit}>
+          <button>
             <i className="spinner"></i>
-            <span className="state">Log in</span>
+            <span className="state">{isLoading ? 'Authenticating' : 'Log in'}</span>
           </button>
         </form>
       </div>
@@ -42,11 +57,11 @@ class Login extends React.Component {
   }
 }
 
-// Login.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired
-// }
+Login.propTypes = {
+  isLoading: PropTypes.bool,
+}
 
-export default connect()(Login);
+export default connect(state => state.login, { showLoading, login})(Login);
 
 //var working = false;
 //$('.login').on('submit', function(e) {
