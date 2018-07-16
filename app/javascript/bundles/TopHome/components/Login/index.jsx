@@ -1,9 +1,21 @@
+// @flow
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { showLoading, login } from 'actions/loginAction'
 
-class Login extends React.Component {
+type Props = {
+  isLoading: string,
+  login: ({account: string, password: string}) => Promise<any>,
+  showLoading: (isLoading: boolean) => {}
+};
+
+type State = {
+  account: string,
+  password: string,
+}
+
+class Login extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
@@ -57,11 +69,7 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  isLoading: PropTypes.bool,
-}
-
-export default connect(state => state.login, { showLoading, login})(Login);
+export default connect(state => state.login, { showLoading, login })(Login);
 
 //var working = false;
 //$('.login').on('submit', function(e) {

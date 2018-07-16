@@ -10,7 +10,7 @@ class Api::V1::SessionsController < Api::ApiController
     end
   end
 
-  private 
+  private
 
   def login_params
     params.permit :email, :name, :password
