@@ -2,7 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { showLoading, login } from 'actions/loginAction'
+import { showLoading, login } from '../../actions/loginAction'
 
 type Props = {
   isLoading: string,
@@ -33,13 +33,13 @@ class Login extends React.Component<Props, State> {
     debugger
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault()
     this.props.showLoading(true)
     this.props.login(this.state)
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     const t = e.target
     if (t.type === 'password') {
       this.setState({password: t.value})
