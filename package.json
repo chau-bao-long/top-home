@@ -12,7 +12,8 @@
     "react-router-dom": "^4.2.2",
     "react_ujs": "^2.4.4",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "simplemde": "^1.11.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
