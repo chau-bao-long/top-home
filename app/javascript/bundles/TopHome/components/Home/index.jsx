@@ -4,12 +4,11 @@ import { NavLink } from 'react-router-dom';
 export default () => {
   const replay = (e) => {
     e.preventDefault;
-		const element = document.getElementById("animate");
+    const element = document.getElementById("animate");
     element.classList.remove("run-animation");
     void element.offsetWidth;
     element.classList.add("run-animation");
-  };
-
+  }
   return (
     <div className="home">
       <ul className="nav" >
@@ -20,7 +19,7 @@ export default () => {
           <NavLink className="nav-link" to="/blogs"><span>read</span> My Blog</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/home"><span>control</span> My House</NavLink>
+          <NavLink className="nav-link" to="/iot"><span>control</span> My House</NavLink>
         </li>
       </ul>
       <div id="animate" className="wrapper run-animation" onClick={replay}>
@@ -35,5 +34,5 @@ export default () => {
 
       <div className="images"></div>
     </div>
-	);
-};
+  )
+}

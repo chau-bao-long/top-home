@@ -7,6 +7,7 @@ import NoMatchComponent from 'components/NoMatch'
 import BlogComponent from 'components/Blog'
 import PortfolioComponent from 'components/Portfolio'
 import LoginComponent from 'components/Login'
+import IoTComponent from 'components/IoT'
 import PrivateRoute from 'components/PrivateRoute'
 import { CookiesProvider } from 'react-cookie'
 
@@ -15,8 +16,9 @@ const TopHomeApp = (props) => (
     <CookiesProvider>
       <BrowserRouter>
         <Switch>
-          <PrivateRoute path="/" component={HomeComponent} exact />
-          <Route path="/home" component={LoginComponent} />
+          <Route path="/" component={HomeComponent} exact />
+          <PrivateRoute path="/iot" component={IoTComponent} />
+          <Route path="/login" component={LoginComponent} />
           <Route path="/blogs" component={BlogComponent} />
           <Route path="/portfolio" component={PortfolioComponent} />
           <Route component={NoMatchComponent}/> 

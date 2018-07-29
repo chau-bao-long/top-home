@@ -18,11 +18,16 @@ $primary: #2196F3;
   min-height: 100%;
   padding: 20px;
   background: rgba(darken($primary,40%), 0.85);
+
+  &__error {
+    color: red;
+    margin: 10px 0;
+    min-height: 20px;
+  }
 }
 
 
 .login {
-  
   border-radius: 2px 2px 5px 5px;
   padding: 10px 20px 20px 20px;
   width: 90%;
@@ -101,7 +106,7 @@ $primary: #2196F3;
     color: #444;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 10px 0 30px 0;
+    margin: 10px 0;
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
   }
