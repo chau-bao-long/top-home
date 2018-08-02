@@ -19,6 +19,7 @@ const TopHomeApp = (props) => (
           <Route path="/" component={HomeComponent} exact />
           <PrivateRoute path="/iot" component={IoTComponent} />
           <Route path="/login" component={LoginComponent} />
+          <PrivateRoute path="/blogs/new" component={BlogEditorComponent} />
           <Route path="/blogs" component={BlogComponent} />
           <Route path="/portfolio" component={PortfolioComponent} />
           <Route component={NoMatchComponent}/> 
