@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :sessions, only: %i(create)
+      resources :blogs, only: %i(index create edit show)
     end
   end
 end

@@ -7,7 +7,7 @@ type Props = {
 }
 type State = {}
 
-export default class Blogs extends React.Component<Props, State> {
+export default class BlogEditor extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
   }
@@ -42,5 +42,6 @@ export default class Blogs extends React.Component<Props, State> {
       () => this.props.onSave(this.editor.value(),
         3000
       )
+    )
   }
 }

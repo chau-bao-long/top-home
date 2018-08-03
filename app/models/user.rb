@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :blogs
+
   validates :email, presence: true, uniqueness: true,
     format: {with: /\A([a-zA-Z0-9][\w\.\+\-]*)@([\w.\-]+\.+[\w]{2,})\z/}
   validates :name, presence: true, uniqueness: true

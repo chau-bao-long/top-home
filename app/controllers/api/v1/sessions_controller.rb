@@ -1,13 +1,12 @@
 class Api::V1::SessionsController < Api::ApiController
+  skip_before_action :authenticate_user!
+
   def create
     user = User.by_email_or_name(login_params[:email], login_params[:name]).take
-    if user&.authenticate login_params[:password]
-      cookies.signed[:is_auth] = session[:user_id] = user.id
-      render json: user
-    else
-      render json: {errors: [{code: 1, message: "Wrong email or password"}]},
-        status: :bad_request
-    end
+    error 103, "Wrong email or password" unless user&.authenticate login_params[:password]
+    cookies.signed[:is_auth] = true
+    session[:user_id] = user.id
+    user
   end
 
   private
