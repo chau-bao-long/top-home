@@ -4,8 +4,9 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def edit
-    blog = Blog.find(params[:id])
-    blog.update! blog_params
+    current_user.blogs.where(params[:id]).tap do |blog|
+      blog.update! blog_params
+    end
   end
 
   def index
@@ -13,7 +14,7 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def show
-    Blog.find(params[:id])
+    current_user.blogs.where(id: params[:id])
   end
 
   def blog_params

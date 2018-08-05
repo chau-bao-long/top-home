@@ -1,6 +1,5 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
   pool: 5
   host: <%= ENV["DATABASE_HOSTNAME"] %>
   port: <%= ENV["DATABASE_PORT"] %>

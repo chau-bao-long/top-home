@@ -1,8 +1,12 @@
 // @flow
 import React from "react"
 import MarkdownEditor from "../../components/BlogEditor"
+import { connect } from "react-redux"
+import { blogEditorAction } from "../../actions/blogEditorAction"
 
-type Props = {}
+type Props = {
+  isLoading: boolean,
+}
 type State = {}
 
 export default class BlogEditor extends React.Component<Props, State> {
@@ -12,9 +16,12 @@ export default class BlogEditor extends React.Component<Props, State> {
   }
 
   render() {
-    <MarkdownEditor onSave={this.handleSave}/>
+    const { isLoading } = this.props
+    return (
+      <MarkdownEditor onSave={this.handleSave} isSaving={isLoading}/>
+    )
   }
 
-  handleSave = () => {
+  handleSave = (title: string, body: string) => {
   }
 }

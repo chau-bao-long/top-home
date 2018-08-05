@@ -1,0 +1,48 @@
+.title {
+  align-items: center;
+  display: flex;
+  margin: 5px;
+  z-index: 99;
+
+  &__input {
+    border: 0;
+    font-size: 22px;
+    margin: 8px;
+
+    &:focus {
+      border-bottom: 1px solid $color-grey;
+      border-radius: 0;
+      box-shadow: none;
+      outline: 0;
+    }
+
+    &::placeholder {
+      opacity: .5;
+    }
+  }
+
+  &__save {
+    height: 38px;
+    margin-right: 16px;
+  }
+
+  &__back {
+    height: 38px;
+    margin-right: 5px;
+  }
+}
+
+.progress {
+  background: $color-grey-light;
+  height: 3.5px;
+
+  &__bar {
+    transition: width .4s ease 0s;
+    width: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3.5px;
+    background: $color-blue-chill;
+  }
+}

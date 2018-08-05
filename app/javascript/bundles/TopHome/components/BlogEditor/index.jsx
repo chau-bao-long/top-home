@@ -1,32 +1,59 @@
 // @flow
 import React from "react"
 import SimpleMDE from "simplemde"
+import { NavLink } from "react-router-dom"
 
 type Props = {
-  onSave: (value: string) => void 
+  onSave: (title: string, body: string) => void,
+  isSaving: boolean,
 }
-type State = {}
+type State = {
+  title: string,
+}
 
 export default class BlogEditor extends React.Component<Props, State> {
+  editor: SimpleMDE
+  timerId: window
+
   constructor(props: Props) {
     super(props)
+    this.handleSaveButton = this.handleSaveButton.bind(this)
   }
 
   render() {
+    const { isSaving } = this.props
     return (
       <div>
+        {
+          isSaving && <div className="progress">
+            <div className="progress__bar"></div>
+          </div>
+        }
+        <div className="title">
+          <input className="form-control title__input" type="text" placeholder="Enter the title"/>
+          <NavLink to="/blogs" className="title__back btn btn-secondary">back</NavLink>
+          <button className="title__save btn btn-info" onClick={this.handleSaveButton}>save</button>
+        </div>
         <textarea id="blog-area"/>
       </div>
     )
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerId)
+    // clearInterval(this.timerId)
   }
 
   componentDidMount() {
     this.initEditor()
-    this.setupAutoSave()
+    // this.setupAutoSave(
+  }
+
+  handleTitleChange = (e: any) => {
+    this.setState({title: e.target.value})
+  }
+
+  handleSaveButton = (e: SyntheticEvent<>) => {
+    this.props.onSave(this.state.title, this.editor.value())
   }
 
   initEditor() {
@@ -39,9 +66,8 @@ export default class BlogEditor extends React.Component<Props, State> {
 
   setupAutoSave() {
     this.timerId = setInterval(
-      () => this.props.onSave(this.editor.value(),
-        3000
-      )
+      () => this.props.onSave(this.editor.value()),
+      3000
     )
   }
 }
