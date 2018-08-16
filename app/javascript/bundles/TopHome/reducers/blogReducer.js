@@ -1,29 +1,21 @@
-import {
-  reducer as apiReducer,
-  initialState as apiInitialState 
-} from "./apiReducer"
+import { reducer as apiReducer, initialState as apiInitialState } from "./apiReducer"
 
 const initialState = {
   ...apiInitialState,
-  isAuth: false,
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case "LOGIN_FAILED":
+    case "CREATE_BLOG_SUCC":
       return {
         ...state,
         isLoading: false,
         errorMsg: action.error
       }
-    case "LOGIN_SUCCEEDED":
+    case "CREATE_BLOG_FAIL":
       return {
         ...state,
         isLoading: false,
-        allCookies: {
-          ...state.allCookies,
-          is_auth: true,
-        },
       }
     default:
       return apiReducer(state, action)

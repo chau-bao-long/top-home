@@ -1,6 +1,6 @@
 class Api::V1::BlogsController < Api::ApiController
   def create
-    Blog.create! blog_params
+    current_user.blogs.create! blog_params
   end
 
   def edit
@@ -18,6 +18,6 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def blog_params
-    params.(:blog).permit(:title, :body)
+    params.permit(:title, :body)
   end
 end

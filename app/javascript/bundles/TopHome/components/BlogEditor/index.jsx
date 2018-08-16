@@ -6,22 +6,25 @@ import { NavLink } from "react-router-dom"
 type Props = {
   onSave: (title: string, body: string) => void,
   isSaving: boolean,
+  errorMsg: string
 }
 type State = {
   title: string,
 }
 
-export default class BlogEditor extends React.Component<Props, State> {
+export default class BlogEditor extends React.PureComponent<Props, State> {
   editor: SimpleMDE
   timerId: window
 
   constructor(props: Props) {
     super(props)
+    this.state = { title: "" }
     this.handleSaveButton = this.handleSaveButton.bind(this)
   }
 
   render() {
-    const { isSaving } = this.props
+    const { isSaving, errorMsg } = this.props
+    const { title } = this.state
     return (
       <div>
         {
@@ -30,7 +33,12 @@ export default class BlogEditor extends React.Component<Props, State> {
           </div>
         }
         <div className="title">
-          <input className="form-control title__input" type="text" placeholder="Enter the title"/>
+          <input 
+            className="form-control title__input" 
+            type="text" 
+            placeholder="Enter the title"
+            value={title}
+            onChange={(e: any) => this.handleTitleChange(e)}/>
           <NavLink to="/blogs" className="title__back btn btn-secondary">back</NavLink>
           <button className="title__save btn btn-info" onClick={this.handleSaveButton}>save</button>
         </div>
@@ -45,10 +53,10 @@ export default class BlogEditor extends React.Component<Props, State> {
 
   componentDidMount() {
     this.initEditor()
-    // this.setupAutoSave(
+    // this.setupAutoSave()
   }
 
-  handleTitleChange = (e: any) => {
+  handleTitleChange(e: any) {
     this.setState({title: e.target.value})
   }
 
@@ -66,7 +74,7 @@ export default class BlogEditor extends React.Component<Props, State> {
 
   setupAutoSave() {
     this.timerId = setInterval(
-      () => this.props.onSave(this.editor.value()),
+      () => this.props.onSave(this.state.title, this.editor.value()),
       3000
     )
   }

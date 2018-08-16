@@ -3,13 +3,15 @@ import React from "react"
 import { connect } from "react-redux"
 import { withCookies } from 'react-cookie'
 import { Redirect } from 'react-router'
-import { showLoading, login, setError } from "../../actions/loginAction"
+import { login } from "../../actions/loginAction"
+import { showLoading, setError } from "../../actions/apiAction"
 import LoginComponent from "../../components/Login"
+import { selector } from "../../selectors/login"
 import _ from "lodash"
 
 type Props = {
   isLoading: boolean,
-  login: ({account: string, password: string}) => Promise<any>,
+  login: (account: string, password: string) => Promise<any>,
   showLoading: (isLoading: boolean) => {},
   setError: (error?: string) => {},
   errorMsg: string,
@@ -41,8 +43,8 @@ class Login extends React.Component<Props, State> {
         errorMsg={errorMsg}
         onSubmit={this.handleSubmit}
         onChange={this.handleChange}
-        account={this.state.account}
-        password={this.state.password}/>
+        account={account}
+        password={password}/>
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -80,4 +82,4 @@ class Login extends React.Component<Props, State> {
   isAuthenticated = (): boolean => !!this.props.allCookies["is_auth"]
 }
 
-export default withCookies(connect(state => state.login, { showLoading, login, setError })(Login));
+export default withCookies(connect(selector, { showLoading, login, setError })(Login));
