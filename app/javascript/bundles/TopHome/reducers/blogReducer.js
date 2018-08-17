@@ -6,13 +6,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case "CREATE_BLOG_SUCC":
+    case "MODIFY_BLOG_SUCC":
       return {
         ...state,
         isLoading: false,
-        errorMsg: action.error
+        errorMsg: action.error,
+        blog: action.payload.data,
       }
-    case "CREATE_BLOG_FAIL":
+    case "MODIFY_BLOG_FAIL":
       return {
         ...state,
         isLoading: false,

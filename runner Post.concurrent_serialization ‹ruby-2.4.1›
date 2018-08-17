@@ -1,0 +1,23 @@
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  1) import { reducer as apiReducer, initialState as apiInitialState } from "./apiReducer"
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  2) 
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  3) const initialState = {
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  4)   ...apiInitialState,
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  5) }
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  6) 
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  7) export default (state = initialState, action) => {
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  8)   switch(action.type) {
+b158d396 (LongCB 2018-08-16 18:36:42 +0700  9)     case "CREATE_BLOG_SUCC":
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 10)       return {
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 11)         ...state,
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 12)         isLoading: false,
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 13)         errorMsg: action.error
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 14)       }
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 15)     case "CREATE_BLOG_FAIL":
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 16)       return {
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 17)         ...state,
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 18)         isLoading: false,
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 19)       }
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 20)     default:
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 21)       return apiReducer(state, action)
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 22)   }
+b158d396 (LongCB 2018-08-16 18:36:42 +0700 23) }

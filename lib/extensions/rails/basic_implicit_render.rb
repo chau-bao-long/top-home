@@ -1,6 +1,6 @@
 module ActionController
   module BasicImplicitRender # :nodoc:
-    def send_action(method, *args)
+    def send_action method, *args
       returned_value = super
       case returned_value
       when ActiveRecord::Base

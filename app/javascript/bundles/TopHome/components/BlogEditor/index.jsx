@@ -6,7 +6,8 @@ import { NavLink } from "react-router-dom"
 type Props = {
   onSave: (title: string, body: string) => void,
   isSaving: boolean,
-  errorMsg: string
+  errorMsg: string,
+  savedTime: string,
 }
 type State = {
   title: string,
@@ -23,7 +24,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { isSaving, errorMsg } = this.props
+    const { isSaving, errorMsg, savedTime } = this.props
     const { title } = this.state
     return (
       <div>
@@ -39,6 +40,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
             placeholder="Enter the title"
             value={title}
             onChange={(e: any) => this.handleTitleChange(e)}/>
+          <p className="title__saved-time">{savedTime}</p>
           <NavLink to="/blogs" className="title__back btn btn-secondary">back</NavLink>
           <button className="title__save btn btn-info" onClick={this.handleSaveButton}>save</button>
         </div>
@@ -48,21 +50,19 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   }
 
   componentWillUnmount() {
-    // clearInterval(this.timerId)
+    clearInterval(this.timerId)
   }
 
   componentDidMount() {
     this.initEditor()
-    // this.setupAutoSave()
+    this.setupAutoSave()
   }
 
   handleTitleChange(e: any) {
     this.setState({title: e.target.value})
   }
 
-  handleSaveButton = (e: SyntheticEvent<>) => {
-    this.props.onSave(this.state.title, this.editor.value())
-  }
+  handleSaveButton = (e: SyntheticEvent<>) => { this.saveBlog() }
 
   initEditor() {
     this.editor = new SimpleMDE({
@@ -73,9 +73,10 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   }
 
   setupAutoSave() {
-    this.timerId = setInterval(
-      () => this.props.onSave(this.state.title, this.editor.value()),
-      3000
-    )
+    this.timerId = setInterval(() => this.saveBlog(), 30000)
+  }
+
+  saveBlog() {
+    this.props.onSave(this.state.title, this.editor.value())
   }
 }

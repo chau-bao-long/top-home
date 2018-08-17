@@ -13,7 +13,7 @@ class TopHomeApi {
     this._addErrorInterceptor(this.client)
   }
 
-  login({account: password}) {
+  login(account: string, password: string) {
     const params = new URLSearchParams()
     params.append("name", account)
     params.append("password", password)
@@ -23,8 +23,15 @@ class TopHomeApi {
   createBlog(title: string, body: string) {
     const params = new URLSearchParams()
     params.append("title", title)
-    params.append("title", title)
+    params.append("body", body)
     return this.client.post("/api/v1/blogs", params)
+  }
+
+  updateBlog(id: string, title: string, body: string) {
+    const params = new URLSearchParams()
+    params.append("title", title)
+    params.append("body", body)
+    return this.client.patch("/api/v1/blogs/" + id, params)
   }
 
   getBlogs() {
