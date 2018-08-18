@@ -1,7 +1,11 @@
-import { reducer as apiReducer, initialState as apiInitialState } from "./apiReducer"
+import { 
+  reducer as apiReducer,
+  initialState as apiInitialState 
+} from "./apiReducer"
 
 const initialState = {
   ...apiInitialState,
+  blogs: [],
 }
 
 export default (state = initialState, action) => {

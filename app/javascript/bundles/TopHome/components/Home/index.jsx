@@ -12,14 +12,14 @@ export default () => {
   return (
     <div className="home">
       <ul className="nav" >
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/portfolio"><span>hire</span> Me</NavLink>
+        <li className="nav__item">
+          <NavLink className="nav__link" to="/portfolio"><span>hire</span> Me</NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/blogs"><span>read</span> My Blog</NavLink>
+        <li className="nav__item">
+          <NavLink className="nav__link" to="/blogs"><span>read</span> My Blog</NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/iot"><span>control</span> My House</NavLink>
+        <li className="nav__item">
+          <NavLink className="nav__link" to="/iot"><span>control</span> My House</NavLink>
         </li>
       </ul>
       <div id="animate" className="wrapper run-animation" onClick={replay}>

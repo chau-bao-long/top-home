@@ -21,7 +21,7 @@ $sideWidth: 50px;
     width: $sideWidth;
     border-right: 1px dashed rgba(black,.3);
     color: rgba(black,.5);
-    font-family: $font-sans;
+    // font-family: $font-sans;
     text-transform: uppercase;
     letter-spacing: .0875rem;
     font-size: 10px;
@@ -102,7 +102,7 @@ $sideWidth: 50px;
     a {
         display: block;
         padding: 1em 0;
-        font-family: $font-sans;
+        // font-family: $font-sans;
         text-transform: uppercase;
         font-size: 13px;
         letter-spacing: 1.4px;
@@ -114,7 +114,7 @@ $sideWidth: 50px;
             padding: .5em 0 0;
             opacity: .5;
             letter-spacing: normal;
-            font-family: $font-serif;
+            // font-family: $font-serif;
             text-transform: none;
         }
 
@@ -261,7 +261,7 @@ $sideWidth: 50px;
  * Typo
  */
 h1,.h1,h2,.h2,h3,.h3,h4,.h5 {
-    font-family: $font-sans;
+    // font-family: $font-sans;
     font-weight: bold;    
     margin: 0 0 1em;
     line-height: 1;

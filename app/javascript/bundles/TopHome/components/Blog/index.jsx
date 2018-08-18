@@ -1,11 +1,19 @@
 // @flow
 import React from "react"
 import ReactMarkdown from "react-markdown"
+import NavBar from "./navbar"
 
-class Blog extends React.Component {
+type Props = {}
+
+export default class Blog extends React.PureComponent<Props> {
   render() {
     return (
-      <div />
+      <div className="container-fluid">
+        <NavBar />
+        <div>
+          Content Go here
+        </div>
+      </div>
     );
   }
 }

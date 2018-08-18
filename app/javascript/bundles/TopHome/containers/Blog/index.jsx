@@ -1,11 +1,18 @@
 // @flow
 import React from "react"
+import Blog from "../../components/Blog"
+import { connect } from "react-redux"
+import { selector } from "../../selectors/blog"
 
+type Props = {}
+type State = {}
 
-export default class Blog extends React.Component {
+class BlogContainer extends React.Component<Props, State> {
   render() {
     return (
-      <div />
+      <Blog />
     );
   }
 }
+
+export default connect(selector, {})(BlogContainer)

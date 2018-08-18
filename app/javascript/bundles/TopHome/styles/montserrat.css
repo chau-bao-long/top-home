@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Lato Hairline';
+  font-style: normal;
+  font-weight: normal;
+  src: url('styles/fonts/Lato-Hairline.ttf');
+}
+
+@font-face {
+  font-family: 'Lato Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: url('styles/fonts/Lato-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'Lato Light';
+  font-style: normal;
+  font-weight: normal;
+  src: url('styles/fonts/Lato-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Lato Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url('styles/fonts/Lato-Regular.ttf');
+}
+
+body {
+  font-family: 'Lato Light';
+}
