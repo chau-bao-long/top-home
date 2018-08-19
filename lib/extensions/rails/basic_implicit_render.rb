@@ -3,7 +3,7 @@ module ActionController
     def send_action method, *args
       returned_value = super
       case returned_value
-      when ActiveRecord::Base
+      when ActiveRecord::Base, ActiveRecord::Relation
         render json: returned_value
       else
         default_render unless performed?

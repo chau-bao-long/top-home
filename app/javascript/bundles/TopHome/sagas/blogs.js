@@ -24,8 +24,8 @@ function* patch(action) {
 function* index(action) {
   try {
     const api = new TopHomeApi()
-    yield call([api, api.getBlogs], ...Object.values(action.payload))
-    yield put({type: "GET_BLOGS_SUCC"})
+    const response = yield call([api, api.getBlogs])
+    yield put({type: "GET_BLOGS_SUCC", payload: response})
   } catch(errors) {
     yield put({type: "GET_BLOGS_FAIL", error: errors[0].message})
   }

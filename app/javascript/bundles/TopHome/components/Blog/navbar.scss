@@ -1,4 +1,66 @@
 .navbar {
-  &__brand {
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  transition: height .3s;
+  padding: 8px 50px;
+
+  @include breakpoint-down(xs) {
+    padding: 20px;
+  }
+
+  &--scrolled {
+    border-bottom: .5px solid $color-iron;
+    box-shadow: 0 .5px .5px -.3px $color-iron;
+    height: 60px;
+    background: white;
+  }
+
+  &__title {
+    font-family: 'Lato Regular';
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__utility {
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+    width: 120px;
+
+    @include breakpoint-down(xs) {
+      order: 1;
+    }
+  }
+
+  &__button {
+    @include breakpoint-down(xs) {
+      order: 2;
+    }
+  }
+
+  &__thumb-up {
+    margin-right: 5px;
+  }
+
+  &__search {
+    font-size: 1.2em;
+    margin-left: 15px;
+
+    &:hover {
+      font-size: 1.5em;
+    }
+  }
+
+  &__write-blog {
+    font-size: 1.2em;
+    margin: 0 10px;
+    color: black;
+
+    &:hover {
+      font-size: 1.5em;
+      text-decoration: none;
+    }
   }
 }
