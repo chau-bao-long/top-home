@@ -1,10 +1,17 @@
 .details-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding: 60px;
 }
 
 .blog-details {
   min-width: 60%;
+
+  &__body {
+  }
+
+  &__title {
+    margin-bottom: 60px;
+  }
 }
 

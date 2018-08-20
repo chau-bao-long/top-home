@@ -8,7 +8,11 @@ type Props = {
 }
 
 export default function BlogDetail({blog}: Props) {
+  if (!blog) return null
   return (
-    <ReactMarkdown className="blog-details" source={blog ? blog.body : ""} />
+    <div className="blog-details">
+      <h2 className="blog-details__title">{blog.title}</h2>
+      <ReactMarkdown className="blog-details__body" source={blog.body}/>
+    </div>
   )
 }

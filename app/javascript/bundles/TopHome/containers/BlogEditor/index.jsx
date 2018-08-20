@@ -17,6 +17,7 @@ type Props = {
   updateBlog: (id: string, title: string, body: string) => Promise<>,
   blog: Blog,
 }
+
 type State = {}
 
 const SAVED_TIME_FORMAT = "[saved at ] hh:mm [--] MM/DD/YYYY"
@@ -27,22 +28,9 @@ class BlogEditor extends React.Component<Props, State> {
     this.handleSave = this.handleSave.bind(this)
   }
 
-  render() {
-    const { isLoading, errorMsg, blog } = this.props
-    return (
-      <MarkdownEditor 
-        onSave={this.handleSave}
-        savedTime={this.savedTime}
-        isSaving={isLoading}
-        errorMsg={errorMsg}
-      />
-    )
-  }
-
   handleSave = (title: string, body: string) => {
     const { showLoading, blog, updateBlog, createBlog } = this.props
     showLoading(true)
-    debugger
     if (blog) {
       updateBlog(blog.id, title, body)
     } else {
@@ -54,6 +42,19 @@ class BlogEditor extends React.Component<Props, State> {
     const { blog } = this.props
     if(!blog) return ""
     return dateFns.format(new Date(blog.updatedAt), SAVED_TIME_FORMAT)
+  }
+
+  render() {
+    const { isLoading, errorMsg, blog } = this.props
+    return (
+      <MarkdownEditor 
+        onSave={this.handleSave}
+        savedTime={this.savedTime}
+        isSaving={isLoading}
+        errorMsg={errorMsg}
+        blog={blog}
+      />
+    )
   }
 }
 
