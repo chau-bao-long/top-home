@@ -1,18 +1,53 @@
 .preview {
   border: 1px solid rgba(0,0,0,.1)!important;
   margin: 15px 0px;
-  height: 300px;
+  height: 360px;
+  display: flex;
+
+  @include breakpoint(xxs+xs) {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: box-shadow 0.3s ease-in-out;
+  }
 
   &__title {
-    font-style: bold;
-    font-size: 2em;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 16px;
   }
 
   &__content {
+    overflow: hidden;
   }
 
   &__img {
     height: 100%;
-    width: 30%;
+    width: 100%;
+    display: inline-block;
+    object-fit: cover;
+  }
+
+  &__img-container {
+    padding: 0;
+
+  @include breakpoint(xxs+xs) {
+      height: 25%;
+    }
+  }
+
+  &__blog {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+  @include breakpoint(xxs+xs) {
+      height: 75%;
+    }
   }
 }

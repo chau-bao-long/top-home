@@ -2,7 +2,7 @@
   overflow: visible;
   margin: 0px 35px;
 
-  @include breakpoint-down(xs) {
+  @include breakpoint(xxs) {
     margin: 0px 5px;
   }
 }

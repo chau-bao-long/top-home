@@ -5,7 +5,7 @@
   transition: height .3s;
   padding: 8px 50px;
 
-  @include breakpoint-down(xs) {
+  @include breakpoint(xxs) {
     padding: 20px;
   }
 
@@ -29,13 +29,13 @@
     display: flex;
     width: 120px;
 
-    @include breakpoint-down(xs) {
+    @include breakpoint(xxs) {
       order: 1;
     }
   }
 
   &__button {
-    @include breakpoint-down(xs) {
+    @include breakpoint(xxs) {
       order: 2;
     }
   }
