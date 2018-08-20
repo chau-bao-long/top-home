@@ -42,6 +42,7 @@ class BlogEditor extends React.Component<Props, State> {
   handleSave = (title: string, body: string) => {
     const { showLoading, blog, updateBlog, createBlog } = this.props
     showLoading(true)
+    debugger
     if (blog) {
       updateBlog(blog.id, title, body)
     } else {

@@ -34,7 +34,7 @@
   &__img-container {
     padding: 0;
 
-  @include breakpoint(xxs+xs) {
+    @include breakpoint(xxs+xs) {
       height: 25%;
     }
   }
@@ -46,7 +46,7 @@
     flex-direction: column;
     justify-content: flex-start;
 
-  @include breakpoint(xxs+xs) {
+    @include breakpoint(xxs+xs) {
       height: 75%;
     }
   }

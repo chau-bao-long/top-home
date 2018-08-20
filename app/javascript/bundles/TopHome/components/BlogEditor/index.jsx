@@ -20,7 +20,6 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = { title: "" }
-    this.handleSaveButton = this.handleSaveButton.bind(this)
   }
 
   render() {
@@ -42,7 +41,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
             onChange={(e: any) => this.handleTitleChange(e)}/>
           <p className="title__saved-time">{savedTime}</p>
           <NavLink to="/blogs" className="title__back btn btn-secondary">back</NavLink>
-          <button className="title__save btn btn-info" onClick={this.handleSaveButton}>save</button>
+        <button className="title__save btn btn-info" onClick={(e) => this.handleSaveButton(e)}>save</button>
         </div>
         <textarea id="blog-area"/>
       </div>
@@ -62,7 +61,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
     this.setState({title: e.target.value})
   }
 
-  handleSaveButton = (e: SyntheticEvent<>) => { this.saveBlog() }
+  handleSaveButton(e: SyntheticEvent<>) { this.saveBlog() }
 
   initEditor() {
     this.editor = new SimpleMDE({

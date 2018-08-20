@@ -5,11 +5,12 @@ import ReactMarkdown from "react-markdown"
 
 type Props = {
   blog: Blog,
+  onClick: (blog: Blog) => void,
 }
 
-export default function Preview({blog}: Props) {
+export default function preview({blog, onClick}: Props) {
   return (
-    <div className="col-md-6">
+    <div className="col-md-6" onClick={(e) => {onClick(blog)}}>
       <div className="row preview">
         <span className="col-md-4 col-xs-12 preview__img-container">
           <img 

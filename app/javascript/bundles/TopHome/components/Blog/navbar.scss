@@ -53,9 +53,9 @@
     }
   }
 
-  &__write-blog {
+  &__write-blog, &__edit-blog {
     font-size: 1.2em;
-    margin: 0 10px;
+    margin: 0 16px;
     color: black;
 
     &:hover {
