@@ -13,7 +13,11 @@ export default function furtherReading({blogs}: Props) {
       {
         blogs.map((blog) => (
           <div className="fr__content">
-            blog.title
+            <img 
+              className="fr__img rounded"
+              src="https://cdn-images-1.medium.com/max/800/1*ypedtlNYHDd94HwB1f-AnQ.jpeg"
+            />
+            <h6 className="fr__blog-title">{blog.title}</h6>
           </div>
         ))
       }

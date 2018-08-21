@@ -10,6 +10,6 @@ export function getBlogs() {
   return { type: "GET_BLOGS" }
 }
 
-export function getBlog() {
-  return { type: "GET_BLOG" }
+export function getBlog(id: string) {
+  return { type: "GET_BLOG", payload: id }
 }

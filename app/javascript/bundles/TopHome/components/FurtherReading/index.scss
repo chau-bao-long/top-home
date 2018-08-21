@@ -2,6 +2,10 @@
   margin-left: 80px;
   min-width: 300px;
 
+  @include breakpoint(sm) {
+    display: none;
+  }
+
   &__title {
     border-bottom: 1px solid black;
     padding: 10px 0;
@@ -9,5 +13,20 @@
   }
 
   &__content {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__img {
+     content-fit: cover;
+     width: 92px;
+     height: 92px;
+     margin-right: 10px
+  }
+
+  &__blog-title {
+
   }
 }

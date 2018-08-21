@@ -11,7 +11,7 @@ type Props = {
 export default function preview({blog, onClick}: Props) {
   return (
     <div className="col-md-6" onClick={(e) => {onClick(blog)}}>
-      <div className="row preview">
+      <div className="row preview rounded">
         <span className="col-md-4 col-xs-12 preview__img-container">
           <img 
             className="preview__img"

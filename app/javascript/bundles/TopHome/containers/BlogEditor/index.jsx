@@ -7,6 +7,7 @@ import { createBlog, updateBlog } from "../../actions/blogEditorAction"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../services/restClient/models/blog"
 import dateFns from "date-fns"
+import { getBlog } from "../../actions/blogEditorAction"
 
 type Props = {
   isLoading: boolean,
@@ -15,7 +16,10 @@ type Props = {
   showLoading: (isLoading: boolean) => {},
   createBlog: (title: string, body: string) => Promise<>,
   updateBlog: (id: string, title: string, body: string) => Promise<>,
+  getBlog: (id: string) => Promise<>,
   blog: Blog,
+  blogId: string,
+  blogs: Array<Blog>,
 }
 
 type State = {}
@@ -26,6 +30,11 @@ class BlogEditor extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.handleSave = this.handleSave.bind(this)
+  }
+
+  componentDidMount() {
+    const { blogs, blogId, getBlog } = this.props
+    if (blogId && blogs.length == 0) getBlog(blogId)
   }
 
   handleSave = (title: string, body: string) => {
@@ -58,4 +67,4 @@ class BlogEditor extends React.Component<Props, State> {
   }
 }
 
-export default connect(selector, { showLoading, setError, createBlog , updateBlog })(BlogEditor)
+export default connect(selector, { showLoading, setError, createBlog , updateBlog, getBlog })(BlogEditor)

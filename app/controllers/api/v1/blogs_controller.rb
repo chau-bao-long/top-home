@@ -14,7 +14,7 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def show
-    current_user.blogs.where(id: params[:id])
+    current_user.blogs.where(id: params[:id]).take
   end
 
   def blog_params

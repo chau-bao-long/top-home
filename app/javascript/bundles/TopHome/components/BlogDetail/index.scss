@@ -1,7 +1,8 @@
 .details-container {
   display: flex;
   justify-content: space-between;
-  padding: 60px;
+  max-width: 80%;
+  margin: 60px auto;
 }
 
 .blog-details {

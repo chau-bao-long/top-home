@@ -33,6 +33,17 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
       }
+    case "GET_BLOG_SUCC":
+      return {
+        ...state,
+        isLoading: false,
+        blog: action.payload.data,
+      }
+    case "GET_BLOG_FAIL":
+      return {
+        ...state,
+        isLoading: false,
+      }
     default:
       return apiReducer(state, action)
   }

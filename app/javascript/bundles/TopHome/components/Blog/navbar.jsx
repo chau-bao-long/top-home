@@ -3,12 +3,14 @@ import React from "react"
 import { Link } from 'react-router-dom'
 
 type Props = {
-  className: string
+  className: string,
+  editMode: boolean,
+  onEditBlog: Function,
 }
 
 export default class NavBar extends React.PureComponent<Props> {
   render() {
-    const { className, onEditBlog } = this.props
+    const { className, onEditBlog, editMode } = this.props
     return (
       <nav className={"navbar navbar-expand-lg navbar-light sticky-top " + className}>
         <button className="btn btn-outline-secondary navbar__button">
@@ -19,7 +21,7 @@ export default class NavBar extends React.PureComponent<Props> {
           READ MY BLOGS
         </p>
         <span className="navbar__utility">
-          <span className="lnr lnr-magic-wand navbar__edit-blog" onClick={onEditBlog}></span>
+          { editMode && <span className="lnr lnr-magic-wand navbar__edit-blog" onClick={onEditBlog}></span> }
           <Link to="/blogs/new" className="lnr lnr-pencil navbar__write-blog"></Link>
           <span className="lnr lnr-magnifier navbar__search"></span>
         </span>

@@ -13,9 +13,12 @@ import { Route } from 'react-router-dom'
 
 type Props = {
   blogs: Array<Blog>,
+  blog: Blog,
+  blogId: string,
   getBlogs: (blog: Blog) => void,
   match: Object,
   history: Object,
+  isRenderDetail: boolean,
 }
 
 type State = {
@@ -44,7 +47,7 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   handleEditBlog() {
-    this.props.history.push(`${this.props.match.url}/${this.selectedBlogId}/edit`)
+    this.props.history.push(`${this.props.match.url}/${this.props.blogId}/edit`)
   }
 
   handleScroll = (event: SyntheticEvent<>) => {
@@ -52,20 +55,10 @@ class BlogContainer extends React.Component<Props, State> {
     this.setState({navBarStyle: style})
   }
 
-  isRenderDetail = () => !this.props.match.isExact
-
-  get selectedBlog() {
-    return this.props.blogs.find(blog => blog.id == this.selectedBlogId)
-  }
-
-  get selectedBlogId() {
-    return this.props.location.pathname.match(/^\/blogs\/(\d+)/)[1]
-  }
-
   renderDetail = () => (
     <div className="details-container">
       <Route path={`${this.props.match.path}/:id`} render={
-        props => <BlogDetail blog={this.selectedBlog}/>
+        props => <BlogDetail blog={this.props.blog}/>
       } exact />
       <FurtherReading blogs={this.props.blogs.slice(0, 5)}/>
     </div>
@@ -74,10 +67,11 @@ class BlogContainer extends React.Component<Props, State> {
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
 
   render() {
+    const { isRenderDetail } = this.props
     return (
       <div>
-        <NavBar className={this.state.navBarStyle} onEditBlog={() => this.handleEditBlog()}/>
-        { this.isRenderDetail() ? this.renderDetail() : this.renderList() }
+        <NavBar className={this.state.navBarStyle} editMode={isRenderDetail} onEditBlog={() => this.handleEditBlog()}/>
+        { isRenderDetail ? this.renderDetail() : this.renderList() }
       </div>
     )
   }

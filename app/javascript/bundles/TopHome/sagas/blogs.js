@@ -34,8 +34,8 @@ function* index(action) {
 function* show(action) {
   try {
     const api = new TopHomeApi()
-    yield call([api, api.getBlog], ...Object.values(action.payload))
-    yield put({type: "GET_BLOG_SUCC"})
+    const response = yield call([api, api.getBlog], action.payload)
+    yield put({type: "GET_BLOG_SUCC", payload: response})
   } catch(errors) {
     yield put({type: "GET_BLOG_FAIL", error: errors[0].message})
   }

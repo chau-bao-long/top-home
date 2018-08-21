@@ -18,10 +18,11 @@ type State = {
 export default class BlogEditor extends React.PureComponent<Props, State> {
   editor: SimpleMDE
   timerId: window
+  initialBlogBody: string
 
   constructor(props: Props) {
     super(props)
-    this.state = { title: "" }
+    this.state = { title: (props.blog ? props.blog.title : "") }
   }
 
   componentWillUnmount() {
@@ -31,8 +32,14 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   componentDidMount() {
     this.initEditor()
     this.setupAutoSave()
-    this.setState({title: this.props.blog.title})
-    this.editor.value(this.props.blog.body)
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    const { blog } = this.props
+    if (blog && prevProps.blog != blog) {
+      this.setState({ title: blog.title })
+      this.editor.value(blog.body)
+    }
   }
 
   handleTitleChange(e: any) {
@@ -47,6 +54,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
       spellChecker: true,
       autofocus: true,
     });
+    if (this.props.blog) this.editor.value(this.props.blog.body)
   }
 
   setupAutoSave() {
@@ -58,7 +66,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { isSaving, errorMsg, savedTime } = this.props
+    const { isSaving, errorMsg, savedTime, blog } = this.props
     const { title } = this.state
     return (
       <div>

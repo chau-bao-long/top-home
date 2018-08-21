@@ -4,13 +4,13 @@
   height: 360px;
   display: flex;
 
-  @include breakpoint(xxs+xs) {
+  @include breakpoint(xs) {
     flex-direction: row;
     justify-content: flex-start;
   }
 
   &:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     transition: box-shadow 0.3s ease-in-out;
   }
 
@@ -34,7 +34,7 @@
   &__img-container {
     padding: 0;
 
-    @include breakpoint(xxs+xs) {
+    @include breakpoint(xs) {
       height: 25%;
     }
   }
@@ -46,7 +46,7 @@
     flex-direction: column;
     justify-content: flex-start;
 
-    @include breakpoint(xxs+xs) {
+    @include breakpoint(xs) {
       height: 75%;
     }
   }
