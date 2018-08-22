@@ -42,6 +42,15 @@ class TopHomeApi {
     return this.client.get("/api/v1/blogs/" + id)
   }
 
+  getPhotos() {
+    return this.client.get("/api/v1/photos")
+  }
+
+  uploadPhoto(photo: any) {
+    // TODO
+    return this.client.post("/api/v1/photos")
+  }
+
   _addErrorInterceptor(client: axios) {
     client.interceptors.response.use(res => res, error => {
       throw error.response.data.errors

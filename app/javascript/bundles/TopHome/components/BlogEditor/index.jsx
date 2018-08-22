@@ -3,6 +3,7 @@ import React from "react"
 import SimpleMDE from "simplemde"
 import { NavLink } from "react-router-dom"
 import type { Blog } from "../../services/restClient/models/blog"
+import Modal from "../../containers/BlogEditor"
 
 type Props = {
   onSave: (title: string, body: string) => void,
@@ -11,6 +12,7 @@ type Props = {
   savedTime: string,
   blog: Blog;
 }
+
 type State = {
   title: string,
 }
@@ -40,6 +42,10 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
       this.setState({ title: blog.title })
       this.editor.value(blog.body)
     }
+  }
+
+  handlePickPhoto(photoUrl: string) {
+    // TODO
   }
 
   handleTitleChange(e: any) {
@@ -87,6 +93,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
         <button className="title__save btn btn-info" onClick={(e) => this.handleSaveButton(e)}>save</button>
       </div>
       <textarea id="blog-area"/>
+      <Modal onPickPhoto={photoUrl => this.handlePickPhoto(photoUrl)}/>
     </div>
     )
   }

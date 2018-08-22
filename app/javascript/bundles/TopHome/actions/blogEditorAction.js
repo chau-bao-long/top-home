@@ -13,3 +13,11 @@ export function getBlogs() {
 export function getBlog(id: string) {
   return { type: "GET_BLOG", payload: id }
 }
+
+export function getPhotos() {
+  return { type: "GET_PHOTOS" }
+}
+
+export function uploadPhoto(photo: any) {
+  return { type: "UPLOAD_PHOTOS", payload: photo }
+}
