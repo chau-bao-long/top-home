@@ -6,6 +6,7 @@ import {
 const initialState = {
   ...apiInitialState,
   blogs: [],
+  photos: [],
 }
 
 export default (state = initialState, action) => {
@@ -40,6 +41,17 @@ export default (state = initialState, action) => {
         blog: action.payload.data,
       }
     case "GET_BLOG_FAIL":
+      return {
+        ...state,
+        isLoading: false,
+      }
+    case "GET_PHOTOS_SUCC":
+      return {
+        ...state,
+        isLoading: false,
+        photos: action.payload.data.data,
+      }
+    case "GET_PHOTOS_FAIL":
       return {
         ...state,
         isLoading: false,

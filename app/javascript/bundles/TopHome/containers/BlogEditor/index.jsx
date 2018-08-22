@@ -1,6 +1,6 @@
 // @flow
 import React from "react" 
-import MarkdownEditor from "../../components/BlogEditor"
+import BlogEditor from "../../components/BlogEditor"
 import { connect } from "react-redux"
 import { showLoading, setError } from "../../actions/apiAction"
 import { createBlog, updateBlog } from "../../actions/blogEditorAction"
@@ -8,6 +8,7 @@ import { selector } from "../../selectors/blog"
 import type { Blog } from "../../services/restClient/models/blog"
 import dateFns from "date-fns"
 import { getBlog } from "../../actions/blogEditorAction"
+import { getPhotos, uploadPhoto } from "../../actions/blogEditorAction"
 
 type Props = {
   isLoading: boolean,
@@ -17,6 +18,9 @@ type Props = {
   createBlog: (title: string, body: string) => Promise<>,
   updateBlog: (id: string, title: string, body: string) => Promise<>,
   getBlog: (id: string) => Promise<>,
+  getPhotos: () => {},
+  uploadPhoto: (file: {}) => void,
+  photos: Array<string>,
   blog: Blog,
   blogId: string,
   blogs: Array<Blog>,
@@ -26,15 +30,16 @@ type State = {}
 
 const SAVED_TIME_FORMAT = "[saved at ] hh:mm [--] MM/DD/YYYY"
 
-class BlogEditor extends React.Component<Props, State> {
+class BlogEditorContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.handleSave = this.handleSave.bind(this)
   }
 
   componentDidMount() {
-    const { blogs, blogId, getBlog } = this.props
+    const { blogs, blogId, getBlog, getPhotos } = this.props
     if (blogId && blogs.length == 0) getBlog(blogId)
+    getPhotos()
   }
 
   handleSave = (title: string, body: string) => {
@@ -47,6 +52,7 @@ class BlogEditor extends React.Component<Props, State> {
     }
   }
 
+
   get savedTime(): string {
     const { blog } = this.props
     if(!blog) return ""
@@ -54,17 +60,21 @@ class BlogEditor extends React.Component<Props, State> {
   }
 
   render() {
-    const { isLoading, errorMsg, blog } = this.props
+    const { isLoading, errorMsg, blog, photos } = this.props
     return (
-      <MarkdownEditor 
+      <BlogEditor 
         onSave={this.handleSave}
         savedTime={this.savedTime}
         isSaving={isLoading}
         errorMsg={errorMsg}
         blog={blog}
+        photos={photos}
+        onPickPhoto={photos => uploadPhoto(photos[0])}
       />
     )
   }
 }
 
-export default connect(selector, { showLoading, setError, createBlog , updateBlog, getBlog })(BlogEditor)
+export default connect(selector, {
+  showLoading, setError, createBlog , updateBlog, getBlog, getPhotos, uploadPhoto
+})(BlogEditorContainer)

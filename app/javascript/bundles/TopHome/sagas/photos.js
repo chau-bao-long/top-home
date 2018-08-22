@@ -4,7 +4,7 @@ import { TopHomeApi } from "services/restClient"
 function* index(action) {
   try {
     const api = new TopHomeApi()
-    const response = yield call([api, api.getPhotos], ...action.payload)
+    const response = yield call([api, api.getPhotos])
     yield put({type: "GET_BLOG_SUCC", payload: response})
   } catch(errors) {
     yield put({type: "GET_BLOG_FAIL", payload: response})
@@ -26,5 +26,5 @@ export function* watchGetPhotos() {
 }
 
 export function* watchUploadPhoto() {
-  yield takeEvery("UPLOAD_PHOTOS", upload)
+  yield takeEvery("UPLOAD_PHOTO", upload)
 }
