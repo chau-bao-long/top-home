@@ -9,8 +9,12 @@ type Props = {
 }
 
 function getPreviewImg(blog: Blog) {
-  url = blog.body.match(/!\[.*\](.*)/g)[0].match(/\(.*\)/g)[0]
-  return  url.substring(1, url.length - 1)
+  try {
+    const url = blog.body.match(/!\[.*\](.*)/g)[0].match(/\(.*\)/g)[0]
+    return url.substring(1, url.length - 1)
+  } catch (e) {
+    return ""
+  }
 }
 
 export default function preview({blog, onClick}: Props) {
