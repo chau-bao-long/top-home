@@ -12,7 +12,7 @@ type Props = {
   savedTime: string,
   blog: Blog,
   photos: Array<string>,
-  onPickPhoto: (Array<{}>) => void,
+  onUploadPhoto: (Array<{}>) => void,
 }
 
 type State = {
@@ -55,6 +55,11 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
 
   handleSaveButton(e: SyntheticEvent<>) { this.saveBlog() }
 
+  handlePickPhoto(photoUrl: string) {
+    let value= this.editor.value()
+    this.editor.value(`${value}![](${photoUrl})`)
+  }
+
   initEditor() {
     this.editor = new SimpleMDE({
       element: document.getElementById("blog-area"),
@@ -83,7 +88,7 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { isSaving, errorMsg, savedTime, blog, photos, onPickPhoto } = this.props
+    const { isSaving, errorMsg, savedTime, blog, photos, onUploadPhoto } = this.props
     const { title } = this.state
     return (
       <div>
@@ -106,7 +111,8 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
       <textarea id="blog-area"/>
       <Modal 
         id={MODAL_ID} 
-        onPickPhoto={onPickPhoto}
+        onUploadPhoto={onUploadPhoto}
+        onPickPhoto={photoUrl => this.handlePickPhoto(photoUrl)}
         photos={photos}
       />
     </div>

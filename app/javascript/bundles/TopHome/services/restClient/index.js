@@ -46,9 +46,10 @@ class TopHomeApi {
     return this.client.get("/api/v1/photos")
   }
 
-  uploadPhoto(photo: any) {
-    // TODO
-    return this.client.post("/api/v1/photos")
+  uploadPhoto(photo: File) {
+    const formData = new FormData()
+    formData.append("photo", photo, photo.name)
+    return this.client.post("/api/v1/photos", formData)
   }
 
   _addErrorInterceptor(client: axios) {

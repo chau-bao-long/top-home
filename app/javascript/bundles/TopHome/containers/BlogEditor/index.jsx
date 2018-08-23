@@ -8,7 +8,7 @@ import { selector } from "../../selectors/blog"
 import type { Blog } from "../../services/restClient/models/blog"
 import dateFns from "date-fns"
 import { getBlog } from "../../actions/blogEditorAction"
-import { getPhotos, uploadPhoto } from "../../actions/blogEditorAction"
+import { getPhotos, postPhoto } from "../../actions/blogEditorAction"
 
 type Props = {
   isLoading: boolean,
@@ -19,7 +19,7 @@ type Props = {
   updateBlog: (id: string, title: string, body: string) => Promise<>,
   getBlog: (id: string) => Promise<>,
   getPhotos: () => {},
-  uploadPhoto: (file: {}) => void,
+  uploadPhoto: (file: File) => void,
   photos: Array<string>,
   blog: Blog,
   blogId: string,
@@ -60,7 +60,7 @@ class BlogEditorContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const { isLoading, errorMsg, blog, photos } = this.props
+    const { isLoading, errorMsg, blog, photos, postPhoto } = this.props
     return (
       <BlogEditor 
         onSave={this.handleSave}
@@ -69,12 +69,12 @@ class BlogEditorContainer extends React.Component<Props, State> {
         errorMsg={errorMsg}
         blog={blog}
         photos={photos}
-        onPickPhoto={photos => uploadPhoto(photos[0])}
+        onUploadPhoto={photos => postPhoto(photos[0])}
       />
     )
   }
 }
 
 export default connect(selector, {
-  showLoading, setError, createBlog , updateBlog, getBlog, getPhotos, uploadPhoto
+  showLoading, setError, createBlog , updateBlog, getBlog, getPhotos, postPhoto
 })(BlogEditorContainer)

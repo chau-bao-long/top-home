@@ -49,9 +49,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        photos: action.payload.data.data,
+        photos: action.payload.data.photos,
       }
     case "GET_PHOTOS_FAIL":
+      return {
+        ...state,
+        isLoading: false,
+      }
+    case "UPLOAD_PHOTO_SUCC":
+      return {
+        ...state,
+        isLoading: false,
+        photos: [...state.photos, action.payload.data.photo]
+      }
+    case "UPLOAD_PHOTO_FAIL":
       return {
         ...state,
         isLoading: false,

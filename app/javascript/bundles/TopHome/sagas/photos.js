@@ -5,9 +5,10 @@ function* index(action) {
   try {
     const api = new TopHomeApi()
     const response = yield call([api, api.getPhotos])
-    yield put({type: "GET_BLOG_SUCC", payload: response})
+    console.log(response)
+    yield put({type: "GET_PHOTOS_SUCC", payload: response})
   } catch(errors) {
-    yield put({type: "GET_BLOG_FAIL", payload: response})
+    yield put({type: "GET_PHOTOS_FAIL", payload: response})
   }
 }
 
@@ -15,9 +16,9 @@ function* upload(action) {
   try {
     const api = new TopHomeApi()
     const response = yield call([api, api.uploadPhoto], ...action.payload)
-    yield put({type: "UPLOAD_BLOG_SUCC", payload: response})
+    yield put({type: "UPLOAD_PHOTO_SUCC", payload: response})
   } catch(errors) {
-    yield put({type: "UPLOAD_BLOG_FAIL", payload: response})
+    yield put({type: "UPLOAD_PHOTO_FAIL", payload: response})
   }
 }
 

@@ -18,7 +18,6 @@ export function getPhotos() {
   return { type: "GET_PHOTOS" }
 }
 
-export function uploadPhoto(photo: {}) {
-  debugger
-  return { type: "UPLOAD_PHOTO", payload: photo }
+export function postPhoto(photo: File) {
+  return { type: "UPLOAD_PHOTO", payload: [photo] }
 }
