@@ -6,7 +6,7 @@ import BlogDetail from "../../components/BlogDetail"
 import NavBar from "../../components/Blog/navbar"
 import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
-import type { Blog } from "../../services/restClient/models/blog"
+import type { Blog } from "../../models/blog"
 import { getBlogs } from "../../actions/blogEditorAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'

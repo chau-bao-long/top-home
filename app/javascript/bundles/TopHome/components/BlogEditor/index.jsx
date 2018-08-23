@@ -2,7 +2,7 @@
 import React from "react"
 import SimpleMDE from "simplemde"
 import { NavLink } from "react-router-dom"
-import type { Blog } from "../../services/restClient/models/blog"
+import type { Blog } from "../../models/blog"
 import Modal from "../../components/BlogEditor/modal"
 
 type Props = {

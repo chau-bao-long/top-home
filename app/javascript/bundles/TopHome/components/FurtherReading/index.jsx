@@ -1,6 +1,6 @@
 // @flow
 import React from "react"
-import type { Blog } from "../../services/restClient/models/blog"
+import type { Blog } from "../../models/blog"
 
 type Props = {
   blogs: Array<Blog>

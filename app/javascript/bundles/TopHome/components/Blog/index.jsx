@@ -2,7 +2,7 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import _ from "lodash"
-import type { Blog } from "../../services/restClient/models/blog"
+import type { Blog } from "../../models/blog"
 import Preview from "./preview"
 
 type Props = {

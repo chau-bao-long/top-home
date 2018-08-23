@@ -1,7 +1,7 @@
 // @flow
 import React from "react"
 import ReactMarkdown from "react-markdown"
-import type { Blog } from "../../services/restClient/models/blog"
+import type { Blog } from "../../models/blog"
 
 type Props = {
   blog: Blog,
