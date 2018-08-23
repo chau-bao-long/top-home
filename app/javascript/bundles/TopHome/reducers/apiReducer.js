@@ -1,21 +1,18 @@
-export const initialState = {
-  isLoading: false,
-  errorMsg: '',
-}
+import { handleActions } from 'redux-actions'
 
-export function reducer(state, action) {
-  switch(action.type) {
-    case "LOADING":
-      return {
-        ...state,
-        isLoading: action.payload,
-      }
-    case "SET_ERROR":
-      return {
-        ...state,
-        errorMsg: action.payload
-      }
-    default:
-      return state
+export const reducer = handleActions(
+  {
+    LOADING: (state, action) => ({
+      ...state,
+      isLoading: action.payload,
+    }),
+    SET_ERROR: (state, action) => ({
+      ...state,
+      errorMsg: action.payload
+    }),
+  },
+  {
+    isLoading: false,
+    errorMsg: '',
   }
-}
+)

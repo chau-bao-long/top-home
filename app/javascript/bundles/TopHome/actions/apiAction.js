@@ -1,7 +1,9 @@
-export function showLoading(isLoading) {
-  return {type: 'LOADING', payload: isLoading}
-}
+import { createActions } from "redux-action"
 
-export function setError(error: string = "") {
-  return {type: 'SET_ERROR', payload: error}
-}
+export const {
+  showLoading,
+  setError,
+} = createActions({
+  LOADING: (isLoading: boolean) => isLoading,
+  SET_ERROR: (error: string = "") => error,
+})
