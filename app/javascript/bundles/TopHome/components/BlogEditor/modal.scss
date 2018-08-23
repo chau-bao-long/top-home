@@ -4,6 +4,12 @@
   justify-content: flex-start;
   align-items: center;
   align-content: center;
+  overflow: auto;
+  height: 500px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__photo {
     height: 200px;
