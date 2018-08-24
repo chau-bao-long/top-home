@@ -1,0 +1,33 @@
+#! /bin/bash
+
+apis=(
+# login
+# blogs_post
+ # photo_post
+photo_index
+)
+
+# Top home api
+cookie='Cookie:is_auth=dHJ1ZQ%3D%3D--4e42eddf6133d3829c470effd3fb78707724a0be;top_home_sess=c7f889a6e0ea62af4ef099ce962550a6;top_home_sess=5fcf71e6c8e5ac062191c517b1142610;' 
+
+for i in ${apis[*]}; do
+  case $i in
+    login)
+      http post localhost:3000/api/v1/sessions name=top password=123456
+      ;;
+    blogs_get)
+      http lh:3000/api/v1/blogs
+      ;;
+    blog_get)
+      http lh:3000/api/v1/blogs
+      ;;
+    blogs_post)
+      http post lh:3000/api/v1/blogs $cookie title='title-test' body='body-test' 
+      ;;
+    photo_post)
+      http -f post localhost:3000/api/v1/photos $cookie photo@~/Downloads/VUX_1566.JPG
+      ;;
+    photo_index)
+      http localhost:3000/api/v1/photos $cookie
+  esac
+done
