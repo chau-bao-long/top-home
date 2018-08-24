@@ -25,7 +25,7 @@ export default class BlogComponent extends React.PureComponent<Props, State> {
         <div className="blogs row" >
           {
             blogs.map(blog => (
-              <Preview blog={blog} onClick={onClick}/>
+              <Preview key={blog.id} blog={blog} onClick={onClick}/>
             ))
           }
         </div>

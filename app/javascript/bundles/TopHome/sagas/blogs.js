@@ -9,7 +9,7 @@ import {
   getBlogs,
   getBlog,
   getPhotos,
-  postPhoto,
+  uploadPhoto,
 } from "../actions/blogAction"
 import { loading, error } from "../actions/apiAction"
 

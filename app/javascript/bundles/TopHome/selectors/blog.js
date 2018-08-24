@@ -15,8 +15,28 @@ export const getSelectedBlog = createSelector(
 
 const isRenderDetail = (state, props) => !props.match.isExact
 
+const blogWithThumbnailSelector = createSelector(
+  blogSelector,
+  blog => ({
+    ...blog,
+    blogs: blog.blogs.map(b => ({
+      ...b,
+      thumbnail: getPreviewImg(b),
+    })),
+  })
+)
+
+function getPreviewImg(blog: Blog) {
+  try {
+    const url = blog.body.match(/!\[.*\](.*)/g)[0].match(/\(.*\)/g)[0]
+    return url.substring(1, url.length - 1)
+  } catch (e) {
+    return ""
+  }
+}
+
 export const selector = createSelector(
-  getSelectedBlogId, getSelectedBlog, blogSelector, isRenderDetail,
+  getSelectedBlogId, getSelectedBlog, blogWithThumbnailSelector, isRenderDetail,
   (selectedBlogId, selectedBlog, blog, isRender) => ({
     ...blog,
     blog: selectedBlog,

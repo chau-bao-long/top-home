@@ -36,6 +36,7 @@ export default class Modal extends React.PureComponent<Props> {
                 {
                   photos.map(photo => (
                     <img 
+                      key={photo}
                       src={photo} 
                       data-dismiss="modal" 
                       aria-label="Close"

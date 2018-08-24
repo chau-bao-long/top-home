@@ -8,7 +8,7 @@ import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
 import dateFns from "date-fns"
 import { getBlog } from "../../actions/blogAction"
-import { getPhotos, postPhoto } from "../../actions/blogAction"
+import { getPhotos, uploadPhoto } from "../../actions/blogAction"
 
 type Props = {
   isLoading: boolean,
@@ -58,7 +58,7 @@ class BlogEditorContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const { isLoading, errorMsg, blog, photos, postPhoto } = this.props
+    const { isLoading, errorMsg, blog, photos, uploadPhoto } = this.props
     return (
       <BlogEditor 
         onSave={this.handleSave}
@@ -67,13 +67,14 @@ class BlogEditorContainer extends React.Component<Props, State> {
         errorMsg={errorMsg}
         blog={blog}
         photos={photos}
-        onUploadPhoto={photos => postPhoto(photos[0])}
+        onUploadPhoto={photos => uploadPhoto(photos[0])}
       />
     )
   }
 }
 
 export default connect(selector, {
-  error, createBlog , updateBlog, getBlog, getPhotos, postPhoto
+  error, createBlog , updateBlog, getBlog, getPhotos, uploadPhoto
 })(BlogEditorContainer)
+
 

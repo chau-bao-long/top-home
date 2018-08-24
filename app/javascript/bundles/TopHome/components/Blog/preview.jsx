@@ -8,15 +8,6 @@ type Props = {
   onClick: (blog: Blog) => void,
 }
 
-function getPreviewImg(blog: Blog) {
-  try {
-    const url = blog.body.match(/!\[.*\](.*)/g)[0].match(/\(.*\)/g)[0]
-    return url.substring(1, url.length - 1)
-  } catch (e) {
-    return ""
-  }
-}
-
 export default function preview({blog, onClick}: Props) {
   return (
     <div className="col-md-6" onClick={(e) => {onClick(blog)}}>
@@ -24,7 +15,7 @@ export default function preview({blog, onClick}: Props) {
         <span className="col-md-4 col-xs-12 preview__img-container">
           <img 
             className="preview__img"
-            src={getPreviewImg(blog)}
+            src={blog.thumbnail}
           />
         </span>
         <span className="col-md-8 preview__blog">

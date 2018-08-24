@@ -9,7 +9,7 @@ export const {
   getBlogs,
   getBlog,
   getPhotos,
-  postPhoto,
+  uploadPhoto,
 } = createActions({
   MODIFY_BLOG_SUCC: payload => payload,
   GET_BLOGS_SUCC: payload => payload,
