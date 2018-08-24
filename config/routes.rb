@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # React router need rails router return some wildcard
   # to single page like this
+  get 'login', to: 'top_home#index'
   get 'portfolio', to: 'top_home#index'
   get 'blogs', to: 'top_home#index'
   get 'iot', to: 'top_home#index'

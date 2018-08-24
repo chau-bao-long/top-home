@@ -3,7 +3,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { withCookies } from 'react-cookie'
 import { Redirect } from 'react-router'
-import { showLoading, login, setError } from "../../actions/loginAction"
+import { loading, login, setError } from "../../actions/loginAction"
 import _ from "lodash"
 
 type Props = {

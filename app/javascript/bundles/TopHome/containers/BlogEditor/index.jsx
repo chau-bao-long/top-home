@@ -2,19 +2,18 @@
 import React from "react" 
 import BlogEditor from "../../components/BlogEditor"
 import { connect } from "react-redux"
-import { showLoading, setError } from "../../actions/apiAction"
-import { createBlog, updateBlog } from "../../actions/blogEditorAction"
+import { error } from "../../actions/apiAction"
+import { createBlog, updateBlog } from "../../actions/blogAction"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
 import dateFns from "date-fns"
-import { getBlog } from "../../actions/blogEditorAction"
-import { getPhotos, postPhoto } from "../../actions/blogEditorAction"
+import { getBlog } from "../../actions/blogAction"
+import { getPhotos, postPhoto } from "../../actions/blogAction"
 
 type Props = {
   isLoading: boolean,
   errorMsg: string,
   setError: (error?: string) => {},
-  showLoading: (isLoading: boolean) => {},
   createBlog: (title: string, body: string) => Promise<>,
   updateBlog: (id: string, title: string, body: string) => Promise<>,
   getBlog: (id: string) => Promise<>,
@@ -43,8 +42,7 @@ class BlogEditorContainer extends React.Component<Props, State> {
   }
 
   handleSave = (title: string, body: string) => {
-    const { showLoading, blog, updateBlog, createBlog } = this.props
-    showLoading(true)
+    const { blog, updateBlog, createBlog } = this.props
     if (blog) {
       updateBlog(blog.id, title, body)
     } else {
@@ -76,5 +74,6 @@ class BlogEditorContainer extends React.Component<Props, State> {
 }
 
 export default connect(selector, {
-  showLoading, setError, createBlog , updateBlog, getBlog, getPhotos, postPhoto
+  error, createBlog , updateBlog, getBlog, getPhotos, postPhoto
 })(BlogEditorContainer)
+

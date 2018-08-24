@@ -5,7 +5,6 @@ function* index(action) {
   try {
     const api = new TopHomeApi()
     const response = yield call([api, api.getPhotos])
-    console.log(response)
     yield put({type: "GET_PHOTOS_SUCC", payload: response})
   } catch(errors) {
     yield put({type: "GET_PHOTOS_FAIL", payload: response})

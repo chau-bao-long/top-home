@@ -4,17 +4,15 @@ import { connect } from "react-redux"
 import { withCookies } from 'react-cookie'
 import { Redirect } from 'react-router'
 import { login } from "../../actions/loginAction"
-import { showLoading, setError } from "../../actions/apiAction"
+import { error } from "../../actions/apiAction"
 import LoginComponent from "../../components/Login"
 import { selector } from "../../selectors/login"
 import _ from "lodash"
 
 type Props = {
   isLoading: boolean,
-  login: (account: string, password: string) => Promise<any>,
-  showLoading: (isLoading: boolean) => {},
-  setError: (error?: string) => {},
-  errorMsg: string,
+  login: (payload: {}) => Promise<any>,
+  setError: (error?: string) => {}, errorMsg: string,
   allCookies: {is_auth: string},
 };
 
@@ -54,7 +52,6 @@ class Login extends React.Component<Props, State> {
   handleSubmit = (e) => {
     e.preventDefault()
     if (!this.validate()) return
-    this.props.showLoading(true)
     this.props.login(this.state)
   }
 
@@ -82,4 +79,6 @@ class Login extends React.Component<Props, State> {
   isAuthenticated = (): boolean => !!this.props.allCookies["is_auth"]
 }
 
-export default withCookies(connect(selector, { showLoading, login, setError })(Login));
+const setError = error.login
+
+export default withCookies(connect(selector, { login, setError })(Login));

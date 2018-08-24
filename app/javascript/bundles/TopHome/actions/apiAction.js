@@ -1,9 +1,18 @@
-import { createActions } from "redux-action"
+import { createActions } from "redux-actions"
 
 export const {
-  showLoading,
-  setError,
+  loading,
+  error,
 } = createActions({
-  LOADING: (isLoading: boolean) => isLoading,
-  SET_ERROR: (error: string = "") => error,
+  LOADING: {
+    LOGIN: loadingPayload,
+    BLOG: loadingPayload,
+  },
+  ERROR: {
+    LOGIN: errorPayload,
+    BLOG: errorPayload,
+  },
 })
+
+const loadingPayload = (isloading: boolean) => isLoading
+const errorPayload = (error: string = "") => error

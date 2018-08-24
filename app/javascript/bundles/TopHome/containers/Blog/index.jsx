@@ -7,7 +7,7 @@ import NavBar from "../../components/Blog/navbar"
 import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
-import { getBlogs } from "../../actions/blogEditorAction"
+import { getBlogs } from "../../actions/blogAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 

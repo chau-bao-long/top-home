@@ -1,23 +1,41 @@
-import { call, put, takeEvery } from "redux-saga/effects"
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 import { TopHomeApi } from "services/restClient"
+import {
+  getBlogsSucc,
+  getBlogSucc,
+  modifyBlogSucc,
+  createBlog,
+  updateBlog,
+  getBlogs,
+  getBlog,
+  getPhotos,
+  postPhoto,
+} from "../actions/blogAction"
+import { loading, error } from "../actions/apiAction"
 
 function* post(action) {
   try {
+    yield put(loading.blog(true))
     const api = new TopHomeApi()
     const response = yield call([api, api.createBlog], ...action.payload)
-    yield put({type: "MODIFY_BLOG_SUCC", payload: response})
+    yield put(loading.blog(false))
+    yield put(modifyBlogSucc(response))
   } catch(errors) {
-    yield put({type: "MODIFY_BLOG_FAIL", error: errors[0].message})
+    yield put(loading.blog(false))
+    yield put(error.blog(errors[0].message))
   }
 }
 
 function* patch(action) {
   try {
+    yield put(loading.blog(true))
     const api = new TopHomeApi()
     const response = yield call([api, api.updateBlog], ...action.payload)
-    yield put({type: "MODIFY_BLOG_SUCC", payload: response})
+    yield put(loading.blog(false))
+    yield put(modifyBlogSucc(response))
   } catch(errors) {
-    yield put({type: "MODIFY_BLOG_FAIL", error: errors[0].message})
+    yield put(loading.blog(false))
+    yield put(error.blog(errors[0].message))
   }
 }
 
@@ -25,9 +43,9 @@ function* index(action) {
   try {
     const api = new TopHomeApi()
     const response = yield call([api, api.getBlogs])
-    yield put({type: "GET_BLOGS_SUCC", payload: response})
+    yield put(getBlogsSucc(response))
   } catch(errors) {
-    yield put({type: "GET_BLOGS_FAIL", error: errors[0].message})
+    yield put(error.blog(errors[0].message))
   }
 }
 
@@ -35,9 +53,9 @@ function* show(action) {
   try {
     const api = new TopHomeApi()
     const response = yield call([api, api.getBlog], action.payload)
-    yield put({type: "GET_BLOG_SUCC", payload: response})
+    yield put(getBlogSucc(response))
   } catch(errors) {
-    yield put({type: "GET_BLOG_FAIL", error: errors[0].message})
+    yield put(error.blog(errors[0].message))
   }
 }
 
@@ -50,9 +68,9 @@ export function* watchUpdateBlog() {
 }
 
 export function* watchGetBlogs() {
-  yield takeEvery("GET_BLOGS", index)
+  yield takeLatest("GET_BLOGS", index)
 }
 
 export function* watchGetBlog() {
-  yield takeEvery("GET_BLOG", show)
+  yield takeLatest("GET_BLOG", show)
 }

@@ -1,16 +1,21 @@
-import { call, put, takeEvery } from "redux-saga/effects"
+import { call, put, takeLatest } from "redux-saga/effects"
 import { TopHomeApi } from "services/restClient"
+import { loading, error } from "../actions/apiAction"
+import { loginSucc } from "../actions/loginAction"
 
 function* login(action) {
   try {
+    yield put(loading.login(true))
     const api = new TopHomeApi()
     yield call([api, api.login], ...Object.values(action.payload))
-    yield put({type: "LOGIN_SUCCEEDED"})
+    yield put(loading.login(false))
+    yield put(loginSucc())
   } catch(errors) {
-    yield put({type: "LOGIN_FAILED", error: errors[0].message})
+    yield put(error.login(errors[0].message))
+    yield put(loading.login(false))
   }
 }
 
 export function* watchLogin() {
-  yield takeEvery("LOGIN", login)
+  yield takeLatest("LOGIN", login)
 }
