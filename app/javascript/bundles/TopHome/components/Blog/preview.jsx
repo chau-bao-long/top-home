@@ -2,6 +2,7 @@
 import React from "react"
 import type { Blog } from "../../models/blog"
 import ReactMarkdown from "react-markdown"
+import altImg from "../../images/ironman.png"
 
 type Props = {
   blog: Blog,
@@ -9,16 +10,21 @@ type Props = {
 }
 
 export default function preview({blog, onClick}: Props) {
+  const isContainThumbnail = blog.thumbnail.match(/http:\/\/.+/g)
   return (
     <div className="col-md-6" onClick={(e) => {onClick(blog)}}>
       <div className="row preview rounded">
-        <span className="col-md-4 col-xs-12 preview__img-container">
-          <img 
-            className="preview__img"
-            src={blog.thumbnail}
-          />
-        </span>
-        <span className="col-md-8 preview__blog">
+        {
+          isContainThumbnail &&
+          <span className="col-md-4 col-xs-12 preview__img-container">
+            <img 
+              className="preview__img"
+              src={blog.thumbnail}
+              onError={e => e.target.src = altImg}
+            />
+          </span>
+        }
+        <span className={(isContainThumbnail ? "col-md-8" : "col-md-12") + " preview__blog"}>
           <div className="preview__title">
             {blog.title}
           </div>
