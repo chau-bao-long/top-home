@@ -2,9 +2,10 @@
 
 apis=(
 # login
+blog_get
 # blogs_post
  # photo_post
-photo_index
+# photo_index
 )
 
 # Top home api

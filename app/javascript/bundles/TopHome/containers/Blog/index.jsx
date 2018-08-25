@@ -10,6 +10,7 @@ import type { Blog } from "../../models/blog"
 import { getBlogs } from "../../actions/blogAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
+import { withCookies } from 'react-cookie'
 
 type Props = {
   blogs: Array<Blog>,
@@ -19,6 +20,7 @@ type Props = {
   match: Object,
   history: Object,
   isRenderDetail: boolean,
+  isAuth: boolean,
 }
 
 type State = {
@@ -67,14 +69,20 @@ class BlogContainer extends React.Component<Props, State> {
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
 
   render() {
-    const { isRenderDetail } = this.props
+    const { isRenderDetail, isAuth } = this.props
+    const { navBarStyle } = this.state
     return (
       <div>
-        <NavBar className={this.state.navBarStyle} editMode={isRenderDetail} onEditBlog={() => this.handleEditBlog()}/>
+        <NavBar 
+          className={navBarStyle} 
+          editMode={isRenderDetail} 
+          onEditBlog={() => this.handleEditBlog()}
+          isAuth={isAuth}
+        />
         { isRenderDetail ? this.renderDetail() : this.renderList() }
       </div>
     )
   }
 }
 
-export default withRouter(connect(selector, { getBlogs })(BlogContainer))
+export default withCookies(withRouter(connect(selector, { getBlogs })(BlogContainer)))

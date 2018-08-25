@@ -43,9 +43,9 @@ export default class BlogEditor extends React.PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     const { blog } = this.props
-    if (blog && prevProps.blog != blog) {
-      this.setState({ title: blog.title })
-      this.editor.value(blog.body)
+    if (prevProps.blog != blog) {
+      this.setState({ title: (blog ? blog.title : "")})
+      this.editor.value(blog ? blog.body : "")
     }
   }
 

@@ -1,4 +1,6 @@
 class Api::V1::BlogsController < Api::ApiController
+  skip_before_action :authenticate_user!, only: %i(index show)
+
   def create
     current_user.blogs.create! blog_params
   end
@@ -10,11 +12,11 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def index
-    current_user.blogs
+    Blog.all
   end
 
   def show
-    current_user.blogs.where(id: params[:id]).take
+    Blog.find id: params[:id]
   end
 
   def blog_params

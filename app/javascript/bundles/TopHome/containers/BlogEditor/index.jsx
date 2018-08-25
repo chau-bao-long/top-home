@@ -3,19 +3,21 @@ import React from "react"
 import BlogEditor from "../../components/BlogEditor"
 import { connect } from "react-redux"
 import { error } from "../../actions/apiAction"
-import { createBlog, updateBlog } from "../../actions/blogAction"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
 import dateFns from "date-fns"
-import { getBlog } from "../../actions/blogAction"
-import { getPhotos, uploadPhoto } from "../../actions/blogAction"
+import { 
+  createBlog, updateBlog, getBlog, getPhotos, uploadPhoto, clearCurrentBlog
+} from "../../actions/blogAction"
 
 type Props = {
+  editMode: boolean,
   isLoading: boolean,
   errorMsg: string,
   setError: (error?: string) => {},
   createBlog: (title: string, body: string) => Promise<>,
   updateBlog: (id: string, title: string, body: string) => Promise<>,
+  clearCurrentBlog: () => void,
   getBlog: (id: string) => Promise<>,
   getPhotos: () => {},
   uploadPhoto: (file: File) => void,
@@ -36,7 +38,8 @@ class BlogEditorContainer extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { blogs, blogId, getBlog, getPhotos } = this.props
+    const { blogs, blogId, getBlog, getPhotos, editMode, clearCurrentBlog } = this.props
+    if (!editMode) clearCurrentBlog()
     if (blogId && blogs.length == 0) getBlog(blogId)
     getPhotos()
   }
@@ -49,7 +52,6 @@ class BlogEditorContainer extends React.Component<Props, State> {
       createBlog(title, body)
     }
   }
-
 
   get savedTime(): string {
     const { blog } = this.props
@@ -74,7 +76,5 @@ class BlogEditorContainer extends React.Component<Props, State> {
 }
 
 export default connect(selector, {
-  error, createBlog , updateBlog, getBlog, getPhotos, uploadPhoto
+  error, createBlog , updateBlog, getBlog, getPhotos, uploadPhoto, clearCurrentBlog
 })(BlogEditorContainer)
-
-

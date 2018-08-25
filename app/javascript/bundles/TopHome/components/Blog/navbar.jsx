@@ -6,11 +6,12 @@ type Props = {
   className: string,
   editMode: boolean,
   onEditBlog: Function,
+  isAuth: boolean,
 }
 
 export default class NavBar extends React.PureComponent<Props> {
   render() {
-    const { className, onEditBlog, editMode } = this.props
+    const { className, onEditBlog, editMode, isAuth } = this.props
     return (
       <nav className={"navbar navbar-expand-lg navbar-light sticky-top " + className}>
         <button className="btn btn-outline-secondary navbar__button">
@@ -21,9 +22,17 @@ export default class NavBar extends React.PureComponent<Props> {
           READ MY BLOGS
         </p>
         <span className="navbar__utility">
-          { editMode && <span className="lnr lnr-magic-wand navbar__edit-blog" onClick={onEditBlog}></span> }
-          <Link to="/blogs/new" className="lnr lnr-pencil navbar__write-blog"></Link>
-          <span className="lnr lnr-magnifier navbar__search"></span>
+          {
+            editMode && isAuth && 
+            <span className="lnr lnr-magic-wand navbar__edit-blog" onClick={onEditBlog}></span> 
+          }
+          {
+            isAuth &&
+            <Link to="/blogs/new" className="lnr lnr-pencil navbar__write-blog"></Link>
+          }
+          <span 
+            className="lnr lnr-magnifier navbar__search" 
+            onClick={e => alert("I'm working on it, comming soon!")}/>
         </span>
       </nav>
     )

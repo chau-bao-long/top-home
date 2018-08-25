@@ -22,6 +22,10 @@ export const blogReducer = handleApiActions(
       ...state,
       photos: [...state.photos, action.payload.data.photo]
     }),
+    CLEAR_CURRENT_BLOG: (state, action) => ({
+      ...state,
+      blog: null,
+    })
   },
   {
     blogs: [],

@@ -12,9 +12,10 @@ class PrivateRoute extends Component {
 
   render() {
     return (
-      <Route {...this.rest} render={props =>
-        this.isAuthenticated ? (
-          <this.component {...props} />
+      <Route {...this.rest} render={props => {
+        const allProps = {...props, ...this.rest}
+        return this.isAuthenticated ? (
+          <this.component {...allProps} />
         ) : (
           <Redirect to={{
             pathname: '/login',
@@ -22,7 +23,7 @@ class PrivateRoute extends Component {
           }}
           />
         )
-      }
+        }}
       />
     )
   }

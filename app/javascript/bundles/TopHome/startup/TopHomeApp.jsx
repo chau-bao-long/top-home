@@ -21,10 +21,10 @@ const TopHomeApp = (props) => (
           <PrivateRoute path="/iot" component={IoTComponent} />
           <Route path="/login" component={LoginComponent} />
           <PrivateRoute path="/blogs/new" component={BlogEditorComponent} />
-          <PrivateRoute path="/blogs/:blogId/edit" component={BlogEditorComponent} />
+          <PrivateRoute path="/blogs/:blogId/edit" component={BlogEditorComponent} editMode={true} />
           <Route path="/blogs" component={BlogComponent} />
           <Route path="/portfolio" component={PortfolioComponent} />
-          <Route component={NoMatchComponent}/> 
+          <Route component={NoMatchComponent} /> 
         </Switch>
       </BrowserRouter>
     </CookiesProvider>

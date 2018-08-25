@@ -15,6 +15,8 @@ export const getSelectedBlog = createSelector(
 
 const isRenderDetail = (state, props) => !props.match.isExact
 
+const isAuthFromCookies = (state, props) => !!(props.allCookies && props.allCookies["is_auth"])
+
 const blogWithThumbnailSelector = createSelector(
   blogSelector,
   blog => ({
@@ -36,11 +38,12 @@ function getPreviewImg(blog: Blog) {
 }
 
 export const selector = createSelector(
-  getSelectedBlogId, getSelectedBlog, blogWithThumbnailSelector, isRenderDetail,
-  (selectedBlogId, selectedBlog, blog, isRender) => ({
+  getSelectedBlogId, getSelectedBlog, blogWithThumbnailSelector, isRenderDetail, isAuthFromCookies,
+  (selectedBlogId, selectedBlog, blog, isRender, isAuth) => ({
     ...blog,
     blog: selectedBlog,
     blogId: selectedBlogId,
     isRenderDetail: isRender,
+    isAuth: isAuth,
   })
 )
