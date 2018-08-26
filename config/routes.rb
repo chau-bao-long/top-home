@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :sessions, only: %i(create)
-      resources :blogs, only: %i(index create update show)
+      resources :blogs, only: %i(index create update show) do
+        member do
+          post 'claps'
+        end
+      end
       resources :photos, only: %i(index create)
     end
   end

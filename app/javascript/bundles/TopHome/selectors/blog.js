@@ -1,5 +1,6 @@
 // @flow 
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect"
+import type { Blog } from "../models/Blog"
 
 const blogSelector = state => state.blog
 

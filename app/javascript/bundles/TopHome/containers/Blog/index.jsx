@@ -7,7 +7,7 @@ import NavBar from "../../components/Blog/navbar"
 import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
-import { getBlogs } from "../../actions/blogAction"
+import { getBlogs, claps } from "../../actions/blogAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
@@ -21,6 +21,7 @@ type Props = {
   history: Object,
   isRenderDetail: boolean,
   isAuth: boolean,
+  claps: (id: number) => void,
 }
 
 type State = {
@@ -52,6 +53,10 @@ class BlogContainer extends React.Component<Props, State> {
     this.props.history.push(`${this.props.match.url}/${this.props.blogId}/edit`)
   }
 
+  handleClap(id: number) {
+    this.props.claps(id)
+  }
+
   handleScroll = (event: SyntheticEvent<>) => {
     let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "" 
     this.setState({navBarStyle: style})
@@ -60,9 +65,9 @@ class BlogContainer extends React.Component<Props, State> {
   renderDetail = () => (
     <div className="details-container">
       <Route path={`${this.props.match.path}/:id`} render={
-        props => <BlogDetail blog={this.props.blog}/>
+        props => <BlogDetail blog={this.props.blog} onClap={(id) => {this.handleClap(id)}} />
       } exact />
-      <FurtherReading blogs={this.props.blogs.slice(0, 5)}/>
+      <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
     </div>
   )
 
@@ -85,4 +90,4 @@ class BlogContainer extends React.Component<Props, State> {
   }
 }
 
-export default withCookies(withRouter(connect(selector, { getBlogs })(BlogContainer)))
+export default withCookies(withRouter(connect(selector, { getBlogs, claps })(BlogContainer)))

@@ -46,6 +46,10 @@ class TopHomeApi {
     return this.client.get("/api/v1/photos")
   }
 
+  claps(id: number) {
+    return this.client.post(`/api/v1/blogs/${id}/claps`)
+  }
+
   uploadPhoto(photo: File) {
     const formData = new FormData()
     formData.append("photo", photo, photo.name)

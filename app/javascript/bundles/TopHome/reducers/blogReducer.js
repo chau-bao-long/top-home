@@ -25,7 +25,14 @@ export const blogReducer = handleApiActions(
     CLEAR_CURRENT_BLOG: (state, action) => ({
       ...state,
       blog: null,
-    })
+    }),
+    CLAPS_SUCC: (state, action) => ({
+      ...state,
+      blogs: state.blogs.map(b => {
+        const updatedBlog = action.payload.data
+        return b.id ==  updatedBlog.id ? updatedBlog : b
+      }),
+    }),
   },
   {
     blogs: [],

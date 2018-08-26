@@ -4,12 +4,7 @@ import {
   getBlogsSucc,
   getBlogSucc,
   modifyBlogSucc,
-  createBlog,
-  updateBlog,
-  getBlogs,
-  getBlog,
-  getPhotos,
-  uploadPhoto,
+  clapsSucc,
 } from "../actions/blogAction"
 import { loading, error } from "../actions/apiAction"
 
@@ -59,6 +54,16 @@ function* show(action) {
   }
 }
 
+function* claps(action) {
+  try {
+    const api = new TopHomeApi()
+    const response = yield call([api, api.claps], action.payload)
+    yield put(clapsSucc(response))
+  } catch(errors) {
+    // nothing
+  }
+}
+
 export function* watchCreateBlog() {
   yield takeEvery("CREATE_BLOG", post)
 }
@@ -73,4 +78,8 @@ export function* watchGetBlogs() {
 
 export function* watchGetBlog() {
   yield takeLatest("GET_BLOG", show)
+}
+
+export function* watchClaps() {
+  yield takeLatest("CLAPS", claps)
 }

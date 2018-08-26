@@ -11,6 +11,8 @@ export const {
   getPhotos,
   uploadPhoto,
   clearCurrentBlog,
+  claps,
+  clapsSucc,
 } = createActions({
   MODIFY_BLOG_SUCC: payload => payload,
   GET_BLOGS_SUCC: payload => payload,
@@ -22,4 +24,6 @@ export const {
   GET_PHOTOS: undefined,
   UPLOAD_PHOTO: (photo: File) => [photo],
   CLEAR_CURRENT_BLOG: undefined,
+  CLAPS: (id: number) => id,
+  CLAPS_SUCC: payload => payload,
 })

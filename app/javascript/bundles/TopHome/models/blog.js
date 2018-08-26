@@ -3,6 +3,7 @@ export type Blog {
   userId: number,
   title: string,
   body: string,
+  clap: number,
   thumbnail: string,
   created_at: Date,
   updated_at: Date,

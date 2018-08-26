@@ -16,8 +16,14 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def show
-    Blog.find id: params[:id]
+    Blog.find params[:id]
   end
+
+  def claps
+    Blog.find(params[:id]).tap(&:claps)
+  end
+
+  private
 
   def blog_params
     params.permit(:title, :body)
