@@ -2,10 +2,13 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import type { Blog } from "../../models/blog"
+import type { Comment } from "../../models/blog"
 import SocialComponent from "./social"
+import CommentComponent from "./comment"
 
 type Props = {
   blog: Blog,
+  comment: Array<Comment>,
   onClap: (blogId: number) => void,
 }
 
@@ -19,7 +22,7 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
   }
 
   render() {
-    const { blog } = this.props
+    const { blog, comment } = this.props
     const { isClap } = this.state
     if (!blog) return null
     return (
@@ -27,6 +30,7 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
         <h2 className="blog-details__title">{blog.title}</h2>
         <ReactMarkdown className="blog-details__body" source={blog.body}/>
         <SocialComponent blog={blog} isClap={isClap} onClap={(e) => this.handleClapClick(e)} />
+        <CommentComponent comments={comment} />
       </div>
     )
   }
