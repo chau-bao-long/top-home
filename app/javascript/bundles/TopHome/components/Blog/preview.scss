@@ -3,6 +3,7 @@
   margin: 15px 0px;
   height: 360px;
   display: flex;
+  background: white;
 
   @include breakpoint(xs) {
     flex-direction: row;

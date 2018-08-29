@@ -77,7 +77,7 @@ class BlogContainer extends React.Component<Props, State> {
     const { isRenderDetail, isAuth } = this.props
     const { navBarStyle } = this.state
     return (
-      <div>
+      <div className="blog-container">
         <NavBar 
           className={navBarStyle} 
           editMode={isRenderDetail} 

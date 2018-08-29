@@ -4,4 +4,81 @@
   h6 {
     font-weight: bold;
   }
+
+  &__editor {
+    display: flex;
+    position: relative;
+    outline: none;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px;
+    margin: 20px 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+    border: 1px solid rgba(0,0,0,.09);
+    background: white;
+
+    &--focus {
+      animation-duration: 500ms;
+      animation-name: expand-anim;
+      animation-fill-mode: forwards;
+    }
+
+    &--unfocus {
+      animation-duration: 500ms;
+      animation-name: narrow-anim;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes expand-anim {
+      from { min-height: 80px; }
+      to { min-height: 300px; }
+    }
+
+    @keyframes narrow-anim {
+      from { min-height: 300px; }
+      to { min-height: 80px; }
+    }
+  }
+
+  &__edit-hint {
+    position: relative;
+    padding-top: 16px;
+
+    &--focus {
+      animation-duration: 500ms;
+      animation-name: fly-out;
+      animation-fill-mode: forwards;
+    }
+
+    &--unfocus {
+      animation-duration: 500ms;
+      animation-name: fly-in;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes fly-out {
+      from { top: 0; opacity: 1; }
+      to { top: -30px; opacity: 0; }
+    }
+
+    @keyframes fly-in {
+      from { top: -30px; opacity: 0; }
+      to { top: 0; opacity: 1; }
+    }
+  }
+
+  &__title, &__content {
+    width: 100%;
+    min-height: 48px;
+  }
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+
+div[contenteditable=true] {
+  padding: 5px;
 }
