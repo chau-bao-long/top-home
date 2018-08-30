@@ -1,7 +1,7 @@
 // @flow
 import React from "react"
-import type { Comment } from "../../models/comment"
-import CommentEditor from "./commentEditor"
+import type { Comment } from "../../models/Comment"
+import CommentEditor from "./CommentEditor"
 
 type Props = {
   comments: Array<Comment>;

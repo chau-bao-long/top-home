@@ -3,32 +3,42 @@ import React from "react"
 import ReactMarkdown from "react-markdown"
 import _ from "lodash"
 import type { Blog } from "../../models/blog"
-import Preview from "./preview"
+import Preview from "./Preview"
+import styled from "styled-components"
+import { breakpoint } from "../../utils/styleUtils"
 
 type Props = {
   blogs: Array<Blog>,
   onClick: Function,
 }
 
-type State = {
-}
+const BlogList = styled.div.attrs({
+  className: "row",
+})`
+  overflow: visible;
+  margin: 0 35px;
 
-export default class BlogComponent extends React.PureComponent<Props, State> {
+  ${breakpoint.xxs`
+  margin: 0 5px;
+  `}
+`
+
+export default class BlogComponent extends React.PureComponent<Props> {
   constructor(props: Props) {
-    super(props)
+    super()
   }
 
   render() {
     const { blogs, onClick } = this.props
     return (
       <div className="container-fluid">
-        <div className="blogs row" >
+        <BlogList>
           {
             blogs.map(blog => (
               <Preview key={blog.id} blog={blog} onClick={onClick}/>
             ))
           }
-        </div>
+        </BlogList>
       </div>
     );
   }

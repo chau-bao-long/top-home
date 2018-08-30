@@ -3,7 +3,7 @@ import React from "react"
 import BlogComponent from "../../components/Blog"
 import FurtherReading from "../../components/FurtherReading"
 import BlogDetail from "../../components/BlogDetail"
-import NavBar from "../../components/Blog/navbar"
+import NavBar from "../../components/Blog/Navbar"
 import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
@@ -11,6 +11,7 @@ import { getBlogs, claps } from "../../actions/blogAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
+import styled from "styled-components"
 
 type Props = {
   blogs: Array<Blog>,
@@ -27,6 +28,10 @@ type Props = {
 type State = {
   navBarStyle: string,
 }
+
+const Container = styled.div`
+  background: #fafafa;
+`
 
 class BlogContainer extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -77,7 +82,7 @@ class BlogContainer extends React.Component<Props, State> {
     const { isRenderDetail, isAuth } = this.props
     const { navBarStyle } = this.state
     return (
-      <div className="blog-container">
+      <Container>
         <NavBar 
           className={navBarStyle} 
           editMode={isRenderDetail} 
@@ -85,7 +90,7 @@ class BlogContainer extends React.Component<Props, State> {
           isAuth={isAuth}
         />
         { isRenderDetail ? this.renderDetail() : this.renderList() }
-      </div>
+      </Container>
     )
   }
 }
