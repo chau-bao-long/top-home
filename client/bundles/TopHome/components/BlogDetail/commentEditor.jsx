@@ -1,5 +1,6 @@
 // @flow
 import React from "react"
+import Contenteditable from "../Common/Contenteditable"
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
@@ -18,12 +19,26 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
     content: "",
   }
 
-  handleFocus(isFocus: boolean) {
-    this.setState({isFocus: isFocus})
+  titleElement: any
+  contentElement: any
+  isFocusing: boolean = false
+  isFocus: boolean = false
+
+  handleFocus(event: any) {
+    this.isFocus = event.type == "focus"
+    if (!this.isFocusing) {
+      this.isFocusing = true
+      setTimeout(() => {
+        this.setState({isFocus: this.isFocus})
+        this.isFocusing = false
+      }, 100)
+    }
+    if (this.isFocus && this.contentElement.htmlEl != event.target) {
+      this.titleElement.htmlEl.focus()
+    }
   }
 
   handleTitleChange(e: any) {
-    //TODO  Use contenteditable in react style
     this.setState({title: e.target.value})
   }
 
@@ -38,25 +53,28 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
       <div 
         className={`comments__editor comments__editor--${focusClazz}`}
         tabIndex="-1" 
-        onFocus={e => this.handleFocus(true)}
-        onBlur={e => this.handleFocus(false)} 
+        onFocus={e => this.handleFocus(e)}
+        onBlur={e => this.handleFocus(e)} 
       >
-        <p className={`comments__edit-hint comments__edit-hint--${focusClazz}`}>Write a comment...</p>
+        <p className={`comments__edit-hint comments__edit-hint--${focusClazz}`}>
+          Write a comment...
+        </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
-          <div 
+          <Contenteditable
             className="comments__title"
-            contentEditable
+            ref={e => this.titleElement = e}
             html={title}
             onChange={e => this.handleTitleChange(e)}
             placeHolder="Enter your name"
           />
-          <div 
+          <Contenteditable
             className="comments__content"
-            contentEditable
             html={content}
+            ref={e => this.contentElement = e}
             onChange={e => this.handleContentChange(e)}
             placeHolder="Enter your comments"
           />
+          <button className="btn btn-outline-secondary comments__button">Publish</button>
         </div>
       </div>
     )

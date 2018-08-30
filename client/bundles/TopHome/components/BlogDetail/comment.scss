@@ -45,7 +45,7 @@ div[contenteditable=true] {
 
   &__edit-hint {
     position: relative;
-    padding-top: 16px;
+    padding-top: 12px;
 
     @include focus-animation(fly-out, fly-in);
 
@@ -67,24 +67,34 @@ div[contenteditable=true] {
     @include focus-animation(fly-up, fly-down);
 
     @keyframes fly-up {
-      from { top: 0; opacity: 0; }
-      to { top: -40px; opacity: 1; }
+      0% { top: 0; opacity: 0; }
+      80% { top: -30px; opacity: .8; }
+      100% { top: -40px; opacity: 1; }
     }
 
     @keyframes fly-down {
-      from { top: -40px; opacity: 1; }
+      0% { top: -40px; opacity: 1; }
+      20% { top: -30px; opacity: .2; }
+      100% { top: 0; opacity: 0; }
       to { top: 0; opacity: 0; }
     }
   }
 
   &__content {
     width: 100%;
-    min-height: 36px;
+    height: 150px;
+    margin-top: 20px;
+    overflow: hidden;
   }
 
   &__title {
     width: 100%;
     min-height: 36px;
     border-bottom: 1px solid rgba(0,0,0,.09);
+  }
+
+  &__button {
+    position: absolute;
+    top: 224px;
   }
 }
