@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :sessions, only: %i(create)
       resources :blogs, only: %i(index create update show) do
+        resources :comments, only: %i(index create)
         member do
           post 'claps'
         end

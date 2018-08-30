@@ -1,6 +1,7 @@
 // @flow
 import React from "react"
-import Contenteditable from "../Common/Contenteditable"
+import Contenteditable from "../../Common/Contenteditable"
+import Button from "./Button"
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
@@ -74,7 +75,9 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
             onChange={e => this.handleContentChange(e)}
             placeHolder="Enter your comments"
           />
-          <button className="btn btn-outline-secondary comments__button">Publish</button>
+          <Button onClick={e => this.props.onSubmit(title, content)}>
+            Publish Comment
+          </Button>
         </div>
       </div>
     )

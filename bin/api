@@ -2,7 +2,8 @@
 
 apis=(
 # login
-claps
+comments_index
+# comments_post
 )
 
 # Top home api
@@ -31,5 +32,11 @@ for i in ${apis[*]}; do
     claps)
       http post localhost:3000/api/v1/blogs/1/claps $cookie 
       ;;
+    comments_index)
+      http localhost:3000/api/v1/blogs/1/comments
+			;;
+		comments_post)
+			http post localhost:3000/api/v1/blogs/1/comments author="Nguyen van A" content="content"
+			;;
   esac
 done

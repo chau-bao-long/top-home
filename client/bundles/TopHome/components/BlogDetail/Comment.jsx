@@ -15,7 +15,7 @@ export default class CommentComponent extends React.PureComponent<Props, State> 
     return (
       <section className="comments mt-5 py-3">
         <h5>Comments</h5>
-        <CommentEditor onSubmit={this.handleCommentSubmit} />
+      <CommentEditor onSubmit={(title, content) => this.handleCommentSubmit(title, content)} />
         <div> dfdf</div>
         <div> dfdf</div>
         <div> dfdf</div>
@@ -36,6 +36,7 @@ export default class CommentComponent extends React.PureComponent<Props, State> 
     )
   }
 
-  handleCommentSubmit() {
+  handleCommentSubmit(title: string, content: string) {
+    debugger
   }
 }
