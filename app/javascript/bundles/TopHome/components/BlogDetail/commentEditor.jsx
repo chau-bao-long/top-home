@@ -42,20 +42,22 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
         onBlur={e => this.handleFocus(false)} 
       >
         <p className={`comments__edit-hint comments__edit-hint--${focusClazz}`}>Write a comment...</p>
-        <div 
-          className="comments__title"
-          contentEditable 
-          html={title} 
-          onChange={e => this.handleTitleChange(e)}
-          placeHolder="Enter your name"
-        />
-        <div 
-          className="comments__content"
-          contentEditable 
-          html={content} 
-          onChange={e => this.handleContentChange(e)}
-          placeHolder="Enter your comments"
-        />
+        <div className={`comments__form comments__form--${focusClazz}`} >
+          <div 
+            className="comments__title"
+            contentEditable
+            html={title}
+            onChange={e => this.handleTitleChange(e)}
+            placeHolder="Enter your name"
+          />
+          <div 
+            className="comments__content"
+            contentEditable
+            html={content}
+            onChange={e => this.handleContentChange(e)}
+            placeHolder="Enter your comments"
+          />
+        </div>
       </div>
     )
   }

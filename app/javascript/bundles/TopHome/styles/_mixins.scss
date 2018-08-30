@@ -19,3 +19,19 @@
     @warn 'Breakpoint mixin supports: xxs, xs, sm, md, lg';
   }
 }
+
+@mixin animation($name) {
+  animation-duration: 500ms;
+  animation-name: $name;
+  animation-fill-mode: forwards;
+}
+
+@mixin focus-animation($in, $out) {
+  &--focus {
+    @include animation($in);
+  }
+
+  &--unfocus {
+    @include animation($out);
+  }
+}

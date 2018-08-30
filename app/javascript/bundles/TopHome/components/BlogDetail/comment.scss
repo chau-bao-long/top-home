@@ -1,3 +1,16 @@
+*:focus {
+  outline: none;
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+
+div[contenteditable=true] {
+  padding: 5px;
+}
+
 .comments {
   border-top: 1px solid rgba(0,0,0,.05)!important;
 
@@ -8,7 +21,6 @@
   &__editor {
     display: flex;
     position: relative;
-    outline: none;
     align-items: flex-start;
     flex-direction: column;
     padding: 16px;
@@ -18,26 +30,16 @@
     border: 1px solid rgba(0,0,0,.09);
     background: white;
 
-    &--focus {
-      animation-duration: 500ms;
-      animation-name: expand-anim;
-      animation-fill-mode: forwards;
-    }
-
-    &--unfocus {
-      animation-duration: 500ms;
-      animation-name: narrow-anim;
-      animation-fill-mode: forwards;
-    }
+    @include focus-animation(expand-anim, narrow-anim);
 
     @keyframes expand-anim {
-      from { min-height: 80px; }
-      to { min-height: 300px; }
+      from { height: 80px; }
+      to { height: 300px; }
     }
 
     @keyframes narrow-anim {
-      from { min-height: 300px; }
-      to { min-height: 80px; }
+      from { height: 300px; }
+      to { height: 80px; }
     }
   }
 
@@ -45,17 +47,7 @@
     position: relative;
     padding-top: 16px;
 
-    &--focus {
-      animation-duration: 500ms;
-      animation-name: fly-out;
-      animation-fill-mode: forwards;
-    }
-
-    &--unfocus {
-      animation-duration: 500ms;
-      animation-name: fly-in;
-      animation-fill-mode: forwards;
-    }
+    @include focus-animation(fly-out, fly-in);
 
     @keyframes fly-out {
       from { top: 0; opacity: 1; }
@@ -68,17 +60,31 @@
     }
   }
 
-  &__title, &__content {
+  &__form {
+    position: relative;
     width: 100%;
-    min-height: 48px;
+
+    @include focus-animation(fly-up, fly-down);
+
+    @keyframes fly-up {
+      from { top: 0; opacity: 0; }
+      to { top: -40px; opacity: 1; }
+    }
+
+    @keyframes fly-down {
+      from { top: -40px; opacity: 1; }
+      to { top: 0; opacity: 0; }
+    }
   }
-}
 
-[contenteditable=true]:empty:before {
-  content: attr(placeholder);
-  display: block; /* For Firefox */
-}
+  &__content {
+    width: 100%;
+    min-height: 36px;
+  }
 
-div[contenteditable=true] {
-  padding: 5px;
+  &__title {
+    width: 100%;
+    min-height: 36px;
+    border-bottom: 1px solid rgba(0,0,0,.09);
+  }
 }
