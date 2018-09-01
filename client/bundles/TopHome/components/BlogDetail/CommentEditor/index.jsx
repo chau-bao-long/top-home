@@ -1,7 +1,8 @@
 // @flow
 import React from "react"
-import Contenteditable from "../../Common/Contenteditable"
 import Button from "./Button"
+import Title from "./Title"
+import Content from "./Content"
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
@@ -61,19 +62,15 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
           Write a comment...
         </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
-          <Contenteditable
-            className="comments__title"
+          <Title
             ref={e => this.titleElement = e}
             html={title}
             onChange={e => this.handleTitleChange(e)}
-            placeHolder="Enter your name"
           />
-          <Contenteditable
-            className="comments__content"
+          <Content
             html={content}
             ref={e => this.contentElement = e}
             onChange={e => this.handleContentChange(e)}
-            placeHolder="Enter your comments"
           />
           <Button onClick={e => this.props.onSubmit(title, content)}>
             Publish Comment

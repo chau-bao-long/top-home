@@ -2,7 +2,7 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 import styled, { css } from "styled-components"
-import { breakpoint } from "../../utils/styleUtils"
+import { breakpoint } from "../../vars/helper"
 
 type Props = {
   className: string,

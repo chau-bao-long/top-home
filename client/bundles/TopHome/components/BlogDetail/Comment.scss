@@ -46,6 +46,7 @@ div[contenteditable=true] {
   &__edit-hint {
     position: relative;
     padding-top: 12px;
+    font-size: 1em;
 
     @include focus-animation(fly-out, fly-in);
 
@@ -78,18 +79,5 @@ div[contenteditable=true] {
       100% { top: 0; opacity: 0; }
       to { top: 0; opacity: 0; }
     }
-  }
-
-  &__content {
-    width: 100%;
-    height: 150px;
-    margin-top: 20px;
-    overflow: hidden;
-  }
-
-  &__title {
-    width: 100%;
-    min-height: 36px;
-    border-bottom: 1px solid rgba(0,0,0,.09);
   }
 }

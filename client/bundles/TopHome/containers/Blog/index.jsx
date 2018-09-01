@@ -12,6 +12,7 @@ import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import styled from "styled-components"
+import { color } from "../../vars/theme"
 
 type Props = {
   blogs: Array<Blog>,
@@ -30,7 +31,7 @@ type State = {
 }
 
 const Container = styled.div`
-  background: #fafafa;
+  background: ${color.alabaster};
 `
 
 class BlogContainer extends React.Component<Props, State> {

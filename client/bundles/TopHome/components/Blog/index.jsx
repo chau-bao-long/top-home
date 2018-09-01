@@ -5,7 +5,7 @@ import _ from "lodash"
 import type { Blog } from "../../models/blog"
 import Preview from "./Preview"
 import styled from "styled-components"
-import { breakpoint } from "../../utils/styleUtils"
+import { breakpoint } from "../../vars/helper"
 
 type Props = {
   blogs: Array<Blog>,

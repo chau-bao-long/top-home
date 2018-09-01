@@ -1,4 +1,4 @@
-import { breakpoint } from "../../../utils/styleUtils"
+import { breakpoint } from "../../../vars/helper"
 import styled from "styled-components"
 
 export default styled.div.attrs({
@@ -6,7 +6,7 @@ export default styled.div.attrs({
 })`
   border: 1px solid rgba(0,0,0,.1)!important;
   margin: 15px 0px;
-  height: 600px;
+  height: 500px;
   display: flex;
   background: white;
 

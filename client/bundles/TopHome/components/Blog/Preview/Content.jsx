@@ -1,4 +1,4 @@
-import { breakpoint } from "../../../utils/styleUtils"
+import { breakpoint } from "../../../vars/helper"
 import styled from "styled-components"
 
 export default styled.span`
