@@ -1,27 +1,28 @@
 // @flow
 import React from "react"
-import Button from "./Button"
-import Title from "./Title"
+import Button, { ButtonWrapper, ButtonLoading } from "./Button"
+import Author from "./Author"
 import Content from "./Content"
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
+  isLoading: boolean,
 }
 
 type State = {
   isFocus: boolean,
-  title: string,
+  author: string,
   content: string,
 }
 
 export default class CommentEditor extends React.PureComponent<Props, State> {
   state: State = {
     isFocus: false,
-    title: "",
+    author: "",
     content: "",
   }
 
-  titleElement: any
+  authorElement: any
   contentElement: any
   isFocusing: boolean = false
   isFocus: boolean = false
@@ -36,12 +37,12 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
       }, 100)
     }
     if (this.isFocus && this.contentElement != event.target) {
-      this.titleElement.focus()
+      this.authorElement.focus()
     }
   }
 
-  handleTitleChange(e: any) {
-    this.setState({title: e.target.value})
+  handleAuthorChange(e: any) {
+    this.setState({author: e.target.value})
   }
 
   handleContentChange(e: any) {
@@ -49,7 +50,8 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { isFocus, title, content } = this.state
+    const { isFocus, author, content } = this.state
+    const { isLoading } = this.props
     const focusClazz = isFocus ? "focus" : "unfocus"
     return (
       <div 
@@ -62,19 +64,22 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
           Write a comment...
         </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
-          <Title
-            refOrigin={e => this.titleElement = e}
-            html={title}
-            onChange={e => this.handleTitleChange(e)}
+          <Author
+            refElement={e => this.authorElement = e}
+            html={author}
+            onChange={e => this.handleAuthorChange(e)}
           />
           <Content
-            refOrigin={e => this.contentElement = e}
+            refElement={e => this.contentElement = e}
             html={content}
             onChange={e => this.handleContentChange(e)}
           />
-          <Button onClick={e => this.props.onSubmit(title, content)}>
-            Publish Comment
-          </Button>
+          <ButtonWrapper>
+            <Button onClick={e => this.props.onSubmit(author, content)}>
+              Publish Comment
+            </Button>
+            { isLoading && <ButtonLoading /> }
+          </ButtonWrapper>
         </div>
       </div>
     )

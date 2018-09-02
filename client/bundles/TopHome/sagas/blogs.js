@@ -13,11 +13,11 @@ function* post(action) {
     yield put(loading.blog(true))
     const api = new TopHomeApi()
     const response = yield call([api, api.createBlog], ...action.payload)
-    yield put(loading.blog(false))
     yield put(modifyBlogSucc(response))
   } catch(errors) {
-    yield put(loading.blog(false))
     yield put(error.blog(errors[0].message))
+  } finally {
+    yield put(loading.blog(false))
   }
 }
 
@@ -26,12 +26,13 @@ function* patch(action) {
     yield put(loading.blog(true))
     const api = new TopHomeApi()
     const response = yield call([api, api.updateBlog], ...action.payload)
-    yield put(loading.blog(false))
     yield put(modifyBlogSucc(response))
   } catch(errors) {
-    yield put(loading.blog(false))
     yield put(error.blog(errors[0].message))
+  } finally {
+    yield put(loading.blog(false))
   }
+
 }
 
 function* index(action) {

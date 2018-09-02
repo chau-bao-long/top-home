@@ -1,3 +1,5 @@
+import Comment from './comment'
+
 export type Blog {
   id: number,
   userId: number,
@@ -7,4 +9,5 @@ export type Blog {
   thumbnail: string,
   created_at: Date,
   updated_at: Date,
+  comments: Array<Comment>,
 }

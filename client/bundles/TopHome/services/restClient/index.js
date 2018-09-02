@@ -56,6 +56,17 @@ class TopHomeApi {
     return this.client.post("/api/v1/photos", formData)
   }
 
+  getComments(blogId: integer) {
+    return this.client.get(`/api/v1/blogs/${blogId}/comments`)
+  }
+
+  postComment(blogId: integer, author: string, content: string) {
+    const params = new URLSearchParams()
+    params.append("author", author)
+    params.append("content", content)
+    return this.client.post(`/api/v1/blogs/${blogId}/comments`, params)
+  }
+
   _addErrorInterceptor(client: axios) {
     client.interceptors.response.use(res => res, error => {
       throw error.response.data.errors

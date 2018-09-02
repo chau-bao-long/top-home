@@ -8,6 +8,7 @@ import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
 import { getBlogs, claps } from "../../actions/blogAction"
+import { getComments, createComment } from "../../actions/commentAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
@@ -42,6 +43,22 @@ class BlogContainer extends React.Component<Props, State> {
     }
   }
 
+  render() {
+    const { isRenderDetail, isAuth } = this.props
+    const { navBarStyle } = this.state
+    return (
+      <Container>
+        <NavBar 
+          className={navBarStyle} 
+          editMode={isRenderDetail} 
+          onEditBlog={() => this.handleEditBlog()}
+          isAuth={isAuth}
+        />
+        { isRenderDetail ? this.renderDetail() : this.renderList() }
+      </Container>
+    )
+  }
+
   componentDidMount() {
     this.props.getBlogs()
     window.addEventListener('scroll', this.handleScroll);
@@ -68,32 +85,26 @@ class BlogContainer extends React.Component<Props, State> {
     this.setState({navBarStyle: style})
   }
 
+  handleCommentSubmit(blogId: integer, author: string, content: string) {
+    this.props.createComment(blogId, author, content)
+  }
+
   renderDetail = () => (
     <DetailsContainer>
       <Route path={`${this.props.match.path}/:id`} render={
-        props => <BlogDetail blog={this.props.blog} onClap={(id) => {this.handleClap(id)}} />
+        props => 
+        <BlogDetail 
+          blog={this.props.blog} 
+          onClap={id => this.handleClap(id)} 
+          onCommentSubmit={(blogId, title, content) => this.handleCommentSubmit(blogId, title, content)}
+          onLoadComments={id => this.props.getComments(id)}
+        />
       } exact />
       <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
     </DetailsContainer>
   )
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
-
-  render() {
-    const { isRenderDetail, isAuth } = this.props
-    const { navBarStyle } = this.state
-    return (
-      <Container>
-        <NavBar 
-          className={navBarStyle} 
-          editMode={isRenderDetail} 
-          onEditBlog={() => this.handleEditBlog()}
-          isAuth={isAuth}
-        />
-        { isRenderDetail ? this.renderDetail() : this.renderList() }
-      </Container>
-    )
-  }
 }
 
-export default withCookies(withRouter(connect(selector, { getBlogs, claps })(BlogContainer)))
+export default withCookies(withRouter(connect(selector, { getBlogs, claps, getComments, createComment })(BlogContainer)))

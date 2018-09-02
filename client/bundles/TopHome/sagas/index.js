@@ -8,6 +8,10 @@ import {
   watchGetBlog,
   watchClaps,
 } from "./blogs"
+import {
+  watchGetComments,
+  watchCreateComment,
+} from "./comments"
 
 export default function* rootSaga() {
   yield all([
@@ -19,5 +23,7 @@ export default function* rootSaga() {
     fork(watchUploadPhoto),
     fork(watchGetPhotos),
     fork(watchClaps),
+    fork(watchCreateComment),
+    fork(watchGetComments),
   ])
 }

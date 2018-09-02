@@ -9,8 +9,9 @@ import styled from 'styled-components'
 
 type Props = {
   blog: Blog,
-  comment: Array<Comment>,
   onClap: (blogId: number) => void,
+  onCommentSubmit: (blogId: integer, author: string, content: string) => void,
+  onLoadComments: (blogId: number) => void,
 }
 
 type State = {
@@ -31,17 +32,23 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
   }
 
   render() {
-    const { blog, comment } = this.props
+    const { blog } = this.props
     const { isClap } = this.state
     if (!blog) return null
+    const comments = blog.comments
+    // this.props.onLoadComments(blog.id)
     return (
       <Wrapper>
         <Title>{blog.title}</Title>
         <ReactMarkdown className="blog-details__markdown" source={blog.body}/>
-        <SocialComponent blog={blog} isClap={isClap} onClap={(e) => this.handleClapClick(e)} />
-        <CommentComponent comments={comment} />
+        <SocialComponent blog={blog} isClap={isClap} onClap={(e) => this.handleClapClick(e)}/>
+        <CommentComponent comments={comments} onCommentSubmit={this.handleCommentSubmit}/>
       </Wrapper>
     )
+  }
+
+  handleCommentSubmit = (author: string, content: string) => {
+    this.props.onCommentSubmit(this.props.blog.id, author, content)
   }
 
   handleClapClick(e: SyntheticEvent<>) {

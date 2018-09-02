@@ -7,10 +7,12 @@ export const {
   LOADING: {
     LOGIN: loadingPayload,
     BLOG: loadingPayload,
+    COMMENT: loadingPayload,
   },
   ERROR: {
     LOGIN: errorPayload,
     BLOG: errorPayload,
+    COMMENT: errorPayload,
   },
 })
 
