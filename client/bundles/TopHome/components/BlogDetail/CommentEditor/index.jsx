@@ -35,8 +35,8 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
         this.isFocusing = false
       }, 100)
     }
-    if (this.isFocus && this.contentElement.htmlEl != event.target) {
-      this.titleElement.htmlEl.focus()
+    if (this.isFocus && this.contentElement != event.target) {
+      this.titleElement.focus()
     }
   }
 
@@ -63,13 +63,13 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
         </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
           <Title
-            ref={e => this.titleElement = e}
+            refOrigin={e => this.titleElement = e}
             html={title}
             onChange={e => this.handleTitleChange(e)}
           />
           <Content
+            refOrigin={e => this.contentElement = e}
             html={content}
-            ref={e => this.contentElement = e}
             onChange={e => this.handleContentChange(e)}
           />
           <Button onClick={e => this.props.onSubmit(title, content)}>

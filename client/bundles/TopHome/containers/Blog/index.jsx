@@ -12,6 +12,7 @@ import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import styled from "styled-components"
+import DetailsContainer from '../../components/BlogDetail/DetailsContainer'
 
 type Props = {
   blogs: Array<Blog>,
@@ -68,12 +69,12 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   renderDetail = () => (
-    <div className="details-container">
+    <DetailsContainer>
       <Route path={`${this.props.match.path}/:id`} render={
         props => <BlogDetail blog={this.props.blog} onClap={(id) => {this.handleClap(id)}} />
       } exact />
       <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
-    </div>
+    </DetailsContainer>
   )
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>

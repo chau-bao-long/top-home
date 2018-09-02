@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 type Props = {
+  refOrigin: (?Element) => void,
   html: string,
   onChange?: Function,
   onBlur?: Function,
@@ -36,7 +37,10 @@ export default class Contenteditable extends React.Component<Props> {
       tagName || "div",
       {
         ...props,
-        ref: e => this.htmlEl = e,
+        ref: (e: ?Element) => {
+          this.htmlEl = e
+          this.props.refOrigin(e)
+        },
         onInput: this.emitChange,
         onBlur: onBlur || this.emitChange,
         contentEditable: !disabled,

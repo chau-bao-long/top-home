@@ -5,6 +5,7 @@ import type { Blog } from "../../models/blog"
 import type { Comment } from "../../models/blog"
 import SocialComponent from "./Social"
 import CommentComponent from "./Comment"
+import styled from 'styled-components'
 
 type Props = {
   blog: Blog,
@@ -16,6 +17,14 @@ type State = {
   isClap: boolean,
 }
 
+const Wrapper = styled.div`
+  min-width: 60%;
+`
+
+const Title = styled.h2`
+  margin-bottom: 60px;
+`
+
 export default class BlogDetail extends React.PureComponent<Props, State>  {
   state: State = { 
     isClap: false
@@ -26,12 +35,12 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
     const { isClap } = this.state
     if (!blog) return null
     return (
-      <div className="blog-details">
-        <h2 className="blog-details__title">{blog.title}</h2>
-        <ReactMarkdown className="blog-details__body" source={blog.body}/>
+      <Wrapper>
+        <Title>{blog.title}</Title>
+        <ReactMarkdown className="blog-details__markdown" source={blog.body}/>
         <SocialComponent blog={blog} isClap={isClap} onClap={(e) => this.handleClapClick(e)} />
         <CommentComponent comments={comment} />
-      </div>
+      </Wrapper>
     )
   }
 
