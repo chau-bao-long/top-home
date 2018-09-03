@@ -21,7 +21,7 @@ export default class CommentComponent extends React.PureComponent<Props> {
         <CommentEditor onSubmit={onCommentSubmit} isLoading={isLoading}/>
         {
           comments.map(comment => 
-            <div>comment.content</div>
+            <div>{comment.author}</div>
           )
         }
       </section>

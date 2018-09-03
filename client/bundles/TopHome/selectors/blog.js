@@ -4,7 +4,7 @@ import type { Blog } from "../models/Blog"
 
 const blogSelector = state => state.blog
 
-const commentSelector = state => state.comments
+const commentSelector = state => state.comment
 
 const getSelectedBlogId = (state, props) => {
   let matched = props.location.pathname.match(/^\/blogs\/(\d+)/)
@@ -12,22 +12,24 @@ const getSelectedBlogId = (state, props) => {
 }
 
 export const getSelectedBlog = createSelector(
-  blogSelector, getSelectedBlogId,
-  (blog, id) => blog.blogs.find(item => item.id == id) || blog.blog,
+  blogSelector, getSelectedBlogId, commentSelector,
+  (blog, id, comments) => {
+    const result = blog.blogs.find(item => item.id == id) || blog.blog
+    if (result) result.comments = comments
+    return result
+  },
 )
 
 const isRenderDetail = (state, props) => !props.match.isExact
 
 const isAuthFromCookies = (state, props) => !!(props.allCookies && props.allCookies["is_auth"])
 
-const blogWithThumbnailSelector = createSelector(
-  blogSelector, commentSelector,
-  (blog, comments) => ({
+const blogWithThumbnailSelector = createSelector(blogSelector,
+  (blog) => ({
     ...blog,
     blogs: blog.blogs.map(b => ({
       ...b,
       thumbnail: getPreviewImg(b),
-      comments
     })),
   })
 )

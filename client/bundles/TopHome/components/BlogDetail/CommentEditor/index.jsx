@@ -65,12 +65,12 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
         </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
           <Author
-            refElement={e => this.authorElement = e}
+            innerRef={e => { if (!this.authorElement) this.authorElement = e.htmlEl }}
             html={author}
             onChange={e => this.handleAuthorChange(e)}
           />
           <Content
-            refElement={e => this.contentElement = e}
+            innerRef={e => { if (!this.contentElement) this.contentElement = e.htmlEl }}
             html={content}
             onChange={e => this.handleContentChange(e)}
           />

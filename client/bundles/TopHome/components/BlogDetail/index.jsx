@@ -11,7 +11,6 @@ type Props = {
   blog: Blog,
   onClap: (blogId: number) => void,
   onCommentSubmit: (blogId: integer, author: string, content: string) => void,
-  onLoadComments: (blogId: number) => void,
 }
 
 type State = {
@@ -36,7 +35,6 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
     const { isClap } = this.state
     if (!blog) return null
     const comments = blog.comments
-    // this.props.onLoadComments(blog.id)
     return (
       <Wrapper>
         <Title>{blog.title}</Title>
@@ -46,6 +44,7 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
       </Wrapper>
     )
   }
+
 
   handleCommentSubmit = (author: string, content: string) => {
     this.props.onCommentSubmit(this.props.blog.id, author, content)

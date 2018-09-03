@@ -7,6 +7,7 @@ import NavBar from "../../components/Blog/Navbar"
 import { connect } from "react-redux"
 import { selector } from "../../selectors/blog"
 import type { Blog } from "../../models/blog"
+import type { Comment } from "../../models/comment"
 import { getBlogs, claps } from "../../actions/blogAction"
 import { getComments, createComment } from "../../actions/commentAction"
 import { withRouter } from 'react-router'
@@ -25,6 +26,8 @@ type Props = {
   isRenderDetail: boolean,
   isAuth: boolean,
   claps: (id: number) => void,
+  createComment: (number, string, string) => void,
+  getComments: (number) => Array<Comment>
 }
 
 type State = {
@@ -36,6 +39,9 @@ const Container = styled.div`
 `
 
 class BlogContainer extends React.Component<Props, State> {
+  scrollElement: any
+  isLoaded: boolean = false
+
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -83,21 +89,23 @@ class BlogContainer extends React.Component<Props, State> {
   handleScroll = (event: SyntheticEvent<>) => {
     let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "" 
     this.setState({navBarStyle: style})
+    const { getComments, blog: { id, comments: { isLoading, isLoaded } } } = this.props
+    if (!isLoading && !isLoaded && this.scrollElement.offsetHeight - window.scrollY < 200)
+      getComments(id)
   }
 
-  handleCommentSubmit(blogId: integer, author: string, content: string) {
+  handleCommentSubmit(blogId: number, author: string, content: string) {
     this.props.createComment(blogId, author, content)
   }
 
   renderDetail = () => (
-    <DetailsContainer>
+    <DetailsContainer innerRef={e => this.scrollElement = e}>
       <Route path={`${this.props.match.path}/:id`} render={
         props => 
         <BlogDetail 
           blog={this.props.blog} 
           onClap={id => this.handleClap(id)} 
           onCommentSubmit={(blogId, title, content) => this.handleCommentSubmit(blogId, title, content)}
-          onLoadComments={id => this.props.getComments(id)}
         />
       } exact />
       <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
