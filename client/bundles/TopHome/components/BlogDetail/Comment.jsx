@@ -2,11 +2,18 @@
 import React from "react"
 import type { Comment } from "../../models/Comment"
 import CommentEditor from "./CommentEditor"
+import { SpinnerLoading } from './../Common/SpinnerLoading'
+import styled from 'styled-components'
 
 type Props = {
   comments: { comments: Array<Comment>, isLoading: boolean },
   onCommentSubmit: (author: string, content: string) => void,
 }
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 export default class CommentComponent extends React.PureComponent<Props> {
   static defaultProps = {
@@ -24,6 +31,7 @@ export default class CommentComponent extends React.PureComponent<Props> {
             <div>{comment.author}</div>
           )
         }
+        { isLoading && <LoadingWrapper><SpinnerLoading /></LoadingWrapper> }
       </section>
     )
   }

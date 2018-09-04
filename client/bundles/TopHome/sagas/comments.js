@@ -4,7 +4,6 @@ import {
   getCommentsSucc,
   getComments,
   createComment,
-  setLoaded,
 } from "../actions/commentAction"
 import { loading, error } from "../actions/apiAction"
 
@@ -14,7 +13,6 @@ function *get(action) {
     const api = new TopHomeApi()
     const response = yield call([api, api.getComments], action.payload)
     yield put(getCommentsSucc(response))
-    yield put(setLoaded(true))
   } catch(errors) {
     yield put(error.comment(errors[0].message))
   } finally {

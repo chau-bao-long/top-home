@@ -6,14 +6,9 @@ export const commentReducer = handleApiActions(
       ...state,
       comments: action.payload.data,
     }),
-    SET_LOADED: (state, action) => ({
-      ...state,
-      isLoaded: action.payload,
-    }),
   },
   {
     comments: [],
-    isLoaded: false,
   }
 )
 

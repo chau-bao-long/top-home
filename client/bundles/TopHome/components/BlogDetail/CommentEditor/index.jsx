@@ -1,8 +1,9 @@
 // @flow
 import React from "react"
-import Button, { ButtonWrapper, ButtonLoading } from "./Button"
-import Author from "./Author"
-import Content from "./Content"
+import Button, { ButtonWrapper } from './Button'
+import { SpinnerLoading } from './../../Common/SpinnerLoading'
+import Author from './Author'
+import Content from './Content'
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
@@ -78,7 +79,7 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
             <Button onClick={e => this.props.onSubmit(author, content)}>
               Publish Comment
             </Button>
-            { isLoading && <ButtonLoading /> }
+            { isLoading && <SpinnerLoading /> }
           </ButtonWrapper>
         </div>
       </div>

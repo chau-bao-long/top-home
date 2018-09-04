@@ -40,7 +40,6 @@ const Container = styled.div`
 
 class BlogContainer extends React.Component<Props, State> {
   scrollElement: any
-  isLoaded: boolean = false
 
   constructor(props: Props) {
     super(props)
@@ -87,11 +86,17 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   handleScroll = (event: SyntheticEvent<>) => {
-    let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "" 
-    this.setState({navBarStyle: style})
-    const { getComments, blog: { id, comments: { isLoading, isLoaded } } } = this.props
-    if (!isLoading && !isLoaded && this.scrollElement.offsetHeight - window.scrollY < 200)
+    let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "";
+    this.setState({navBarStyle: style});
+    const { getComments, blog: { id, comments: { isLoading } } } = this.props;
+    if (!isLoading && this.isReachBottom()) {
       getComments(id)
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  }
+
+  isReachBottom() {
+    return this.scrollElement.getBoundingClientRect().bottom <= window.innerHeight
   }
 
   handleCommentSubmit(blogId: number, author: string, content: string) {
