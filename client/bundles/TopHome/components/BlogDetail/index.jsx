@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown"
 import type { Blog } from "../../models/blog"
 import type { Comment } from "../../models/blog"
 import SocialComponent from "./Social"
-import CommentComponent from "./Comment"
+import CommentComponent from "./Comment/"
 import styled from 'styled-components'
 
 type Props = {
@@ -40,7 +40,7 @@ export default class BlogDetail extends React.PureComponent<Props, State>  {
         <Title>{blog.title}</Title>
         <ReactMarkdown className="blog-details__markdown" source={blog.body}/>
         <SocialComponent blog={blog} isClap={isClap} onClap={(e) => this.handleClapClick(e)}/>
-        <CommentComponent comments={comment} onCommentSubmit={this.handleCommentSubmit}/>
+        <CommentComponent comment={comment} onCommentSubmit={this.handleCommentSubmit}/>
       </Wrapper>
     )
   }

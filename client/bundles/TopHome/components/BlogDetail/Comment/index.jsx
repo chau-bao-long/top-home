@@ -1,12 +1,13 @@
 // @flow
 import React from "react"
-import type { Comment } from "../../models/Comment"
-import CommentEditor from "./CommentEditor"
-import { SpinnerLoading } from './../Common/SpinnerLoading'
+import type { Comment } from "../../../models/Comment"
+import CommentEditor from "../CommentEditor"
+import { SpinnerLoading } from '../../Common/SpinnerLoading'
 import styled from 'styled-components'
+import CommentItem from './CommentItem'
 
 type Props = {
-  comments: { comments: Array<Comment>, isLoading: boolean },
+  comment: { comments: Array<Comment>, isLoading: boolean },
   onCommentSubmit: (author: string, content: string) => void,
 }
 
@@ -17,20 +18,16 @@ const LoadingWrapper = styled.div`
 
 export default class CommentComponent extends React.PureComponent<Props> {
   static defaultProps = {
-    comments: { comments: [], isLoading: false },
+    comment: { comments: [], isLoading: false },
   }
 
   render() {
-    const { onCommentSubmit, comments: { comments, isLoading } } = this.props
+    const { onCommentSubmit, comment: { comments, isLoading } } = this.props
     return (
       <section className="comments mt-5 py-3">
         <h5>Comments</h5>
         <CommentEditor onSubmit={onCommentSubmit} isLoading={isLoading}/>
-        {
-          comments.map(comment => 
-            <div>{comment.author}</div>
-          )
-        }
+        { comments.map(c => <CommentItem comment={c}/>) }
         { isLoading && <LoadingWrapper><SpinnerLoading /></LoadingWrapper> }
       </section>
     )
