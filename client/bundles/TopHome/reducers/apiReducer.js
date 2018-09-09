@@ -1,28 +1,31 @@
 import { handleActions, combineActions } from "redux-actions"
-import { loading, error } from "../actions/apiAction"
+import _ from "lodash"
 
-export const handleApiActions = (reducerMap, defaultState) => {
+export const handleApiActions = ({defaultState, ...reducer}) => {
+  const key = _.keys(reducer)[0]
   const arrMap = [
     [
-      combineActions(...Object.values(loading)),
+      `LOADING/${key.toUpperCase()}`,
       (state, action) => ({
         ...state,
         isLoading: action.payload,
       })
     ],
     [
-      combineActions(...Object.values(error)),
+      `ERROR/${key.toUpperCase()}`,
       (state, action) => ({
         ...state,
         errorMsg: action.payload,
       })
     ],
-    ...Object.keys(reducerMap).map(key => [
-      key,
-      reducerMap[key]
+    ..._.keys(reducer[key]).map(subkey => [
+      subkey,
+      reducer[key][subkey]
     ]),
   ]
-  return handleActions(buildMap(arrMap), {...initialState, ...defaultState})
+  const result = {}
+  result[key] = handleActions(buildMap(arrMap), {...initialState, ...defaultState})
+  return result
 }
 
 const initialState = {

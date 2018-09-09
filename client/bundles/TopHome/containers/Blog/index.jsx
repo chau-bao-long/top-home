@@ -5,9 +5,10 @@ import FurtherReading from "../../components/FurtherReading"
 import BlogDetail from "../../components/BlogDetail"
 import NavBar from "../../components/Blog/Navbar"
 import { connect } from "react-redux"
-import { selector } from "../../selectors/blog"
+import { selector as blogSelector } from "../../selectors/blog"
+import { commentSelector } from "../../selectors/comment"
 import type { Blog } from "../../models/blog"
-import type { Comment } from "../../models/comment"
+import type { Comment, CommentState } from "../../models/comment"
 import { getBlogs, claps } from "../../actions/blogAction"
 import { getComments, createComment } from "../../actions/commentAction"
 import { withRouter } from 'react-router'
@@ -27,7 +28,8 @@ type Props = {
   isAuth: boolean,
   claps: (id: number) => void,
   createComment: (number, string, string) => void,
-  getComments: (number) => Array<Comment>
+  getComments: (number) => Array<Comment>,
+  comment: CommentState,
 }
 
 type State = {
@@ -88,7 +90,7 @@ class BlogContainer extends React.Component<Props, State> {
   handleScroll = (event: SyntheticEvent<>) => {
     let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "";
     this.setState({navBarStyle: style});
-    const { getComments, blog: { id, comments: { isLoading } } } = this.props;
+    const { getComments, blog: { id }, comment: { isLoading } } = this.props;
     if (!isLoading && this.isReachBottom()) {
       getComments(id)
       window.removeEventListener('scroll', this.handleScroll);
@@ -103,21 +105,27 @@ class BlogContainer extends React.Component<Props, State> {
     this.props.createComment(blogId, author, content)
   }
 
-  renderDetail = () => (
-    <DetailsContainer innerRef={e => this.scrollElement = e}>
+  renderDetail = () => {
+    return <DetailsContainer innerRef={e => this.scrollElement = e}>
       <Route path={`${this.props.match.path}/:id`} render={
         props => 
         <BlogDetail 
           blog={this.props.blog} 
+          comment={this.props.comment}
           onClap={id => this.handleClap(id)} 
           onCommentSubmit={(blogId, title, content) => this.handleCommentSubmit(blogId, title, content)}
         />
       } exact />
       <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
     </DetailsContainer>
-  )
+  }
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
 }
 
-export default withCookies(withRouter(connect(selector, { getBlogs, claps, getComments, createComment })(BlogContainer)))
+const mapStateToProps = (state, props) => ({
+  ...blogSelector(state, props),
+  comment: commentSelector(state),
+})
+
+export default withCookies(withRouter(connect(mapStateToProps, { getBlogs, claps, getComments, createComment })(BlogContainer)))

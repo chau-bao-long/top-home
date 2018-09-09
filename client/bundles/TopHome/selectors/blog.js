@@ -4,19 +4,15 @@ import type { Blog } from "../models/Blog"
 
 const blogSelector = state => state.blog
 
-const commentSelector = state => state.comment
-
 const getSelectedBlogId = (state, props) => {
   let matched = props.location.pathname.match(/^\/blogs\/(\d+)/)
   return matched ? matched[1]: ""
 }
 
 export const getSelectedBlog = createSelector(
-  blogSelector, getSelectedBlogId, commentSelector,
-  (blog, id, comments) => {
-    const result = blog.blogs.find(item => item.id == id) || blog.blog
-    if (result) result.comments = comments
-    return result
+  blogSelector, getSelectedBlogId,
+  (blog, id) => {
+    return blog.blogs.find(item => item.id == id) || blog.blog
   },
 )
 

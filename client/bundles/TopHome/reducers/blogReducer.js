@@ -1,7 +1,7 @@
 import { handleApiActions } from "./apiReducer"
 
-export const blogReducer = handleApiActions(
-  {
+export const blogReducer = handleApiActions({
+  blog: {
     MODIFY_BLOG_SUCC: (state, action) => ({
       ...state,
       blog: action.payload.data,
@@ -34,8 +34,8 @@ export const blogReducer = handleApiActions(
       }),
     }),
   },
-  {
+  defaultState: {
     blogs: [],
     photos: [],
-  }
-)
+  },
+})

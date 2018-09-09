@@ -1,7 +1,7 @@
 import { handleApiActions } from "./apiReducer"
 
-export const reducer = handleApiActions(
-  {
+export const reducer = handleApiActions({
+  login: {
     LOGIN_SUCC: (state, action) => ({
       ...state,
       allCookies: {
@@ -10,7 +10,7 @@ export const reducer = handleApiActions(
       },
     }),
   },
-  {
+  defaultState: {
     isAuth: false,
-  }
-)
+  },
+});

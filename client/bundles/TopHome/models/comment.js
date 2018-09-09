@@ -6,3 +6,8 @@ export type Comment {
   content: string;
 }
 
+export type CommentState {
+  isLoading: boolean,
+  errorMsg: string,
+  comments: Array<Comment>
+}
