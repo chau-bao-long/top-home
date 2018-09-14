@@ -1,9 +1,7 @@
 #! /bin/bash
 
 apis=(
-# login
-comments_index
-# comments_post
+push
 )
 
 # Top home api
@@ -38,5 +36,17 @@ for i in ${apis[*]}; do
 		comments_post)
 			http post localhost:3000/api/v1/blogs/1/comments author="Nguyen van A" content="content"
 			;;
+    push)
+      http -v post https://fcm.googleapis.com/fcm/send \
+        "Authorization: key=AAAAUHQZNtg:APA91bEYh6VdPaV_ss7cSnvYMZ-iaAYWbEoiCaYEAbLOb6B7y5HYHMhLEYfoaZCtrEr27KfmpqHFXgXeppsgXwG6mTngAHxD-tk2KJBfG33emu7jkvrmE51tR881360Q0_qKKobwV9xV" \
+        "Content-Type: application/json" \
+				<<< '{
+            "to": "eSK8D6TP71Q:APA91bHhrtTzRQXEMD9I8o7TxspLrnLwrmHD6-9Z38HAP-jy9wuOjSZAhVsRoco7ZCHfl5GjDJUW36YkRnN9YnjWwhS5LgTdYEdvQLxnw6fRQucjtpkP0YmYzMYQt8Jz1smumfy_9a7F",
+						"priority": "high",
+						"notification": {
+						"body": "FOO BAR BLA BLA"
+						}
+				}'
+      ;;
   esac
 done

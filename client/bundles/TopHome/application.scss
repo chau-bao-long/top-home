@@ -12,3 +12,14 @@
 @import 'components/FurtherReading/index';
 @import 'styles/font-linear';
 @import 'styles/font-lato';
+
+.mention {
+  color: blue;
+  display: inline-block;
+  font-weight: bold;
+  margin: 0 5px;
+
+  &.me {
+    background: black;
+  }
+}

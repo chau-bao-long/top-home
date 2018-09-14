@@ -2,9 +2,10 @@
   outline: none;
 }
 
-[contenteditable=true]:empty:before {
+[contenteditable=true].empty:before {
   content: attr(placeholder);
   display: block; /* For Firefox */
+  position: absolute;
 }
 
 div[contenteditable=true] {

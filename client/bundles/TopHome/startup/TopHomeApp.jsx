@@ -13,6 +13,7 @@ import PrivateRoute from 'components/PrivateRoute'
 import { CookiesProvider } from 'react-cookie'
 import { ThemeProvider } from 'styled-components'
 import { theme } from '../vars/theme'
+import FundComponent from 'components/Fund'
 
 const TopHomeApp = (props) => (
   <Provider store={store}>
@@ -20,7 +21,7 @@ const TopHomeApp = (props) => (
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Switch>
-            <Route path="/" component={HomeComponent} exact />
+            <Route path="/" component={FundComponent} exact />
             <PrivateRoute path="/iot" component={IoTComponent} />
             <Route path="/login" component={LoginComponent} />
             <PrivateRoute path="/blogs/new" component={BlogEditorComponent} />

@@ -321,23 +321,6 @@ h2,.h2 {
     }
 }
 
-p {
-    font-size: .75rem;
-    line-height: 1.4;
-    
-    @media (min-width: 30rem) {
-        font-size: .875rem;
-    }
-
-    a {
-        font-weight: bold;
-        color: inherit;
-
-        &:hover {
-            border-bottom: .1875rem solid;
-        }
-    }
-}
 
 .lead {
     display: block;
