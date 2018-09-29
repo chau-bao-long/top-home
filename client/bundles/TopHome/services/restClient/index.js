@@ -1,6 +1,6 @@
 // @flow
-import axios from "axios"
-import { DEFAULT_API_CONFIG } from "./config"
+import axios from 'axios';
+import { DEFAULT_API_CONFIG } from './config';
 
 class TopHomeApi {
   client: axios;
@@ -56,11 +56,11 @@ class TopHomeApi {
     return this.client.post("/api/v1/photos", formData)
   }
 
-  getComments(blogId: integer) {
+  getComments(blogId: number) {
     return this.client.get(`/api/v1/blogs/${blogId}/comments`)
   }
 
-  postComment(blogId: integer, author: string, content: string) {
+  postComment(blogId: number, author: string, content: string) {
     const params = new URLSearchParams()
     params.append("author", author)
     params.append("content", content)

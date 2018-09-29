@@ -1,4 +1,4 @@
-import { createActions } from "redux-actions"
+import { createActions } from 'redux-actions';
 
 export const {
   login,
@@ -6,4 +6,4 @@ export const {
 } = createActions({
   LOGIN: payload => payload,
   LOGIN_SUCC: undefined,
-})
+});
