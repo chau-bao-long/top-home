@@ -1,4 +1,4 @@
-import { createActions } from 'redux-actions'
+import { createActions } from 'redux-actions';
 
 export const {
   getComments,
@@ -6,6 +6,6 @@ export const {
   getCommentsSucc,
 } = createActions({
   GET_COMMENTS: blogId => blogId,
-  CREATE_COMMENT: (blogId, title: string, content: string) => [blogId, title, content],
+  CREATE_COMMENT: (blogId, title, content) => [blogId, title, content],
   GET_COMMENTS_SUCC: comment => comment,
-})
+});

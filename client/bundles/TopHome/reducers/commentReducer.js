@@ -1,6 +1,6 @@
-import { handleApiActions } from "./apiReducer"
+import { handleApiActions } from './apiReducer';
 
-export const commentReducer = handleApiActions({
+export default handleApiActions({
   comment: {
     GET_COMMENTS_SUCC: (state, action) => ({
       ...state,
@@ -10,4 +10,4 @@ export const commentReducer = handleApiActions({
   defaultState: {
     comments: [],
   },
-})
+});

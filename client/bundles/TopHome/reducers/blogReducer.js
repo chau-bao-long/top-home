@@ -1,6 +1,6 @@
-import { handleApiActions } from "./apiReducer"
+import { handleApiActions } from './apiReducer';
 
-export const blogReducer = handleApiActions({
+export default handleApiActions({
   blog: {
     MODIFY_BLOG_SUCC: (state, action) => ({
       ...state,
@@ -20,17 +20,17 @@ export const blogReducer = handleApiActions({
     }),
     UPLOAD_PHOTO_SUCC: (state, action) => ({
       ...state,
-      photos: [...state.photos, action.payload.data.photo]
+      photos: [...state.photos, action.payload.data.photo],
     }),
-    CLEAR_CURRENT_BLOG: (state, action) => ({
+    CLEAR_CURRENT_BLOG: state => ({
       ...state,
       blog: null,
     }),
     CLAPS_SUCC: (state, action) => ({
       ...state,
-      blogs: state.blogs.map(b => {
-        const updatedBlog = action.payload.data
-        return b.id ==  updatedBlog.id ? updatedBlog : b
+      blogs: state.blogs.map((b) => {
+        const updatedBlog = action.payload.data;
+        return b.id === updatedBlog.id ? updatedBlog : b;
       }),
     }),
   },
@@ -38,4 +38,4 @@ export const blogReducer = handleApiActions({
     blogs: [],
     photos: [],
   },
-})
+});

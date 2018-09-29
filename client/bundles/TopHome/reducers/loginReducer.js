@@ -1,13 +1,14 @@
-import { handleApiActions } from "./apiReducer"
+import { handleApiActions } from './apiReducer';
 
-export const reducer = handleApiActions({
+export default handleApiActions({
   login: {
-    LOGIN_SUCC: (state, action) => ({
+    LOGIN_SUCC: state => ({
       ...state,
       allCookies: {
         ...state.allCookies,
         is_auth: true,
       },
+      isAuth: true,
     }),
   },
   defaultState: {
