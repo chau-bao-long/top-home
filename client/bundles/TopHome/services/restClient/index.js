@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import { DEFAULT_API_CONFIG } from './config';
+import { DEFAULT_API_CONFIG, ERROR_CODES } from './config';
 
 class TopHomeApi {
   client: axios;
@@ -69,8 +69,15 @@ class TopHomeApi {
 
   _addErrorInterceptor(client: axios) {
     client.interceptors.response.use(res => res, error => {
-      throw error.response.data.errors
+      const errors = error.response.data.errors
+      if (!this._logoutIfUnauthenticated(errors)) throw errors;
     })
+  }
+
+  _logoutIfUnauthenticated(errors: Object) {
+    if (errors[0].code == ERROR_CODES.unauthenticated) {
+      alert(errors[0].message);
+    }
   }
 }
 

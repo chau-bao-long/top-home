@@ -4,5 +4,9 @@ const DEFAULT_API_CONFIG: AxiosRequestConfig = {
   apiVersion: "v1"
 };
 
-export { DEFAULT_API_CONFIG }
+const ERROR_CODES = {
+  unauthenticated: 103,
+};
+
+export { DEFAULT_API_CONFIG, ERROR_CODES }
 
