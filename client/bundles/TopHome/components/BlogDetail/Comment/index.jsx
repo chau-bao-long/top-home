@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import CommentItem from './CommentItem'
 
 type Props = {
-  comment: { comments: Array<Comment>, isLoading: boolean },
+  comment: { comments: Array<Comment>, isLoading: boolean, errorMsg: string },
   onCommentSubmit: (author: string, content: string) => void,
 }
 
@@ -22,12 +22,12 @@ export default class CommentComponent extends React.PureComponent<Props> {
   }
 
   render() {
-    const { onCommentSubmit, comment: { comments, isLoading } } = this.props
+    const { onCommentSubmit, comment: { comments, isLoading, errorMsg } } = this.props
     return (
       <section className="comments mt-5 py-3">
-        <h5>Comments</h5>
-        <CommentEditor onSubmit={onCommentSubmit} isLoading={isLoading}/>
-        { comments.map(c => <CommentItem comment={c}/>) }
+        <h6>Comments</h6>
+        <CommentEditor onSubmit={onCommentSubmit} isLoading={isLoading} error={errorMsg}/>
+        { comments.map(c => <CommentItem key={c.id} comment={c}/>) }
         { isLoading && <LoadingWrapper><SpinnerLoading /></LoadingWrapper> }
       </section>
     )

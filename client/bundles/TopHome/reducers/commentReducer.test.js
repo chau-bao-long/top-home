@@ -18,4 +18,22 @@ describe('comment reducer', () => {
         comments: action.payload.data,
       });
   });
-})
+
+  it('it should handle create comment successful', () => {
+    const action = {
+      type: 'CREATE_COMMENT_SUCC',
+      payload: {
+        data: { comment: 'data' },
+      },
+    };
+    const currentState = {
+      comments: [],
+      errorMsg: 'multi errors currently',
+    };
+    expect(reducer.comment(currentState, action))
+      .toMatchObject({
+        comments: [{ comment: 'data' }],
+        errorMsg: '',
+      });
+  });
+});

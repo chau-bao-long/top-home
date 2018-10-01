@@ -34,6 +34,7 @@ export const theme = {
     iron: '#e4e6e8',
     turquoise: '#34E79A',
     cabaret: '#d64c68',
+    sirocco: '#717272',
   },
   screen: {
     xs: '480px',
@@ -43,5 +44,4 @@ export const theme = {
   },
 }
 
-export const color = theme.color
-export const screen = theme.screen
+export const { color, screen } = theme;

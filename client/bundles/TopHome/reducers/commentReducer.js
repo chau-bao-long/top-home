@@ -6,6 +6,11 @@ export default handleApiActions({
       ...state,
       comments: action.payload.data,
     }),
+    CREATE_COMMENT_SUCC: (state, action) => ({
+      ...state,
+      comments: [...state.comments, action.payload.data],
+      errorMsg: '',
+    }),
   },
   defaultState: {
     comments: [],

@@ -1,13 +1,15 @@
 // @flow
-import React from "react"
-import Button, { ButtonWrapper } from './Button'
-import { SpinnerLoading } from './../../Common/SpinnerLoading'
-import Author from './Author'
-import Content from './Content'
+import React from "react";
+import Button, { ButtonWrapper } from './Button';
+import { SpinnerLoading } from './../../Common/SpinnerLoading';
+import Author from './Author';
+import Content from './Content';
+import styled from 'styled-components';
 
 type Props = {
   onSubmit: (author: string, content: string) => void,
   isLoading: boolean,
+  error: string,
 }
 
 type State = {
@@ -15,6 +17,11 @@ type State = {
   author: string,
   content: string,
 }
+
+const ErrorMessage = styled.p`
+  color: red;
+  margin: auto 15px;
+`
 
 export default class CommentEditor extends React.PureComponent<Props, State> {
   state: State = {
@@ -27,6 +34,19 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
   contentElement: any
   isFocusing: boolean = false
   isFocus: boolean = false
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (this._isSubmitSuccessful(prevProps)) this._clearInput();
+  }
+
+  _isSubmitSuccessful(prevProps: Props) {
+    const { isLoading, error } = this.props;
+    return prevProps.isLoading && !isLoading && error.length == 0;
+  }
+
+  _clearInput() {
+    this.setState({ author: '', content: '' });
+  }
 
   handleFocus(event: any) {
     this.isFocus = event.type == "focus"
@@ -52,7 +72,7 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
 
   render() {
     const { isFocus, author, content } = this.state
-    const { isLoading } = this.props
+    const { isLoading, error } = this.props
     const focusClazz = isFocus ? "focus" : "unfocus"
     return (
       <div 
@@ -80,6 +100,7 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
               Publish Comment
             </Button>
             { isLoading && <SpinnerLoading /> }
+            { error && <ErrorMessage>{ error }</ErrorMessage> }
           </ButtonWrapper>
         </div>
       </div>

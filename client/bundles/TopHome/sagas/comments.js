@@ -1,9 +1,10 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 import { TopHomeApi } from "services/restClient"
 import {
-  getCommentsSucc,
   getComments,
+  getCommentsSucc,
   createComment,
+  createCommentSucc,
 } from "../actions/commentAction"
 import { loading, error } from "../actions/apiAction"
 
@@ -25,6 +26,7 @@ function *post(action) {
     yield put(loading.comment(true))
     const api = new TopHomeApi()
     const response = yield call([api, api.postComment], ...action.payload)
+    yield put(createCommentSucc(response))
   } catch(errors) {
     yield put(error.comment(errors[0].message))
   } finally {
