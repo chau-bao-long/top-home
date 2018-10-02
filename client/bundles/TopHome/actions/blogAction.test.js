@@ -29,4 +29,11 @@ describe('blog action', () => {
         payload: [file],
       });
   });
+  it('should contains delete blog action', () => {
+    expect(actions.deleteBlog(99))
+      .toMatchObject({
+        type: 'DELETE_BLOG',
+        payload: 99,
+      });
+  });
 });

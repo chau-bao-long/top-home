@@ -1,13 +1,14 @@
 // @flow
-import React from "react"
-import { Link } from 'react-router-dom'
-import styled, { css } from "styled-components"
-import { breakpoint } from "../../vars/helper"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { breakpoint } from '../../vars/helper';
 
 type Props = {
   collapse: boolean,
   editMode: boolean,
   onEditBlog: Function,
+  onDeleteBlog: Function,
   isAuth: boolean,
 }
 
@@ -50,6 +51,8 @@ const SharedBtnStyle = css`
 
 const EditButton = styled.span.attrs({ className: "lnr lnr-magic-wand" })`${SharedBtnStyle}`
 
+const DeleteButton = styled.span.attrs({ className: "lnr lnr-trash" })`${SharedBtnStyle}`
+
 const CreateButton = styled(Link).attrs({ 
   className: "lnr lnr-pencil",
   to: "/blogs/new",
@@ -81,7 +84,7 @@ const Nav = styled.nav.attrs({
 
 export default class NavBar extends React.PureComponent<Props> {
   render() {
-    const { onEditBlog, editMode, isAuth, collapse } = this.props
+    const { onEditBlog, onDeleteBlog, editMode, isAuth, collapse } = this.props
     return (
       <Nav className={collapse ? 'navbar--scrolled' : ''}>
         <SubscribeButton>
@@ -90,6 +93,7 @@ export default class NavBar extends React.PureComponent<Props> {
         </SubscribeButton>
         <Title>READ MY BLOGS</Title>
         <Toolbar>
+          { editMode && isAuth && <DeleteButton onClick={onDeleteBlog}/> }
           { editMode && isAuth && <EditButton onClick={onEditBlog}/> }
           { isAuth && <CreateButton /> }
           <SearchButton onClick={e => alert("I'm working on it, comming soon!")}/>

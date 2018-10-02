@@ -28,12 +28,12 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
     isFocus: false,
     author: "",
     content: "",
-  }
+  };
 
-  authorElement: any
-  contentElement: any
-  isFocusing: boolean = false
-  isFocus: boolean = false
+  authorElement: any;
+  contentElement: any;
+  isFocusing: boolean = false;
+  isFocus: boolean = false;
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (this._isSubmitSuccessful(prevProps)) this._clearInput();
@@ -86,8 +86,8 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
         </p>
         <div className={`comments__form comments__form--${focusClazz}`} >
           <Author
-            innerRef={e => { if (!this.authorElement) this.authorElement = e.htmlEl }}
-            html={author}
+            innerRef={e => this.authorElement = e}
+            value={author}
             onChange={e => this.handleAuthorChange(e)}
           />
           <Content

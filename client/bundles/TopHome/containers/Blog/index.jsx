@@ -52,22 +52,6 @@ class BlogContainer extends React.Component<Props, State> {
     }
   }
 
-  render() {
-    const { isRenderDetail, isAuth } = this.props
-    const { navBarCollapse } = this.state
-    return (
-      <Container>
-        <NavBar 
-          collapse={navBarCollapse} 
-          editMode={isRenderDetail} 
-          onEditBlog={() => this.handleEditBlog()}
-          isAuth={isAuth}
-        />
-        { isRenderDetail ? this.renderDetail() : this.renderList() }
-      </Container>
-    )
-  }
-
   componentDidMount() {
     this.props.getBlogs()
     window.addEventListener('scroll', this.handleScroll);
@@ -106,6 +90,10 @@ class BlogContainer extends React.Component<Props, State> {
     this.props.createComment(blogId, author, content)
   }
 
+  handleDeleteBlog() {
+    let a = this.props.blogId;
+  }
+
   renderDetail = () => {
     return <DetailsContainer innerRef={e => this.scrollElement = e}>
       <Route path={`${this.props.match.path}/:id`} render={
@@ -122,6 +110,23 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
+
+  render() {
+    const { isRenderDetail, isAuth } = this.props
+    const { navBarCollapse } = this.state
+    return (
+      <Container>
+        <NavBar 
+          collapse={navBarCollapse} 
+          editMode={isRenderDetail} 
+          onDeleteBlog={() =>this.handleDeleteBlog()}
+          onEditBlog={() => this.handleEditBlog()}
+          isAuth={isAuth}
+        />
+        { isRenderDetail ? this.renderDetail() : this.renderList() }
+      </Container>
+    )
+  }
 }
 
 const mapStateToProps = (state, props) => ({
@@ -129,4 +134,6 @@ const mapStateToProps = (state, props) => ({
   comment: commentSelector(state),
 })
 
-export default withCookies(withRouter(connect(mapStateToProps, { getBlogs, claps, getComments, createComment })(BlogContainer)))
+export default withCookies(withRouter(connect(mapStateToProps, {
+  getBlogs, claps, getComments, createComment, deleteBlog,
+})(BlogContainer)))

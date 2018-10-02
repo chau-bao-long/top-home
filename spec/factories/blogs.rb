@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :blog do
-    title "MyString"
-    body "MyText"
-    references ""
+    title "This is blog title"
+    body "This is super long body."
+    user { User.first || association(:user) }
+    clap 30
   end
 end

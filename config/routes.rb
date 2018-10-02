@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :sessions, only: %i(create)
-      resources :blogs, only: %i(index create update show) do
+      resources :blogs, only: %i(index create update show destroy) do
         resources :comments, only: %i(index create)
         member do
           post 'claps'

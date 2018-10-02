@@ -34,6 +34,10 @@ class TopHomeApi {
     return this.client.patch("/api/v1/blogs/" + id, params)
   }
 
+  deleteBlog(id: string) {
+    return this.client.delete(`/api/v1/blogs/${id}`)
+  }
+
   getBlogs() {
     return this.client.get("/api/v1/blogs")
   }
