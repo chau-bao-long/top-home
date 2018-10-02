@@ -9,7 +9,7 @@ import { selector as blogSelector } from "../../selectors/blog"
 import { commentSelector } from "../../selectors/comment"
 import type { Blog } from "../../models/blog"
 import type { Comment, CommentState } from "../../models/comment"
-import { getBlogs, claps } from "../../actions/blogAction"
+import { getBlogs, claps, deleteBlog } from "../../actions/blogAction"
 import { getComments, createComment } from "../../actions/commentAction"
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
@@ -22,6 +22,7 @@ type Props = {
   blog: Blog,
   blogId: string,
   getBlogs: (blog: Blog) => void,
+  deleteBlog: Function,
   match: Object,
   history: Object,
   isRenderDetail: boolean,
@@ -30,6 +31,8 @@ type Props = {
   createComment: (number, string, string) => void,
   getComments: (number) => Array<Comment>,
   comment: CommentState,
+  isLoading: boolean,
+  errorMsg: string,
 }
 
 type State = {
@@ -40,6 +43,24 @@ const Container = styled.div`
   background: ${props => props.theme.color.alabaster};
   position: relative;
   padding-top: 160px;
+`
+
+const LoadingBarContainer = styled.div`
+  background: {props => props.theme.color.blueChill};
+  width: 100%;
+  height: 3.5px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+`
+const LoadingBar = styled.div`
+  background: {props => props.theme.color.grey};
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: width .4s ease 0s;
 `
 
 class BlogContainer extends React.Component<Props, State> {
@@ -91,7 +112,8 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   handleDeleteBlog() {
-    let a = this.props.blogId;
+    const { deleteBlog, blogId } = this.props;
+    deleteBlog(blogId);
   }
 
   renderDetail = () => {
@@ -110,12 +132,14 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
+  renderLoading = () => <LoadingBarContainer><LoadingBar/></LoadingBarContainer>
 
   render() {
     const { isRenderDetail, isAuth } = this.props
     const { navBarCollapse } = this.state
     return (
       <Container>
+        { this.renderLoading() }
         <NavBar 
           collapse={navBarCollapse} 
           editMode={isRenderDetail} 
