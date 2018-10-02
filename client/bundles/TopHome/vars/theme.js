@@ -42,6 +42,6 @@ export const theme = {
     md: '992px',
     lg: '1200px',
   },
-}
+};
 
 export const { color, screen } = theme;

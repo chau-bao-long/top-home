@@ -5,16 +5,16 @@ import styled, { css } from "styled-components"
 import { breakpoint } from "../../vars/helper"
 
 type Props = {
-  className: string,
+  collapse: boolean,
   editMode: boolean,
   onEditBlog: Function,
   isAuth: boolean,
 }
 
 const SubscribeButton = styled.button.attrs({ className: "btn btn-outline-secondary" })`
-  @include breakpoint(xxs) {
-    order: 2;
-  }
+  ${ breakpoint.xxs`
+  order: 2;
+  `}
 `
 
 const ThumbUpIcon = styled.i.attrs({ className: "lnr lnr-thumbs-up" })`
@@ -72,15 +72,18 @@ const Nav = styled.nav.attrs({
   height: 120px;
   transition: height .3s;
   padding: 8px 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 
   ${ breakpoint.xxs`padding: 20px;`}
 `
 
 export default class NavBar extends React.PureComponent<Props> {
   render() {
-    const { className, onEditBlog, editMode, isAuth } = this.props
+    const { onEditBlog, editMode, isAuth, collapse } = this.props
     return (
-      <Nav className={className}>
+      <Nav className={collapse ? 'navbar--scrolled' : ''}>
         <SubscribeButton>
           <ThumbUpIcon/>
           subscribe

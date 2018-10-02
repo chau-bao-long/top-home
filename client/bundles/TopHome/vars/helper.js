@@ -1,4 +1,4 @@
-import { css } from 'styled-components'
+import { css } from 'styled-components';
 
 export const breakpoint = {
   xxs: (...args) => css`
@@ -16,4 +16,4 @@ export const breakpoint = {
   lg: (...args) => css`
     @media (min-width: 1200px) { ${css(...args)} }
   `,
-}
+};

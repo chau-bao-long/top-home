@@ -96,7 +96,7 @@ export default class CommentEditor extends React.PureComponent<Props, State> {
             onChange={e => this.handleContentChange(e)}
           />
           <ButtonWrapper>
-            <Button onClick={e => this.props.onSubmit(author, content)}>
+            <Button onClick={e => this.props.onSubmit(author, content)} disabled={isLoading}>
               Publish Comment
             </Button>
             { isLoading && <SpinnerLoading /> }

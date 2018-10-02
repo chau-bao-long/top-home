@@ -33,11 +33,13 @@ type Props = {
 }
 
 type State = {
-  navBarStyle: string,
+  navBarCollapse: boolean,
 }
 
 const Container = styled.div`
   background: ${props => props.theme.color.alabaster};
+  position: relative;
+  padding-top: 160px;
 `
 
 class BlogContainer extends React.Component<Props, State> {
@@ -46,17 +48,17 @@ class BlogContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      navBarStyle: "",
+      navBarCollapse: false,
     }
   }
 
   render() {
     const { isRenderDetail, isAuth } = this.props
-    const { navBarStyle } = this.state
+    const { navBarCollapse } = this.state
     return (
       <Container>
         <NavBar 
-          className={navBarStyle} 
+          collapse={navBarCollapse} 
           editMode={isRenderDetail} 
           onEditBlog={() => this.handleEditBlog()}
           isAuth={isAuth}
@@ -88,12 +90,11 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   handleScroll = (event: SyntheticEvent<>) => {
-    let style = (window.scrollY + (this.state.navBarStyle ? 60 : 0)) > 60 ?  "navbar--scrolled" : "";
-    this.setState({navBarStyle: style});
+    let isNavBarCollapse = window.scrollY > 100 ;
+    this.setState({ navBarCollapse: isNavBarCollapse });
     const { getComments, blog: { id }, comment: { isLoading } } = this.props;
     if (!isLoading && this.isReachBottom()) {
       getComments(id)
-      window.removeEventListener('scroll', this.handleScroll);
     }
   }
 
