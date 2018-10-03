@@ -22,4 +22,11 @@ describe('blog reducer', () => {
     expect(blogReducer.blog({ blog: { test: '' } }, action))
       .toMatchObject({ blog: null });
   });
+
+  it('should handle remove blog action', () => {
+    const action = { type: 'REMOVE_BLOG', payload: { id: 1 } };
+    const currentState = { blogs: [{ id: 1 }, { id: 3 }, { id: 4 }] };
+    expect(blogReducer.blog(currentState, action))
+      .toMatchObject({ blogs: [{ id: 3 }, { id: 4 }] });
+  });
 });

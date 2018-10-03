@@ -9,4 +9,4 @@ export default styled(Contenteditable).attrs({
   margin-top: 20px;
   overflow: overlay;
   word-wrap: break-word;
-`
+`;

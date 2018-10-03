@@ -36,4 +36,11 @@ describe('blog action', () => {
         payload: 99,
       });
   });
+  it('should contains remove blog action', () => {
+    expect(actions.removeBlog({ id: 22 }))
+      .toMatchObject({
+        type: 'REMOVE_BLOG',
+        payload: { id: 22 },
+      });
+  });
 });

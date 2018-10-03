@@ -33,6 +33,10 @@ export default handleApiActions({
         return b.id === updatedBlog.id ? updatedBlog : b;
       }),
     }),
+    REMOVE_BLOG: (state, action) => ({
+      ...state,
+      blogs: state.blogs.filter(i => (i.id !== action.payload.id)),
+    }),
   },
   defaultState: {
     blogs: [],

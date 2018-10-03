@@ -1,17 +1,18 @@
-import { all, fork } from "redux-saga/effects"
-import { watchLogin } from "./login"
-import { watchGetPhotos, watchUploadPhoto } from "./photos"
-import { 
+import { all, fork } from 'redux-saga/effects';
+import { watchLogin } from './login';
+import { watchGetPhotos, watchUploadPhoto } from './photos';
+import {
   watchCreateBlog,
   watchUpdateBlog,
   watchGetBlogs,
   watchGetBlog,
   watchClaps,
-} from "./blogs"
+  watchDeleteBlog,
+} from './blogs';
 import {
   watchGetComments,
   watchCreateComment,
-} from "./comments"
+} from './comments';
 
 export default function* rootSaga() {
   yield all([
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     fork(watchClaps),
     fork(watchCreateComment),
     fork(watchGetComments),
-  ])
+    fork(watchDeleteBlog),
+  ]);
 }

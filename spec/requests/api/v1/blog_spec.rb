@@ -14,6 +14,10 @@ RSpec.describe "Test blog api", type: :request do
       it "should delete blog successfully" do
         expect(Blog.exists? blog.id).to be_falsy
       end
+
+      it "should return deleted blog" do
+        expect(response.body).to eq blog.to_json
+      end
     end
 
     context "when blog does not exists" do

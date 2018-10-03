@@ -26,6 +26,12 @@ describe('delete blog saga test', () => {
     expect(gen.next().value).toEqual(put(loading.blog(false)));
   });
 
+  it('should emit remove blog action', () => {
+    const responseBlog = { id: 1, content: 'blog content go here' };
+    const response = { data: responseBlog };
+    expect(generator.next(response).value.PUT.action.payload).toEqual(responseBlog);
+  });
+
   it('should hide loading after blog has deleted successfully', () => {
     expect(generator.next().value).toEqual(put(loading.blog(false)));
   });

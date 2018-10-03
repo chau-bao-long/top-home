@@ -24,7 +24,7 @@ class Api::V1::BlogsController < Api::ApiController
   end
 
   def destroy
-    Blog.find(params[:id]).destroy!
+    Blog.find(params[:id]).tap(&:destroy!)
   end
 
   private

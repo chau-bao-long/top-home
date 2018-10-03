@@ -1,21 +1,23 @@
 // @flow
-import React from "react"
-import BlogComponent from "../../components/Blog"
-import FurtherReading from "../../components/FurtherReading"
-import BlogDetail from "../../components/BlogDetail"
-import NavBar from "../../components/Blog/Navbar"
-import { connect } from "react-redux"
-import { selector as blogSelector } from "../../selectors/blog"
-import { commentSelector } from "../../selectors/comment"
-import type { Blog } from "../../models/blog"
-import type { Comment, CommentState } from "../../models/comment"
-import { getBlogs, claps, deleteBlog } from "../../actions/blogAction"
-import { getComments, createComment } from "../../actions/commentAction"
-import { withRouter } from 'react-router'
-import { Route } from 'react-router-dom'
-import { withCookies } from 'react-cookie'
-import styled from "styled-components"
-import DetailsContainer from '../../components/BlogDetail/DetailsContainer'
+import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import BlogComponent from '../../components/Blog';
+import FurtherReading from '../../components/FurtherReading';
+import BlogDetail from '../../components/BlogDetail';
+import NavBar from '../../components/Blog/Navbar';
+import { connect } from 'react-redux';
+import { selector as blogSelector } from '../../selectors/blog';
+import { commentSelector } from '../../selectors/comment';
+import type { Blog } from '../../models/blog';
+import type { Comment, CommentState } from '../../models/comment';
+import { getBlogs, claps, deleteBlog } from '../../actions/blogAction';
+import { getComments, createComment } from '../../actions/commentAction';
+import { withRouter } from 'react-router';
+import { Route } from 'react-router-dom';
+import { withCookies } from 'react-cookie';
+import styled from 'styled-components';
+import DetailsContainer from '../../components/BlogDetail/DetailsContainer';
+import LoadingBar from '../../components/Common/LoadingBar';
 
 type Props = {
   blogs: Array<Blog>,
@@ -45,26 +47,9 @@ const Container = styled.div`
   padding-top: 160px;
 `
 
-const LoadingBarContainer = styled.div`
-  background: {props => props.theme.color.blueChill};
-  width: 100%;
-  height: 3.5px;
-  position: fixed;
-  top: 0;
-  z-index: 10;
-`
-const LoadingBar = styled.div`
-  background: {props => props.theme.color.grey};
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  transition: width .4s ease 0s;
-`
-
 class BlogContainer extends React.Component<Props, State> {
-  scrollElement: any
+  scrollElement: any;
+  showingError: string = '';
 
   constructor(props: Props) {
     super(props)
@@ -80,6 +65,11 @@ class BlogContainer extends React.Component<Props, State> {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    this._toastErrorIfAny(prevProps);
+    this._goBackAfterDeleteBlog(prevProps);
   }
 
   handleClick(blog: Blog) {
@@ -113,7 +103,25 @@ class BlogContainer extends React.Component<Props, State> {
 
   handleDeleteBlog() {
     const { deleteBlog, blogId } = this.props;
-    deleteBlog(blogId);
+    if (confirm('Are you sure you wish to delete this blog?')) deleteBlog(blogId);
+  }
+
+  _toastErrorIfAny(prevProps: Props) {
+    const { errorMsg } = this.props;
+    if (errorMsg && errorMsg !== this.showingError) { 
+      this.showingError = errorMsg; 
+      toast.error(errorMsg, {
+        position: toast.POSITION.TOP_RIGHT,
+        onClose: () => { this.showingError = ''; },
+      });
+    }
+  }
+
+  _goBackAfterDeleteBlog(prevProps: Props) {
+    const { isLoading, errorMsg } = this.props;
+    if (prevProps.isLoading && !isLoading && !errorMsg) {
+      this.props.history.goBack();
+    }
   }
 
   renderDetail = () => {
@@ -132,14 +140,14 @@ class BlogContainer extends React.Component<Props, State> {
   }
 
   renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
-  renderLoading = () => <LoadingBarContainer><LoadingBar/></LoadingBarContainer>
 
   render() {
-    const { isRenderDetail, isAuth } = this.props
+    const { isRenderDetail, isAuth, isLoading } = this.props
     const { navBarCollapse } = this.state
     return (
       <Container>
-        { this.renderLoading() }
+        <ToastContainer autoClose={3000} hideProgressBar={true} />
+        { isLoading && <LoadingBar /> }
         <NavBar 
           collapse={navBarCollapse} 
           editMode={isRenderDetail} 

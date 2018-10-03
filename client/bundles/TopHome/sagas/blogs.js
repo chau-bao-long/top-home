@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { TopHomeApi } from '../services/restClient';
 import {
-  getBlogsSucc, getBlogSucc, modifyBlogSucc, clapsSucc,
+  getBlogsSucc, getBlogSucc, modifyBlogSucc, clapsSucc, removeBlog,
 } from '../actions/blogAction';
 import { loading, error } from '../actions/apiAction';
 
@@ -57,7 +57,8 @@ export function* destroy(action) {
   try {
     const api = new TopHomeApi();
     yield put(loading.blog(true));
-    yield call([api, api.deleteBlog], action.payload);
+    const response = yield call([api, api.deleteBlog], action.payload);
+    yield put(removeBlog(response.data));
   } catch (errors) {
     yield put(error.blog(errors[0].message));
   } finally {
