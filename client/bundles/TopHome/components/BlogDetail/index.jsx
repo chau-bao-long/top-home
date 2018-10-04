@@ -6,6 +6,7 @@ import type { Comment } from "../../models/blog"
 import SocialComponent from "./Social"
 import CommentComponent from "./Comment/"
 import styled from 'styled-components'
+import { breakpoint } from '../../vars/helper';
 
 type Props = {
   blog: Blog,
@@ -19,9 +20,10 @@ type State = {
 }
 
 const Wrapper = styled.div`
-  width: 80%;
+  width: 75%;
   display: inline-block;
   float: left;
+  ${ breakpoint.sm`width: 100%;` }
 `
 
 const Title = styled.h2`

@@ -13,9 +13,6 @@ type Props = {
 }
 
 const SubscribeButton = styled.button.attrs({ className: "btn btn-outline-secondary" })`
-  ${ breakpoint.xxs`
-  order: 2;
-  `}
 `
 
 const ThumbUpIcon = styled.i.attrs({ className: "lnr lnr-thumbs-up" })`
@@ -27,15 +24,15 @@ const Title = styled.p.attrs({ className: "navbar-brand" })`
   font-size: 1.5em;
   font-weight: bold;
   margin: 0;
+
+  ${ breakpoint.xs`order: -1;` }
 `
 
 const Toolbar = styled.span`
   justify-content: flex-end;
   align-items: center;
   display: flex;
-  width: 120px;
-
-  ${ breakpoint.xxs`order: 1;`}
+  width: 170px;
 `
 
 const SharedBtnStyle = css`
@@ -79,14 +76,29 @@ const Nav = styled.nav.attrs({
   top: 0;
   width: 100%;
 
+  ${ props => {
+  debugger
+  return props.collapse && css`
+  border-bottom: .5px solid $color-iron;
+  box-shadow: 0 .5px .5px -.3px $color-iron;
+  height: 60px;
+  background: white;
+  `}}
+
   ${ breakpoint.xxs`padding: 20px;`}
+
+  ${ breakpoint.xs`
+  flex-direction: column;
+  align-content: space-around;
+  height: 160px;
+  ` }
 `
 
 export default class NavBar extends React.PureComponent<Props> {
   render() {
     const { onEditBlog, onDeleteBlog, editMode, isAuth, collapse } = this.props
     return (
-      <Nav className={collapse ? 'navbar--scrolled' : ''}>
+      <Nav collapse={collapse}>
         <SubscribeButton>
           <ThumbUpIcon/>
           subscribe

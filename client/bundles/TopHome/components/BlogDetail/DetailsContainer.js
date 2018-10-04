@@ -4,7 +4,7 @@ export default styled.div`
   position: relative;
   display: inline-block;
   justify-content: space-between;
-  width: 90%;
+  width: 80%;
   margin: 60px auto;
   background: ${props => props.theme.color.alabaster};
 `;

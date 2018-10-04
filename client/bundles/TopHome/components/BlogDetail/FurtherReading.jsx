@@ -11,7 +11,7 @@ type Props = {
 
 const Container = styled.div`
   padding-left: 80px;
-  width: 20%;
+  width: 25%;
   float: left;
   position: sticky;
   top: 140px;
@@ -39,7 +39,7 @@ const Thumbnail = styled.img`
   margin-right: 10px
 `;
 
-const BlogTitle = styled.h6;
+const BlogTitle = styled.h6``;
 
 export default function furtherReading({blogs}: Props) {
   return (
