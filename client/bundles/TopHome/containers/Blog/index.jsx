@@ -2,7 +2,7 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import BlogComponent from '../../components/Blog';
-import FurtherReading from '../../components/FurtherReading';
+import FurtherReading from '../../components/BlogDetail/FurtherReading';
 import BlogDetail from '../../components/BlogDetail';
 import NavBar from '../../components/Blog/Navbar';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ import { withCookies } from 'react-cookie';
 import styled from 'styled-components';
 import DetailsContainer from '../../components/BlogDetail/DetailsContainer';
 import LoadingBar from '../../components/Common/LoadingBar';
+import Blocker from '../../services/blocker';
 
 type Props = {
   blogs: Array<Blog>,
@@ -43,13 +44,15 @@ type State = {
 
 const Container = styled.div`
   background: ${props => props.theme.color.alabaster};
-  position: relative;
   padding-top: 160px;
+  display: flex;
+  justify-content: center;
 `
 
 class BlogContainer extends React.Component<Props, State> {
   scrollElement: any;
   showingError: string = '';
+  blocker: Blocker = new Blocker();
 
   constructor(props: Props) {
     super(props)
@@ -88,7 +91,7 @@ class BlogContainer extends React.Component<Props, State> {
     let isNavBarCollapse = window.scrollY > 100 ;
     this.setState({ navBarCollapse: isNavBarCollapse });
     const { getComments, blog: { id }, comment: { isLoading } } = this.props;
-    if (!isLoading && this.isReachBottom()) {
+    if (!isLoading && this.blocker.block() && this.isReachBottom()) {
       getComments(id)
     }
   }

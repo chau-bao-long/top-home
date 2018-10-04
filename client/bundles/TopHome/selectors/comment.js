@@ -1,6 +1,6 @@
 // @flow 
-import { createSelector } from "reselect"
-import type { CommentState } from "../models/Comment"
+import { createSelector } from 'reselect';
+import type { CommentState } from '../models/comment';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 

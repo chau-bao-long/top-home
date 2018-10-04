@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import type { Comment } from '../../../models/Comment';
+import type { Comment } from '../../../models/comment';
 import styled, { css } from 'styled-components';
 
 const Container = styled.div`

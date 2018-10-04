@@ -1,10 +1,10 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export default styled.div`
-  display: flex;
+  position: relative;
+  display: inline-block;
   justify-content: space-between;
-  max-width: 80%;
+  width: 90%;
   margin: 60px auto;
   background: ${props => props.theme.color.alabaster};
-`
-
+`;

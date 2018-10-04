@@ -19,7 +19,9 @@ type State = {
 }
 
 const Wrapper = styled.div`
-  min-width: 60%;
+  width: 80%;
+  display: inline-block;
+  float: left;
 `
 
 const Title = styled.h2`

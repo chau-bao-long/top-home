@@ -1,5 +1,5 @@
-import { breakpoint } from "../../../vars/helper"
-import styled from "styled-components"
+import styled from 'styled-components';
+import { breakpoint } from '../../../vars/helper';
 
 export default styled.span`
   padding: 16px;
@@ -11,4 +11,4 @@ export default styled.span`
   ${breakpoint.xs`
   height: 75%;
   `}
-`
+`;
