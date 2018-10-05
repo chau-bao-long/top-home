@@ -25,14 +25,14 @@ const Title = styled.p.attrs({ className: "navbar-brand" })`
   font-weight: bold;
   margin: 0;
 
-  ${ breakpoint.xs`order: -1;` }
+  ${ breakpoint.xs`display: none;` }
 `
 
 const Toolbar = styled.span`
   justify-content: flex-end;
   align-items: center;
   display: flex;
-  width: 170px;
+  max-width: 170px;
 `
 
 const SharedBtnStyle = css`
@@ -76,21 +76,17 @@ const Nav = styled.nav.attrs({
   top: 0;
   width: 100%;
 
-  ${ props => {
-  debugger
-  return props.collapse && css`
-  border-bottom: .5px solid $color-iron;
-  box-shadow: 0 .5px .5px -.3px $color-iron;
-  height: 60px;
-  background: white;
-  `}}
+  ${ props => props.collapse && css`
+    border-bottom: .5px solid ${props.theme.color.iron};
+    box-shadow: 0 .5px .5px -.3px ${props.theme.color.iron};
+    height: 60px;
+    background: white;
+  `}
 
   ${ breakpoint.xxs`padding: 20px;`}
 
   ${ breakpoint.xs`
-  flex-direction: column;
-  align-content: space-around;
-  height: 160px;
+  align-content: space-between;
   ` }
 `
 
