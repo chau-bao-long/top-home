@@ -3,7 +3,7 @@ import React from "react"
 import ReactMarkdown from "react-markdown"
 import type { Blog } from "../../models/blog"
 import type { Comment } from "../../models/blog"
-import SocialComponent from "./Social"
+import SocialComponent from "./Social/"
 import CommentComponent from "./Comment/"
 import styled from 'styled-components'
 import { breakpoint } from '../../vars/helper';
