@@ -17,5 +17,5 @@ export function* login(action) {
 }
 
 export function* watchLogin() {
-  yield takeLatest('LOGIN', login)
+  yield takeLatest('LOGIN', login);
 }

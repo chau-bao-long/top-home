@@ -1,24 +1,25 @@
 // @flow
 import React from 'react';
+import { withRouter } from 'react-router';
+import { Route } from 'react-router-dom';
+import { withCookies } from 'react-cookie';
+import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
+import { connect } from 'react-redux';
 import BlogComponent from '../../components/Blog';
 import FurtherReading from '../../components/BlogDetail/FurtherReading';
 import BlogDetail from '../../components/BlogDetail';
 import NavBar from '../../components/Blog/Navbar';
-import { connect } from 'react-redux';
 import { selector as blogSelector } from '../../selectors/blog';
 import { commentSelector } from '../../selectors/comment';
 import type { Blog } from '../../models/blog';
 import type { Comment, CommentState } from '../../models/comment';
 import { getBlogs, claps, deleteBlog } from '../../actions/blogAction';
 import { getComments, createComment } from '../../actions/commentAction';
-import { withRouter } from 'react-router';
-import { Route } from 'react-router-dom';
-import { withCookies } from 'react-cookie';
-import styled from 'styled-components';
 import DetailsContainer from '../../components/BlogDetail/DetailsContainer';
 import LoadingBar from '../../components/Common/LoadingBar';
 import Blocker from '../../services/blocker';
+import SubscribeModal from './SubscribeModal';
 
 type Props = {
   blogs: Array<Blog>,
@@ -47,72 +48,77 @@ const Container = styled.div`
   padding-top: 160px;
   display: flex;
   justify-content: center;
-`
+`;
 
 class BlogContainer extends React.Component<Props, State> {
   scrollElement: any;
+
   showingError: string = '';
+
   blocker: Blocker = new Blocker();
 
   constructor(props: Props) {
-    super(props)
+    super(props);
     this.state = {
       navBarCollapse: false,
-    }
+    };
   }
 
   componentDidMount() {
-    this.props.getBlogs()
+    this.props.getBlogs();
     window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    this.toastErrorIfAny();
+    this.goBackAfterDeleteBlog(prevProps);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    this._toastErrorIfAny(prevProps);
-    this._goBackAfterDeleteBlog(prevProps);
-  }
-
   handleClick(blog: Blog) {
-    this.props.history.push(`${this.props.match.url}/${blog.id}`)
+    const { history, match: { url } } = this.props;
+    history.push(`${url}/${blog.id}`);
   }
 
   handleEditBlog() {
-    this.props.history.push(`${this.props.match.url}/${this.props.blogId}/edit`)
+    const { history, match: { url }, blogId } = this.props;
+    history.push(`${url}/${blogId}/edit`);
   }
 
   handleClap(id: number) {
-    this.props.claps(id)
+    this.props.claps(id);
   }
 
-  handleScroll = (event: SyntheticEvent<>) => {
-    let isNavBarCollapse = window.scrollY > 100 ;
-    this.setState({ navBarCollapse: isNavBarCollapse });
+  handleScroll = () => {
+    this.setState({ navBarCollapse: window.scrollY > 100 });
     const { getComments, blog: { id }, comment: { isLoading } } = this.props;
     if (!isLoading && this.blocker.block() && this.isReachBottom()) {
-      getComments(id)
+      getComments(id);
     }
   }
 
   isReachBottom() {
-    return this.scrollElement.getBoundingClientRect().bottom <= window.innerHeight
+    return this.scrollElement.getBoundingClientRect().bottom <= window.innerHeight;
   }
 
   handleCommentSubmit(blogId: number, author: string, content: string) {
-    this.props.createComment(blogId, author, content)
+    this.props.createComment(blogId, author, content) // eslint-disable-line
   }
 
+  /* eslint-disable */
   handleDeleteBlog() {
     const { deleteBlog, blogId } = this.props;
-    if (confirm('Are you sure you wish to delete this blog?')) deleteBlog(blogId);
+    if (confirm('Are you sure you wish to delete this blog?')) deleteBlog(blogId); 
   }
+  /* eslint-enable */
 
-  _toastErrorIfAny(prevProps: Props) {
+  toastErrorIfAny() {
     const { errorMsg } = this.props;
-    if (errorMsg && errorMsg !== this.showingError) { 
-      this.showingError = errorMsg; 
+    if (errorMsg && errorMsg !== this.showingError) {
+      this.showingError = errorMsg;
       toast.error(errorMsg, {
         position: toast.POSITION.TOP_RIGHT,
         onClose: () => { this.showingError = ''; },
@@ -120,55 +126,74 @@ class BlogContainer extends React.Component<Props, State> {
     }
   }
 
-  _goBackAfterDeleteBlog(prevProps: Props) {
-    const { isLoading, errorMsg } = this.props;
+  goBackAfterDeleteBlog(prevProps: Props) {
+    const { isLoading, errorMsg, history } = this.props;
     if (prevProps.isLoading && !isLoading && !errorMsg) {
-      this.props.history.goBack();
+      history.goBack();
     }
   }
 
   renderDetail = () => {
-    return <DetailsContainer innerRef={e => this.scrollElement = e}>
-      <Route path={`${this.props.match.path}/:id`} render={
-        props => 
-        <BlogDetail 
-          blog={this.props.blog} 
-          comment={this.props.comment}
-          onClap={id => this.handleClap(id)} 
-          onCommentSubmit={(blogId, title, content) => this.handleCommentSubmit(blogId, title, content)}
+    const {
+      match: { path }, blog, blogs, comment,
+    } = this.props;
+    return (
+      <DetailsContainer innerRef={(e) => { this.scrollElement = e; }}>
+        <Route
+          exact
+          path={`${path}/:id`}
+          render={() => (
+            <BlogDetail
+              blog={blog}
+              comment={comment}
+              onClap={id => this.handleClap(id)}
+              onCommentSubmit={(blogId, title, content) => {
+                this.handleCommentSubmit(blogId, title, content);
+              }}
+            />
+          )}
         />
-      } exact />
-      <FurtherReading blogs={this.props.blogs.slice(0, 5)} />
-    </DetailsContainer>
+        <FurtherReading blogs={blogs.slice(0, 5)} />
+      </DetailsContainer>
+    );
   }
 
-  renderList = () => <BlogComponent blogs={this.props.blogs} onClick={blog => this.handleClick(blog)}/>
+  renderList = () => {
+    const { blogs } = this.props;
+    return (
+      <BlogComponent
+        blogs={blogs}
+        onClick={blog => this.handleClick(blog)}
+      />
+    );
+  }
 
   render() {
-    const { isRenderDetail, isAuth, isLoading } = this.props
-    const { navBarCollapse } = this.state
+    const { isRenderDetail, isAuth, isLoading } = this.props;
+    const { navBarCollapse } = this.state;
     return (
       <Container>
-        <ToastContainer autoClose={3000} hideProgressBar={true} />
+        <SubscribeModal />
+        <ToastContainer autoClose={3000} hideProgressBar />
         { isLoading && <LoadingBar /> }
-        <NavBar 
-          collapse={navBarCollapse} 
-          editMode={isRenderDetail} 
-          onDeleteBlog={() =>this.handleDeleteBlog()}
+        <NavBar
+          collapse={navBarCollapse}
+          editMode={isRenderDetail}
+          onDeleteBlog={() => this.handleDeleteBlog()}
           onEditBlog={() => this.handleEditBlog()}
           isAuth={isAuth}
         />
         { isRenderDetail ? this.renderDetail() : this.renderList() }
       </Container>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, props) => ({
   ...blogSelector(state, props),
   comment: commentSelector(state),
-})
+});
 
 export default withCookies(withRouter(connect(mapStateToProps, {
   getBlogs, claps, getComments, createComment, deleteBlog,
-})(BlogContainer)))
+})(BlogContainer)));

@@ -35,6 +35,8 @@ export const theme = {
     turquoise: '#34E79A',
     cabaret: '#d64c68',
     sirocco: '#717272',
+    porcelain: '#EFF1F2',
+    cinnabar: '#E74A4B',
   },
   screen: {
     xs: '480px',

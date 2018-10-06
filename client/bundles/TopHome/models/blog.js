@@ -8,7 +8,7 @@ export type Blog = {
   body: string,
   clap: number,
   thumbnail: string,
-  created_at: Date,
-  updated_at: Date,
+  createdAt: Date,
+  updatedAt: Date,
   comments: Array<Comment>,
 };

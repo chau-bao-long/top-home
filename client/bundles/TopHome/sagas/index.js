@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 import { watchLogin } from './login';
 import { watchGetPhotos, watchUploadPhoto } from './photos';
+import { watchSubscribe } from './social';
 import {
   watchCreateBlog,
   watchUpdateBlog,
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     fork(watchCreateComment),
     fork(watchGetComments),
     fork(watchDeleteBlog),
+    fork(watchSubscribe),
   ]);
 }

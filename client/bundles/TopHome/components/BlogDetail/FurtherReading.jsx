@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
+import styled from 'styled-components';
 import type { Blog } from '../../models/blog';
 import altImg from '../../images/ironman.png';
-import styled from 'styled-components';
 import { breakpoint } from '../../vars/helper';
 
 type Props = {
@@ -16,7 +16,7 @@ const Container = styled.div`
   position: sticky;
   top: 140px;
   right: 0;
-  ${ breakpoint.sm`display: none;` }
+  ${breakpoint.sm`display: none;`}
 `;
 
 const Title = styled.h3`
@@ -41,14 +41,14 @@ const Thumbnail = styled.img`
 
 const BlogTitle = styled.h6``;
 
-export default function furtherReading({blogs}: Props) {
+export default function furtherReading({ blogs }: Props) {
   return (
     <Container>
       <Title>Further reading</Title>
       {
-        blogs.map((blog) => (
-          <Content key={blog.id} >
-            <Thumbnail src={blog.thumbnail} onError={e => e.target.src = altImg} />
+        blogs.map(blog => (
+          <Content key={blog.id}>
+            <Thumbnail src={blog.thumbnail} onError={(e) => { e.target.src = altImg; }} />
             <BlogTitle>{blog.title}</BlogTitle>
           </Content>
         ))
