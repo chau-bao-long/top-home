@@ -1,6 +1,7 @@
-import Comment from './comment'
+// @flow
+import type { Comment } from './comment';
 
-export type Blog {
+export type Blog = {
   id: number,
   userId: number,
   title: string,
@@ -10,4 +11,4 @@ export type Blog {
   created_at: Date,
   updated_at: Date,
   comments: Array<Comment>,
-}
+};

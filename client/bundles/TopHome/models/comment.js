@@ -1,4 +1,5 @@
-export type Comment {
+// @flow
+export type Comment = {
   id: number;
   author: string;
   createdAt: string;
@@ -6,7 +7,7 @@ export type Comment {
   content: string;
 }
 
-export type CommentState {
+export type CommentState = {
   isLoading: boolean,
   errorMsg: string,
   comments: Array<Comment>

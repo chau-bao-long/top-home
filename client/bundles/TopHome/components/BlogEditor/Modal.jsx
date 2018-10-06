@@ -1,6 +1,6 @@
 // @flow
-import * as React from "react"
-import ReactDropzone from "react-dropzone"
+import * as React from 'react';
+import ReactDropzone from 'react-dropzone';
 
 type Props = {
   onUploadPhoto: (Array<{}>) => void,
@@ -11,7 +11,9 @@ type Props = {
 
 export default class Modal extends React.PureComponent<Props> {
   render() {
-    const { onUploadPhoto, id, photos, onPickPhoto } = this.props
+    const {
+      onUploadPhoto, id, photos, onPickPhoto,
+    } = this.props;
     return (
       <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="dragDropTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered mw-100 w-50" role="document">
@@ -24,7 +26,7 @@ export default class Modal extends React.PureComponent<Props> {
             </div>
             <div className="modal-body d-flex flex-column justify-content-center">
               <div className="m-5 mx-auto">
-                <ReactDropzone onDrop={(file) => onUploadPhoto(file)} >
+                <ReactDropzone onDrop={file => onUploadPhoto(file)}>
                   <div className="d-flex flex-column justify-content-center align-items-center h-100">
                     <p>Drop you photo here !!</p>
                     <p>or click to pick one</p>
@@ -35,13 +37,13 @@ export default class Modal extends React.PureComponent<Props> {
               <div className="gallery">
                 {
                   photos.map(photo => (
-                    <img 
+                    <img
                       key={photo}
-                      src={photo} 
-                      data-dismiss="modal" 
+                      src={photo}
+                      data-dismiss="modal"
                       aria-label="Close"
-                      className="gallery__photo" 
-                      onClick={(e) => onPickPhoto(e.target.src)}
+                      className="gallery__photo"
+                      onClick={e => onPickPhoto(e.target.src)}
                     />
                   ))
                 }
@@ -50,6 +52,6 @@ export default class Modal extends React.PureComponent<Props> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

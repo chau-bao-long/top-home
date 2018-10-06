@@ -6,11 +6,12 @@ import SocialGroup from './SocialGroup';
 
 type Props = {
   blog: Blog,
+  commentCount: number,
   isClap: boolean,
   onClap: (e: any) => void,
 }
 
-export default function SocialComponent({blog, isClap, onClap}: Props) {
+export default function SocialComponent({blog, isClap, onClap, commentCount}: Props) {
   return (
     <section className="blog-social blog-social--border-top mt-5 py-3">
       <div className="blog-social__header h4">
@@ -39,7 +40,7 @@ export default function SocialComponent({blog, isClap, onClap}: Props) {
           { isClap && <div className="blog-social__clap-count rounded-circle">+1</div> }
         </span>
         <p className="my-auto mx-2">{blog.clap}</p>
-        <SocialGroup/>
+        <SocialGroup commentCount={commentCount} />
       </div>
     </section>
   );
