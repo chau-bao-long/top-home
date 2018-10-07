@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { TopHomeApi } from '../services/restClient';
+import RestClient from '../services/restClient';
 import { loading, error } from '../actions/apiAction';
 import { loginSucc } from '../actions/loginAction';
 
 export function* login(action) {
   try {
     yield put(loading.login(true));
-    const api = new TopHomeApi();
+    const api = new RestClient();
     yield call([api, api.login], ...Object.values(action.payload));
     yield put(loading.login(false));
     yield put(loginSucc());

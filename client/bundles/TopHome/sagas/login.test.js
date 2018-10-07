@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import { login, watchLogin } from './login';
-import { TopHomeApi } from '../services/restClient';
+import RestClient from '../services/restClient';
 import { loading } from '../actions/apiAction';
 import { loginSucc } from '../actions/loginAction';
 
@@ -14,7 +14,7 @@ describe('login saga test', () => {
   });
 
   it('should call login api', () => {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const result = generator.next().value;
     const expected = call([api, api.login], ...Object.values(action.payload));
     expect(result.CALL.fn).toEqual(expected.CALL.fn);

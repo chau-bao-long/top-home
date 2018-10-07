@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
-import { TopHomeApi } from '../services/restClient';
+import RestClient from '../services/restClient';
 import { loading } from '../actions/apiAction';
 import { destroy } from './blogs';
 
@@ -13,7 +13,7 @@ describe('delete blog saga test', () => {
   });
 
   it('should call delete blog api', () => {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const result = generator.next().value;
     const expected = call([api, api.deleteBlog], ...Object.values(action.payload));
     expect(result.CALL.fn).toEqual(expected.CALL.fn);

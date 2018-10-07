@@ -46,8 +46,11 @@ const SubscribeButton = styled.button`
     opacity: 0.75; 
   }
 
-  &:focus { 
+  &:focus {
     outline: none; 
+  }
+
+  &:active { 
     background: black;
     opacity: 0.75; 
   }
@@ -60,28 +63,27 @@ const Error = styled.div`
 type Props = {
   loading: boolean,
   error: string,
-  onSubscribe: (email: string) => void,
-}
-
-type State = {
+  onSubmit: () => void,
+  onMailChange: (email: string) => void,
   email: string,
 }
 
-export default class SubscribeModal extends React.PureComponent<Props, State> {
-  state = {
-    email: '',
-  }
-
+export default class SubscribeModal extends React.PureComponent<Props> {
   render() {
-    const { loading, onSubscribe, error } = this.props;
-    const { email } = this.state;
+    const {
+      loading, onSubmit, onMailChange, error, email,
+    } = this.props;
+
     return (
       <Modal id="subscribeModalId">
         <LetterImage />
         <Title>Stay In Touch With Me!</Title>
         <Error>{error}</Error>
-        <EmailField onChange={(e) => { this.setState({ email: e.target.value }); }} />
-        <SubscribeButton onClick={() => onSubscribe(email)}>
+        <EmailField
+          onChange={(e) => { onMailChange(e.target.value); }}
+          value={email}
+        />
+        <SubscribeButton id="test" onClick={() => onSubmit()} disabled={loading}>
           { loading ? <SpinnerLoading /> : 'SUBSCRIBE' }
         </SubscribeButton>
       </Modal>

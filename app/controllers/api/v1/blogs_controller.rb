@@ -19,12 +19,12 @@ class Api::V1::BlogsController < Api::ApiController
     Blog.find params[:id]
   end
 
-  def claps
-    Blog.find(params[:id]).tap(&:claps)
-  end
-
   def destroy
     Blog.find(params[:id]).tap(&:destroy!)
+  end
+
+  def claps
+    Blog.find(params[:id]).tap(&:claps)
   end
 
   private

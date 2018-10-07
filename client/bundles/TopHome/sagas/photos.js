@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { TopHomeApi } from '../services/restClient';
+import RestClient from '../services/restClient';
 
 function* index() {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.getPhotos]);
     yield put({ type: 'GET_PHOTOS_SUCC', payload: response });
   } catch (errors) {
@@ -13,7 +13,7 @@ function* index() {
 
 function* upload(action) {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.uploadPhoto], ...action.payload);
     yield put({ type: 'UPLOAD_PHOTO_SUCC', payload: response });
   } catch (errors) {

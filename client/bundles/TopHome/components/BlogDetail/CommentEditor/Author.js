@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.input.attrs({
   type: 'text',
-  placeHolder: 'Enter you name',
+  placeholder: 'Enter you name',
 })`
   width: 100%;
   min-height: 36px;

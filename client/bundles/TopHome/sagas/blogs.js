@@ -1,7 +1,7 @@
 import {
   call, put, takeEvery, takeLatest,
 } from 'redux-saga/effects';
-import { TopHomeApi } from '../services/restClient';
+import RestClient from '../services/restClient';
 import {
   getBlogsSucc, getBlogSucc, modifyBlogSucc, clapsSucc, removeBlog,
 } from '../actions/blogAction';
@@ -10,7 +10,7 @@ import { loading, error } from '../actions/apiAction';
 export function* post(action) {
   try {
     yield put(loading.blog(true));
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.createBlog], ...action.payload);
     yield put(modifyBlogSucc(response));
   } catch (errors) {
@@ -23,7 +23,7 @@ export function* post(action) {
 export function* patch(action) {
   try {
     yield put(loading.blog(true));
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.updateBlog], ...action.payload);
     yield put(modifyBlogSucc(response));
   } catch (errors) {
@@ -35,7 +35,7 @@ export function* patch(action) {
 
 export function* index() {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.getBlogs]);
     yield put(getBlogsSucc(response));
   } catch (errors) {
@@ -45,7 +45,7 @@ export function* index() {
 
 export function* show(action) {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.getBlog], action.payload);
     yield put(getBlogSucc(response));
   } catch (errors) {
@@ -55,7 +55,7 @@ export function* show(action) {
 
 export function* destroy(action) {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     yield put(loading.blog(true));
     const response = yield call([api, api.deleteBlog], action.payload);
     yield put(removeBlog(response.data));
@@ -68,7 +68,7 @@ export function* destroy(action) {
 
 export function* claps(action) {
   try {
-    const api = new TopHomeApi();
+    const api = new RestClient();
     const response = yield call([api, api.claps], action.payload);
     yield put(clapsSucc(response));
   } catch (errors) {

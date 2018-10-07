@@ -17,7 +17,7 @@ module ErrorHandler
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      render_error code: 102, message: e.message, http_status:  :bad_request
+      render_error code: 102, message: e.message, http_status: :bad_request
     end
   end
 

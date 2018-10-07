@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         end
       end
       resources :photos, only: %i(index create)
+      resources :subscribers, only: :create
     end
   end
 
