@@ -8,7 +8,12 @@ const DEFAULT_API_CONFIG: AxiosRequestConfig = {
 };
 
 const ERROR_CODES = {
+  uncaught: 500,
   unauthenticated: 103,
 };
 
-export { DEFAULT_API_CONFIG, ERROR_CODES };
+const ERROR_MSGS = {
+  uncaught: 'Mishap mays happened, Sorry for the inconvenient!',
+}
+
+export { DEFAULT_API_CONFIG, ERROR_CODES, ERROR_MSGS };

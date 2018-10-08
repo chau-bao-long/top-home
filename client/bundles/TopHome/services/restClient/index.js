@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import { DEFAULT_API_CONFIG, ERROR_CODES } from './config';
+import { DEFAULT_API_CONFIG, ERROR_CODES, ERROR_MSGS } from './config';
 
 export default class TopHomeApi {
   client: axios;
@@ -80,6 +80,7 @@ export default class TopHomeApi {
   addErrorInterceptor(client: axios) {
     client.interceptors.response.use(res => res, (error) => {
       const { response: { data: { errors } } } = error;
+      if (!errors) throw [ {code: ERROR_CODES.uncaught, message: ERROR_MSGS.uncaught } ]
       if (!this.logoutIfUnauthenticated(errors)) throw errors;
     });
   }

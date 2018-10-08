@@ -1,5 +1,5 @@
 class Api::V1::BlogsController < Api::ApiController
-  skip_before_action :authenticate_user!, only: %i(index show)
+  skip_before_action :authenticate_user!, only: %i(index show claps)
 
   def create
     current_user.blogs.create! blog_params

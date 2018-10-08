@@ -10,6 +10,12 @@ type Props = {
   onClick: Function,
 }
 
+const BlogContainer = styled.div.attrs({
+  className: 'container-fluid',
+})`
+  height: 100vh;
+`
+
 const BlogList = styled.div.attrs({
   className: 'row',
 })`
@@ -25,7 +31,7 @@ export default class BlogComponent extends React.PureComponent<Props> {
   render() {
     const { blogs, onClick } = this.props;
     return (
-      <div className="container-fluid">
+      <BlogContainer>
         <BlogList>
           {
             blogs.map(blog => (
@@ -33,7 +39,7 @@ export default class BlogComponent extends React.PureComponent<Props> {
             ))
           }
         </BlogList>
-      </div>
+      </BlogContainer>
     );
   }
 }

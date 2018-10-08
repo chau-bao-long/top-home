@@ -22,7 +22,10 @@ const ThumbUpIcon = styled.i.attrs({ className: 'lnr lnr-thumbs-up' })`
   margin-right: 5px;
 `;
 
-const Title = styled.p.attrs({ className: 'navbar-brand' })`
+const Title = styled(Link).attrs({
+  to: '/',
+  className: 'navbar-brand' 
+})`
   font-family: 'Lato Regular';
   font-size: 1.5em;
   font-weight: bold;
