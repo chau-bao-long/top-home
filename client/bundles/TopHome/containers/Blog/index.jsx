@@ -94,8 +94,8 @@ class BlogContainer extends React.Component<Props, State> {
 
   handleScroll = () => {
     this.setState({ navBarCollapse: window.scrollY > 100 });
-    const { getComments, blog: { id }, comment: { isLoading } } = this.props;
-    if (!isLoading && this.blocker.block() && this.isReachBottom()) {
+    const { getComments, blog: { id }, comment: { isLoading, comments } } = this.props;
+    if (!isLoading && (comments.length == 0 || this.blocker.block()) && this.isReachBottom()) {
       getComments(id);
     }
   }
