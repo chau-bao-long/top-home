@@ -5,6 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../vars/theme';
 import store from '../store/topHomeStore';
+import AnimatedComponent from './AnimatedComponent';
 import HomeComponent from '../components/Home';
 import NoMatchComponent from '../components/NoMatch';
 import BlogComponent from '../containers/Blog';
@@ -19,16 +20,18 @@ const TopHomeApp = () => (
     <CookiesProvider>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <Switch>
-            <Route path="/" component={HomeComponent} exact />
-            <PrivateRoute path="/iot" component={IoTComponent} />
-            <Route path="/login" component={LoginComponent} />
-            <PrivateRoute path="/blogs/new" component={BlogEditorComponent} />
-            <PrivateRoute path="/blogs/:blogId/edit" component={BlogEditorComponent} editMode />
-            <Route path="/blogs" component={BlogComponent} />
-            <Route path="/portfolio" component={PortfolioComponent} />
-            <Route component={NoMatchComponent} />
-          </Switch>
+          <AnimatedComponent>
+            <Switch>
+              <Route path="/" component={HomeComponent} exact />
+              <PrivateRoute path="/iot" component={IoTComponent} />
+              <Route path="/login" component={LoginComponent} />
+              <PrivateRoute path="/blogs/new" component={BlogEditorComponent} />
+              <PrivateRoute path="/blogs/:blogId/edit" component={BlogEditorComponent} editMode />
+              <Route path="/blogs" component={BlogComponent} />
+              <Route path="/portfolio" component={PortfolioComponent} />
+              <Route component={NoMatchComponent} />
+            </Switch>
+          </AnimatedComponent>
         </ThemeProvider>
       </BrowserRouter>
     </CookiesProvider>
